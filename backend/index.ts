@@ -1,5 +1,5 @@
 import cors from 'cors'
-import morgan from "morgan";
+import morgan from 'morgan'
 import express, { Request, Response } from 'express'
 import { PORT } from './src/utils/config'
 import sequelize from './src/utils/connection'
@@ -11,18 +11,19 @@ const app = express()
 
 /* MIDDLEWARES */
 app.use(cors())
-app.use(morgan("dev"));
+app.use(morgan('dev'))
 app.use(express.json())
 
-app.use(router);
+app.use(router)
 app.get('/', (req: Request, res: Response) => {
 	return res.send('Welcome to express!')
 })
 
 const main = async () => {
 	try {
-		sequelize.sync()
-		console.log('Conexión exitosa')
+		await sequelize.sync()
+		console.log('Successful connection to the database')
+
 		app.listen(PORT, async () => {
 			console.log(`Server listening at ${PORT}`)
 		})
