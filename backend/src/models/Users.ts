@@ -49,6 +49,13 @@ export class Users extends Model {
 	})
 	phone!: string
 
+	@Column({
+	  type: DataType.STRING,
+      allowNull: false,
+      defaultValue: 'user',
+	})
+	rol!: string
+
     @Column({
 		type: DataType.STRING,
 		allowNull: false,
