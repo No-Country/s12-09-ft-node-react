@@ -27,12 +27,14 @@ export class VehicleController {
 	}
 
 	static async createVehicle(req: Request, res: Response): Promise<void> {
-		const { brand, model, year, licensePlate, mileage, userId } = req.body
+		const { brand, model, color, year, licensePlate, mileage, userId } =
+			req.body
 
 		try {
 			const newVehicle = await Vehicle.create({
 				brand,
 				model,
+				color,
 				year,
 				licensePlate,
 				mileage,
@@ -46,7 +48,8 @@ export class VehicleController {
 
 	static async updateVehicle(req: Request, res: Response): Promise<void> {
 		const { id } = req.params
-		const { brand, model, year, licensePlate, mileage, userId } = req.body
+		const { brand, model, color, year, licensePlate, mileage, userId } =
+			req.body
 
 		try {
 			const existingVehicle = await Vehicle.findByPk(id)
@@ -54,6 +57,7 @@ export class VehicleController {
 				await existingVehicle.update({
 					brand,
 					model,
+					color,
 					year,
 					licensePlate,
 					mileage,

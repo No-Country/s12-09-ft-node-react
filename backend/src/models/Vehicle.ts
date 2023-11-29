@@ -30,6 +30,10 @@ export class Vehicle extends Model {
 	model!: string
 
 	@AllowNull(false)
+	@Column({ type: DataType.STRING })
+	color!: string
+
+	@AllowNull(false)
 	@Column({ type: DataType.INTEGER })
 	year!: number
 
