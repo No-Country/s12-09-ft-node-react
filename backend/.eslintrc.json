@@ -31,6 +31,8 @@
     ],
     "rules": {
         "no-trailing-spaces": "error", // Sin espacios al final de línea
-        "no-multiple-empty-lines": ["error", { "max": 1 }] // Máximo de 1
+        "no-multiple-empty-lines": ["error", { "max": 1 }], // Máximo de 1
+        "no-unused-vars":"warn",
+        "@typescript-eslint/no-unused-vars":"warn"
     }
 }

@@ -1,9 +1,12 @@
-import { Router } from "express";
-import { AppointmentController } from "../controllers/appointments.controller";
+import { Router } from 'express';
+import { appointmentsController } from '../controllers/appointments.controller';
 
 const router = Router()
 
-router.get('/', AppointmentController.getAll)
-router.post('/', AppointmentController.create)
+router.get('/', appointmentsController.getAll)
+router.post('/', appointmentsController.create)
+router.delete('/:id', appointmentsController.delete)
+router.put('/:id', appointmentsController.update)
+router.get('/:id', appointmentsController.getOne)
 
-export { router }
+export {router}
