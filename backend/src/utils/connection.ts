@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize-typescript'
 import { Appointments } from '../models/Appointments'
+import { Users } from '../models/Users'
 import { Mechanic } from '../models/Mechanic'
 import { Workshop } from '../models/Workshops'
 import { DATABASE_URL } from './config'
@@ -9,9 +10,12 @@ const sequelize = new Sequelize(DATABASE_URL, {
 	dialect: 'postgres',
 })
 
+
+sequelize.addModels([Users])
 sequelize.addModels([Appointments])
 sequelize.addModels([Workshop])
 sequelize.addModels([Mechanic])
 sequelize.addModels([Vehicle])
+
 
 export default sequelize
