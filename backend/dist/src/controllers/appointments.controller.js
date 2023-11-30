@@ -9,44 +9,75 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppointmentController = void 0;
+exports.appointmentsController = void 0;
 const Appointments_1 = require("../models/Appointments");
-// Definimos el controlador Appointment
-class AppointmentController {
-    // Definimos el método para crear una cita
-    static create(req, res) {
+class appointmentsController {
+    static getAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                // Obtenemos los datos de la cita desde el cuerpo de la petición
-                const { date, menssage } = req.body;
-                // Creamos la cita usando el método create del modelo Appointment
-                const appointment = yield Appointments_1.Appointments.create({
-                    date,
-                    menssage
-                });
-                // Enviamos la cita creada como respuesta con el código 201 (Created)
-                res.status(201).json(appointment);
+                const results = yield Appointments_1.Appointments.findAll();
+                res.status(200).json(results);
             }
             catch (error) {
-                // Si ocurre un error, lo enviamos como respuesta con el código 500 (Internal Server Error)
                 res.status(500).json(error);
             }
         });
     }
-    static getAll(req, res) {
+    static create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                // Obtenemos los datos de la cita desde el cuerpo de la petición
-                // Creamos la cita usando el método create del modelo Appointment
-                const appointment = yield Appointments_1.Appointments.findAll();
-                // Enviamos la cita creada como respuesta con el código 201 (Created)
-                res.status(201).json(appointment);
+                const result = yield Appointments_1.Appointments.create(req.body);
+                res.status(201).json(result);
             }
             catch (error) {
-                // Si ocurre un error, lo enviamos como respuesta con el código 500 (Internal Server Error)
+                res.status(500).json(error);
+            }
+        });
+    }
+    static getOne(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                const result = yield Appointments_1.Appointments.findByPk(id);
+                if (!result) {
+                    return res.status(404).json({ message: 'Appointment not found' });
+                }
+                res.status(200).json(result);
+            }
+            catch (error) {
+                res.status(500).json(error);
+            }
+        });
+    }
+    static update(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                const result = yield Appointments_1.Appointments.update(req.body, { where: { id }, returning: true });
+                if (result[0] === 0) {
+                    return res.status(404).json({ message: 'Appointment not found' });
+                }
+                res.status(200).json(result[1][0]);
+            }
+            catch (error) {
+                res.status(500).json(error);
+            }
+        });
+    }
+    static delete(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                const result = yield Appointments_1.Appointments.destroy({ where: { id } });
+                if (!result) {
+                    return res.status(404).json({ message: 'Appointment not found' });
+                }
+                res.status(200).json({ message: 'Appointment deleted' });
+            }
+            catch (error) {
                 res.status(500).json(error);
             }
         });
     }
 }
-exports.AppointmentController = AppointmentController;
+exports.appointmentsController = appointmentsController;
