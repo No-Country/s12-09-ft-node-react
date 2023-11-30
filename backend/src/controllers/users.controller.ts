@@ -6,7 +6,7 @@ import { Users } from '../models/Users'
 export class UserController {
 	
 	static async createUser(req: Request, res: Response) {
-    const { name, lastName, email, phone, pass } = req.body;
+    const { firstName, lastName, email, phone, pass } = req.body;
 
     try {
         const mail= await Users.findOne({where:{email}});
@@ -15,7 +15,7 @@ export class UserController {
         if(mail || userByPhone){
             return res.status(500).json("Email o phone existente ")
         }else{      
-      const newUser = await Users.create ({ name, lastName, email, phone, pass });
+      const newUser = await Users.create ({ firstName, lastName, email, phone, pass });
       return res.status(201).json(newUser);
         }
         
@@ -53,14 +53,14 @@ export class UserController {
 
     static async userUpdate(req: Request, res: Response) {
         const {id}= req.params;
-        const {name, lastName, email, phone, pass} = req.body;
+        const {firstName, lastName, email, phone, pass} = req.body;
 
         const userToUpdate = await Users.findByPk(id);
         try{
             if (!userToUpdate) {
                 throw new Error(`User with id ${id} not found`);
             }else{
-            await userToUpdate.update({ name, lastName, email, phone, pass });
+            await userToUpdate.update({ firstName, lastName, email, phone, pass });
 
             return res.status(200).json(userToUpdate);
             }

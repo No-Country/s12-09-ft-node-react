@@ -15,6 +15,11 @@ import { Table,
 })
 
 export class Users extends Model {
+
+	public static validateEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
 	@Column({
 		primaryKey: true,
 		type: DataType.UUID,
@@ -33,12 +38,22 @@ export class Users extends Model {
 		type: DataType.STRING,
 		allowNull: false,
 	})
-	name!: string
+	firstName!: string
     
     @Column({
 		type: DataType.STRING,
 		allowNull: false,
         unique: true,
+		validate: {
+      isEmail: {
+        msg: 'The email format is not valid',
+      },
+      customValidator(value: string) {
+        if (!Users.validateEmail(value)) {
+          throw new Error('The email format is not valid');
+        }
+      },
+    },
 	})
 	email!: string
 
