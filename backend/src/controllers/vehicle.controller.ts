@@ -11,24 +11,37 @@ export class VehicleController {
 		}
 	}
 
-	static async getVehicleById(req: Request, res: Response): Promise<void> {
+	static async getVehicleById(req: Request, res: Response){
 		const { id } = req.params
 
 		try {
 			const vehicle = await Vehicle.findByPk(id)
-			if (vehicle) {
-				res.json(vehicle)
-			} else {
-				res.status(404).json({ error: 'Vehicle not found' })
+			if (!vehicle) {
+				return res.status(404).json({ error: 'Vehicle not found' })
 			}
+			return res.json(vehicle)
 		} catch (error) {
 			res.status(500).json({ error: 'Internal Server Error' })
 		}
 	}
 
-	static async createVehicle(req: Request, res: Response): Promise<void> {
+	static async createVehicle(req: Request, res: Response) {
 		const { brand, model, color, year, licensePlate, mileage, userId } =
 			req.body
+		const fields = { brand, model, color, year, licensePlate, mileage }
+		const emptyFields = []
+
+		for (const [key, value] of Object.entries(fields)) {
+			if (!value) {
+				emptyFields.push(key)
+			}
+		}
+
+		if (emptyFields.length > 0) {
+			return res.status(400).json({
+				message: `Los campos ${emptyFields.join(', ')} son obligatorios`,
+			})
+		}
 
 		try {
 			const newVehicle = await Vehicle.create({

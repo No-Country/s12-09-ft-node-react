@@ -17,12 +17,18 @@ export class workshopsController {
 			const { name, address, email, password } = req.body
 			const fields = { name, address, email, password }
 
+			const emptyFields = []
+
 			for (const [key, value] of Object.entries(fields)) {
 				if (!value) {
-					return res
-						.status(400)
-						.json({ message: `El campo ${key} es obligatorio` })
+					emptyFields.push(key)
 				}
+			}
+
+			if (emptyFields.length > 0) {
+				return res.status(400).json({
+					message: `Los campos ${emptyFields.join(', ')} son obligatorios`,
+				})
 			}
 			const hashedPassword = await bcrypt.hash(password, 10) // salt
 			const result = await Workshop.create({
