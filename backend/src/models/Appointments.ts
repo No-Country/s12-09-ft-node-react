@@ -7,11 +7,11 @@ import { Column, DataType, Model, Table } from 'sequelize-typescript'
 
 export class Appointments extends Model {
 	@Column({
-		type: DataType.INTEGER, // Indicamos el tipo de dato (SQL)
-		primaryKey: true, // Indicamos que es la clave primaria
-		autoIncrement: true, // Indicamos que se autoincrementa
+		primaryKey: true,
+		type: DataType.UUID,
+		defaultValue: DataType.UUIDV4,
 	})
-	id!: number // Declaramos el tipo de la propiedad (TYPESCRIPT)
+	id!: string
 
 	@Column({
 		type: DataType.DATEONLY,

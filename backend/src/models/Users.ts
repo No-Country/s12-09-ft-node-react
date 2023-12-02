@@ -3,9 +3,11 @@ import {
 	BeforeUpdate,
 	Column,
 	DataType,
+	HasMany,
 	Model,
 	Table,
 } from 'sequelize-typescript'
+import { Vehicle } from './Vehicle'
 
 import * as bcrypt from 'bcrypt'
 
@@ -75,6 +77,9 @@ export class Users extends Model {
 	})
 	pass!: string
 
+	@HasMany(() => Vehicle)
+	vehicle!: Vehicle[]
+
 	public async comparePass(candidatePass: string): Promise<boolean> {
 		return bcrypt.compare(candidatePass, this.pass)
 	}
@@ -91,6 +96,6 @@ export class Users extends Model {
 //Elimino la constraseña para que no la traiga en el get
 Users.prototype.toJSON = function () {
 	const values = Object.assign({}, this.get())
-	delete values.password
+	delete values.pass
 	return values
 }

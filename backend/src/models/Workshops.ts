@@ -6,11 +6,11 @@ import { Column, DataType, Model, Table } from 'sequelize-typescript'
 })
 export class Workshop extends Model {
 	@Column({
-		type: DataType.INTEGER,
 		primaryKey: true,
-		autoIncrement: true,
+		type: DataType.UUID,
+		defaultValue: DataType.UUIDV4,
 	})
-	id!: number
+	id!: string
 
 	@Column({
 		type: DataType.STRING,
@@ -41,24 +41,11 @@ export class Workshop extends Model {
 	password!: string
 
 	@Column({
-		type: DataType.INTEGER,
+		type: DataType.STRING,
 		allowNull: true,
 		unique: true,
 	})
-	phone!: number
-
-	@Column({
-		type: DataType.STRING,
-		unique: true,
-		defaultValue: 'Cars',
-	})
-	services!: string
-
-	@Column({
-		type: DataType.STRING,
-		allowNull: true,
-	})
-	hours!: string
+	phone!: string
 
 	@Column({
 		type: DataType.STRING,

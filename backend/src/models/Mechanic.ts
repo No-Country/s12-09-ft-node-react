@@ -6,11 +6,11 @@ import { Column, DataType, Model, Table } from 'sequelize-typescript'
 })
 export class Mechanic extends Model {
 	@Column({
-		type: DataType.INTEGER,
 		primaryKey: true,
-		autoIncrement: true,
+		type: DataType.UUID,
+		defaultValue: DataType.UUIDV4,
 	})
-	id!: number
+	id!: string
 
 	@Column({
 		type: DataType.STRING,
@@ -38,10 +38,10 @@ export class Mechanic extends Model {
 	document!: number
 
 	@Column({
-		type: DataType.INTEGER,
+		type: DataType.STRING,
 		allowNull: true,
 	})
-	phone!: number
+	phone!: string
 
 	@Column({
 		type: DataType.STRING,

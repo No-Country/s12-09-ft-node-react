@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import validator from 'validator'
 import { Mechanic } from '../models/Mechanic'
 
 export class mechanicController {
@@ -14,6 +15,9 @@ export class mechanicController {
 		try {
 			// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 			const { role, ...rest } = req.body //Elimino la propiedad rol para que no se pueda asignar otro rol
+			if (!validator.isEmail(req.body.email)) {
+				return res.status(400).json({ message: 'Invalid Email' })
+			}
 			const result = await Mechanic.create(rest)
 			res.status(201).json(result)
 		} catch (error) {
@@ -23,6 +27,9 @@ export class mechanicController {
 	static async getOne(req: Request, res: Response) {
 		try {
 			const { id } = req.params
+			if (!validator.isUUID(id)) {
+				return res.status(400).json({ message: 'Invalid ID' })
+			}
 			const result = await Mechanic.findByPk(id)
 			if (!result) {
 				return res.status(404).json({ message: 'Mechanic not found' })
@@ -35,8 +42,12 @@ export class mechanicController {
 	static async update(req: Request, res: Response) {
 		try {
 			const { id } = req.params
-            // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-            const { role, ...rest } = req.body //Elimino la propiedad rol para que no se pueda asignar otro rol
+			// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+			const { role, ...rest } = req.body //Elimino la propiedad rol para que no se pueda asignar otro rol
+
+			if (!validator.isUUID(id)) {
+				return res.status(400).json({ message: 'Invalid ID' })
+			}
 			const result = await Mechanic.update(rest, {
 				where: { id },
 				returning: true,
@@ -52,6 +63,9 @@ export class mechanicController {
 	static async delete(req: Request, res: Response) {
 		try {
 			const { id } = req.params
+			if (!validator.isUUID(id)) {
+				return res.status(400).json({ message: 'Invalid ID' })
+			}
 			const result = await Mechanic.destroy({ where: { id } })
 			if (!result) {
 				return res.status(404).json({ message: 'Mechanic not found' })

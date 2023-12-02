@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt'
 import { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
+import validator from 'validator'
 import { Workshop } from '../models/Workshops'
 
 export class workshopsController {
@@ -16,6 +17,9 @@ export class workshopsController {
 		try {
 			const { name, address, email, password } = req.body
 			const fields = { name, address, email, password }
+			if (!validator.isEmail(email)) {
+				return res.status(400).json({ message: 'Invalid Email' })
+			}
 
 			const emptyFields = []
 
@@ -43,6 +47,9 @@ export class workshopsController {
 	static async getOne(req: Request, res: Response) {
 		try {
 			const { id } = req.params
+			if (!validator.isUUID(id)) {
+				return res.status(400).json({ message: 'Invalid ID' })
+			}
 			const result = await Workshop.findByPk(id)
 			if (!result) {
 				return res.status(404).json({ message: 'Workshop not found' })
@@ -55,6 +62,9 @@ export class workshopsController {
 	static async update(req: Request, res: Response) {
 		try {
 			const { id } = req.params
+			if (!validator.isUUID(id)) {
+				return res.status(400).json({ message: 'Invalid ID' })
+			}
 			const result = await Workshop.update(req.body, {
 				where: { id },
 				returning: true,
@@ -70,6 +80,9 @@ export class workshopsController {
 	static async delete(req: Request, res: Response) {
 		try {
 			const { id } = req.params
+			if (!validator.isUUID(id)) {
+				return res.status(400).json({ message: 'Invalid ID' })
+			}
 			const result = await Workshop.destroy({ where: { id } })
 			if (!result) {
 				return res.status(404).json({ message: 'Workshop not found' })
@@ -82,6 +95,9 @@ export class workshopsController {
 	static async login(req: Request, res: Response) {
 		try {
 			const { email, password } = req.body
+			if (!validator.isEmail(email)) {
+				return res.status(400).json({ message: 'Invalid Email' })
+			}
 
 			if (!email || !password) {
 				return res.status(400).json({ message: 'All fields are required' })

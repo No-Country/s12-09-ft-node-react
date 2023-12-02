@@ -1,12 +1,12 @@
 import {
-	Table,
-	Column,
-	Model,
-	Unique,
-	ForeignKey,
-	DataType,
-	BelongsTo,
 	AllowNull,
+	BelongsTo,
+	Column,
+	DataType,
+	ForeignKey,
+	Model,
+	Table,
+	Unique,
 } from 'sequelize-typescript'
 import { Users } from './Users'
 
@@ -54,7 +54,7 @@ export class Vehicle extends Model {
 			'https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg',
 	})
 	imageUrl!: string
-
+	@AllowNull(false)
 	@ForeignKey(() => Users)
 	@Column({ type: DataType.UUID })
 	userId!: string

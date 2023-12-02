@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import validator from 'validator'
 import { Appointments } from '../models/Appointments'
 
 export class appointmentsController {
@@ -21,6 +22,9 @@ export class appointmentsController {
 	static async getOne(req: Request, res: Response) {
 		try {
 			const { id } = req.params
+			if (!validator.isUUID(id)) {
+				return res.status(400).json({ message: 'Invalid ID' })
+			}
 			const result = await Appointments.findByPk(id)
 			if (!result) {
 				return res.status(404).json({ message: 'Appointment not found' })
@@ -33,7 +37,13 @@ export class appointmentsController {
 	static async update(req: Request, res: Response) {
 		try {
 			const { id } = req.params
-			const result = await Appointments.update(req.body, { where: { id }, returning: true })
+			if (!validator.isUUID(id)) {
+				return res.status(400).json({ message: 'Invalid ID' })
+			}
+			const result = await Appointments.update(req.body, {
+				where: { id },
+				returning: true,
+			})
 			if (result[0] === 0) {
 				return res.status(404).json({ message: 'Appointment not found' })
 			}
@@ -45,6 +55,9 @@ export class appointmentsController {
 	static async delete(req: Request, res: Response) {
 		try {
 			const { id } = req.params
+			if (!validator.isUUID(id)) {
+				return res.status(400).json({ message: 'Invalid ID' })
+			}
 			const result = await Appointments.destroy({ where: { id } })
 			if (!result) {
 				return res.status(404).json({ message: 'Appointment not found' })
