@@ -2,10 +2,13 @@ import { Request, Response } from 'express'
 import validator from 'validator'
 import { Users } from '../models/Users'
 import { Vehicle } from '../models/Vehicle'
+
 export class VehicleController {
 	static async getVehicles(req: Request, res: Response): Promise<void> {
 		try {
-			const vehicles = await Vehicle.findAll({include:{model:Users, as: "user"}})
+			const vehicles = await Vehicle.findAll({
+				include: { model: Users, as: 'user' },
+			})
 			res.json(vehicles)
 		} catch (error) {
 			res.status(500).json({ error: 'Internal Server Error' })
@@ -18,7 +21,9 @@ export class VehicleController {
 			return res.status(400).json({ message: 'Invalid ID' })
 		}
 		try {
-			const vehicle = await Vehicle.findByPk(id,{include:{model:Users, as: "user"}})
+			const vehicle = await Vehicle.findByPk(id, {
+				include: { model: Users, as: 'user' },
+			})
 			if (!vehicle) {
 				res.status(404).json({ error: 'Vehicle not found' })
 			}
