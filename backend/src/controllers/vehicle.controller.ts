@@ -11,15 +11,15 @@ export class VehicleController {
 		}
 	}
 
-	static async getVehicleById(req: Request, res: Response){
+	static async getVehicleById(req: Request, res: Response) {
 		const { id } = req.params
 
 		try {
 			const vehicle = await Vehicle.findByPk(id)
 			if (!vehicle) {
-				return res.status(404).json({ error: 'Vehicle not found' })
+				res.status(404).json({ error: 'Vehicle not found' })
 			}
-			return res.json(vehicle)
+			res.json(vehicle)
 		} catch (error) {
 			res.status(500).json({ error: 'Internal Server Error' })
 		}
