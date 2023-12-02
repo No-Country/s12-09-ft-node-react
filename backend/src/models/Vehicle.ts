@@ -3,12 +3,12 @@ import {
 	Column,
 	Model,
 	Unique,
-	//ForeignKey,
+	ForeignKey,
 	DataType,
-	//BelongsTo,
+	BelongsTo,
 	AllowNull,
 } from 'sequelize-typescript'
-//import User from './user'
+import { Users } from './Users'
 
 @Table
 export class Vehicle extends Model {
@@ -48,10 +48,17 @@ export class Vehicle extends Model {
 	@Column({ type: DataType.INTEGER })
 	mileage!: number
 
-	// @ForeignKey(() => User)
-	// @Column({ type: DataType.UUID })
-	// userId!: string
+	@Column({
+		type: DataType.STRING,
+		defaultValue:
+			'https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg',
+	})
+	imageUrl!: string
 
-	// @BelongsTo(() => User)
-	// user!: User
+	@ForeignKey(() => Users)
+	@Column({ type: DataType.UUID })
+	userId!: string
+
+	@BelongsTo(() => Users)
+	user!: Users
 }
