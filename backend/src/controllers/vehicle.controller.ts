@@ -3,6 +3,7 @@ import validator from 'validator'
 import { RepairLog } from '../models/RepairLog'
 import { Users } from '../models/Users'
 import { Vehicle } from '../models/Vehicle'
+
 export class VehicleController {
 	static async getVehicles(req: Request, res: Response) {
 		try {

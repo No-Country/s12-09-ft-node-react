@@ -5,6 +5,7 @@ import { Mechanic } from '../models/Mechanic'
 import { Users } from '../models/Users'
 import { Vehicle } from '../models/Vehicle'
 import { Workshop } from '../models/Workshops'
+import { Service } from '../models/Services'
 import { DATABASE_URL } from './config'
 
 const sequelize = new Sequelize(DATABASE_URL, {
@@ -18,6 +19,7 @@ sequelize.addModels([
 	Appointments,
 	Workshop,
 	Mechanic,
+	Service
 ])
 
 export default sequelize

@@ -7,6 +7,7 @@ const Mechanic_1 = require("../models/Mechanic");
 const Users_1 = require("../models/Users");
 const Vehicle_1 = require("../models/Vehicle");
 const Workshops_1 = require("../models/Workshops");
+const Services_1 = require("../models/Services");
 const config_1 = require("./config");
 const sequelize = new sequelize_typescript_1.Sequelize(config_1.DATABASE_URL, {
     dialect: 'postgres',
@@ -18,5 +19,6 @@ sequelize.addModels([
     Appointments_1.Appointments,
     Workshops_1.Workshop,
     Mechanic_1.Mechanic,
+    Services_1.Service
 ]);
 exports.default = sequelize;

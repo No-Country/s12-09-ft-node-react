@@ -62,7 +62,8 @@ export class RepairLogController {
 	static async getOne(req: Request, res: Response) {
 		try {
 			const { id } = req.params
-			const result = await RepairLog.findByPk(id, {attributes: { exclude: ['MechanicId'] },
+			const result = await RepairLog.findByPk(id, {
+				attributes: { exclude: ['MechanicId'] },
 				include: [
 					{ model: Vehicle, as: 'vehicle' },
 					{ model: Mechanic, as: 'mechanic' },
