@@ -4,10 +4,12 @@ import {
 	Column,
 	DataType,
 	ForeignKey,
+	HasMany,
 	Model,
 	Table,
 	Unique,
 } from 'sequelize-typescript'
+import { RepairLog } from './RepairLog'
 import { Users } from './Users'
 
 @Table
@@ -54,6 +56,7 @@ export class Vehicle extends Model {
 			'https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg',
 	})
 	imageUrl!: string
+
 	@AllowNull(false)
 	@ForeignKey(() => Users)
 	@Column({ type: DataType.UUID })
@@ -61,4 +64,7 @@ export class Vehicle extends Model {
 
 	@BelongsTo(() => Users)
 	user!: Users
+
+	@HasMany(() => RepairLog)
+	repairLog!: RepairLog[]
 }

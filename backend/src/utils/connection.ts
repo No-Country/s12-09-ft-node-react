@@ -1,3 +1,4 @@
+import { RepairLog } from '../models/RepairLog'
 import { Sequelize } from 'sequelize-typescript'
 import { Appointments } from '../models/Appointments'
 import { Mechanic } from '../models/Mechanic'
@@ -10,6 +11,13 @@ const sequelize = new Sequelize(DATABASE_URL, {
 	dialect: 'postgres',
 })
 
-sequelize.addModels([Users, Vehicle, Appointments, Workshop, Mechanic])
+sequelize.addModels([
+	RepairLog,
+	Users,
+	Vehicle,
+	Appointments,
+	Workshop,
+	Mechanic,
+])
 
 export default sequelize

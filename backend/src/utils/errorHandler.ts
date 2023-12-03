@@ -20,6 +20,12 @@ const errorHandler = (
 		})
 		return res.status(400).json(errObj)
 	}
+	if (error.name === 'SequelizeEagerLoadingError') {
+		return res.status(400).json({
+			message: error.message,
+			error: error,
+		})
+	}
 	if (error.name === 'SequelizeForeignKeyConstraintError') {
 		return res.status(400).json({
 			message: error.message,
@@ -29,6 +35,7 @@ const errorHandler = (
 	if (error.name === 'SequelizeDatabaseError') {
 		return res.status(400).json({
 			message: error.message,
+			error,
 		})
 	}
 	return res.status(500).json({

@@ -2,6 +2,8 @@ import cors from 'cors'
 import express, { Request, Response } from 'express'
 import morgan from 'morgan'
 import { router } from './src/routes'
+
+import { defineAssociations } from './src/utils/associations'
 import { PORT } from './src/utils/config'
 import sequelize from './src/utils/connection'
 import errorHandler from './src/utils/errorHandler'
@@ -18,6 +20,7 @@ app.use(router)
 
 const main = async () => {
 	try {
+		defineAssociations()
 		await sequelize.sync()
 		console.log('Successful connection to the database')
 

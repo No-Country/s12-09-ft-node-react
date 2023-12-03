@@ -48,4 +48,5 @@ export class Mechanic extends Model {
 		defaultValue: 'mechanic',
 	})
 	role!: string
+
 }
