@@ -11,20 +11,23 @@ export default function MechanicPage() {
       </h2>
       <div className='flex flex-col gap-3'>
         <div className='flex justify-between'>
-            <button className='btn btn-sm btn-circle'><Image src={UserIcon} alt='user icon'/></button>
+            <button className='btn btn-sm btn-circle bg-base-300'><Image src={UserIcon} alt='user icon'/></button>
             <button className='btn btn-sm btn-circle btn-ghost'><Image src={PlusIcon} alt='plus icon'/></button>
         </div>
         <Input name='email' placeholder='Email' type='text' />
-        <Input name='email' placeholder='Nombre y apellido' type='text' />
+        <Input name='name' placeholder='Nombre y apellido' type='text' />
         <div className='flex flex-row gap-3'>
           <div className='flex-1 flex flex-col gap-3'>
-            <Input name='email' placeholder='DNI' type='text' />
-            <Input name='email' placeholder='Teléfono' type='text' />
+            <Input name='dni' placeholder='DNI' type='text' />
+            <Input name='phone' placeholder='Teléfono' type='text' />
           </div>
           <div className='flex-1  flex flex-col gap-3'>
-            <Input name='email' placeholder='Rol' type='text' />
-            <Input name='email' placeholder='Contraseña' type='text' />
+            <Input name='rol' placeholder='Rol' type='text' />
+            <Input name='password' placeholder='Contraseña' type='text' />
           </div>
+        </div>
+        <div className='flex justify-center mt-6'>
+        <button className='btn w-20 text-lg font-bold btn-primary text-secondary'>Listo</button>
         </div>
       </div>
     </div>
