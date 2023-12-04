@@ -31,12 +31,26 @@ export class Users extends Model {
 	@Column({
 		type: DataType.STRING,
 		allowNull: false,
+		validate: {
+			isLastName(value: string) {
+				if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(value)) {
+					throw new Error('The last name can only contain letters and spaces')
+				}
+			},
+		},
 	})
 	lastName!: string
 
 	@Column({
 		type: DataType.STRING,
 		allowNull: false,
+		validate: {
+			isName(value: string) {
+				if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(value)) {
+					throw new Error('The name can only contain letters and spaces')
+				}
+			},
+		},
 	})
 	firstName!: string
 
@@ -74,8 +88,34 @@ export class Users extends Model {
 	@Column({
 		type: DataType.STRING,
 		allowNull: false,
+		validate: {
+			len: {
+				args: [8, 8],
+				msg: 'The password must have exactly 8 characters',
+			},
+			isStrongPassword(value: string) {
+				if (!/[A-Z]/.test(value) || !/[a-z]/.test(value)) {
+					throw new Error(
+						'The password must contain at least one uppercase and one lowercase letter',
+					)
+				}
+			},
+		},
 	})
 	pass!: string
+
+	@Column({
+		type: DataType.INTEGER,
+		allowNull: false,
+		unique: true,
+		validate: {
+			len: {
+				args: [8, 8],
+				msg: 'The document must have exactly 8 characters',
+			},
+		},
+	})
+	document!: number
 
 	@HasMany(() => Vehicle)
 	vehicle!: Vehicle[]
