@@ -26,6 +26,7 @@ const config: Config = {
           "neutral": "#2a262c",
           "base-100": "#ffffff",
           "base-200": "#e1dfdb",
+          "base-300": "#EDEFF3",
           // "info": "#18b5ff",
           // "success": "#00b366",
           // "warning": "#ef6700",
