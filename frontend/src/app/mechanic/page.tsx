@@ -41,15 +41,18 @@ export default function MechanicPage() {
       className='flex flex-col justify-center items-center m-5 gap-5 [&>div]:mt-5'
     >
       <h1 className='text-3xl font-bold text-secondary'>Tu equipo</h1>
+
       <h2 className='text-xl text-center text-accent'>
         Crea usuarios para tu equipo de trabajo
       </h2>
       <div className='flex flex-col gap-3'>
         <div className='flex justify-between'>
+
           <button type='button' className='btn btn-sm btn-circle bg-base-300'>
             <Image src={UserIcon} alt='user icon' />
           </button>
           <button type='button' className='btn btn-sm btn-circle btn-ghost' onClick={() => {swal("Agregar un nuevo mecanico", '( guarda el anterior y crea uno nuevo )', 'info');}}>
+
             <Image src={PlusIcon} alt='plus icon' />
           </button>
         </div>
@@ -131,10 +134,12 @@ export default function MechanicPage() {
           </div>
         </div>
         <div className='flex justify-center mt-6'>
+
           <button
             type='submit'
             className='btn w-20 text-lg font-bold btn-primary text-secondary'
           >
+
             Listo
           </button>
         </div>

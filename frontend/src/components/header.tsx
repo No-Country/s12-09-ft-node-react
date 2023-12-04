@@ -15,6 +15,11 @@ export const header = () => {
       href: '/mechanic',
       icon: '',
     },
+    {
+      name: 'Workshop',
+      href: '/workshop',
+      icon: '',
+    },
   ];
 
   return (
