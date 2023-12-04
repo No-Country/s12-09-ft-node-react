@@ -5,7 +5,7 @@ import { Vehicle } from '../models/Vehicle'
 
 export class UserController {
 	static async createUser(req: Request, res: Response) {
-		const { firstName, lastName, email, phone, pass } = req.body
+		const { firstName, lastName, email, phone, pass, document } = req.body
 		if (!validator.isEmail(email)) {
 			return res.status(400).json({ message: 'Invalid Email' })
 		}
@@ -22,6 +22,7 @@ export class UserController {
 					email,
 					phone,
 					pass,
+					document,
 				})
 				return res.status(201).json(newUser)
 			}
@@ -67,14 +68,21 @@ export class UserController {
 		if (!validator.isUUID(id)) {
 			return res.status(400).json({ message: 'Invalid ID' })
 		}
-		const { firstName, lastName, email, phone, pass } = req.body
+		const { firstName, lastName, email, phone, pass, document } = req.body
 
 		const userToUpdate = await Users.findByPk(id)
 		try {
 			if (!userToUpdate) {
 				throw new Error(`User with id ${id} not found`)
 			} else {
-				await userToUpdate.update({ firstName, lastName, email, phone, pass })
+				await userToUpdate.update({
+					firstName,
+					lastName,
+					email,
+					phone,
+					pass,
+					document,
+				})
 
 				return res.status(200).json(userToUpdate)
 			}
