@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang='en' data-theme='light'>
       <body className={inter.className}>
-        <>algo</>
+        <>otra cosa mas...</>
         <Header />
         {children}
       </body>
