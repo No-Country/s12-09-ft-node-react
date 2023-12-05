@@ -3,6 +3,7 @@
 import { input as Input } from '@/components';
 import { PlusIcon, UserIcon } from '@/assets/icons';
 import Image from 'next/image';
+
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import swal from 'sweetalert';
@@ -16,23 +17,32 @@ const basicSchema = yup.object().shape({
   password: yup.string().min(5).required('Required'),
 });
 
+interface InitialValues {
+  email: string;
+  fullName: string;
+  dni: string;
+  phone: string;
+  rol: string;
+  password: string;
+}
+const initialValues: InitialValues = {
+  email: '',
+  fullName: '',
+  dni: '',
+  phone: '',
+  rol: '',
+  password: '',
+};
+
 export default function MechanicPage() {
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
-    useFormik({
-      initialValues: {
-        email: '',
-        fullName: '',
-        dni: '',
-        phone: '',
-        rol: '',
-        password: '',
-      },
-      validationSchema: basicSchema,
-      onSubmit: values => {
-        console.log(values);
-        swal("Mecanico guardado", '( simulacion no tiene endpoint )', 'success');
-      },
-    });
+  const { values, handleChange, handleBlur, handleSubmit } = useFormik({
+    initialValues,
+    validationSchema: basicSchema,
+    onSubmit: (values: InitialValues) => {
+      console.log(values);
+      swal('Mecanico guardado', '( simulacion no tiene endpoint )', 'success');
+    },
+  });
 
   return (
     <form
@@ -47,19 +57,25 @@ export default function MechanicPage() {
       </h2>
       <div className='flex flex-col gap-3'>
         <div className='flex justify-between'>
-
           <button type='button' className='btn btn-sm btn-circle bg-base-300'>
             <Image src={UserIcon} alt='user icon' />
           </button>
-          <button type='button' className='btn btn-sm btn-circle btn-ghost' onClick={() => {swal("Agregar un nuevo mecanico", '( guarda el anterior y crea uno nuevo )', 'info');}}>
-
+          <button
+            type='button'
+            className='btn btn-sm btn-circle btn-ghost'
+            onClick={() => {
+              swal(
+                'Agregar un nuevo mecanico',
+                '( guarda el anterior y crea uno nuevo )',
+                'info'
+              );
+            }}
+          >
             <Image src={PlusIcon} alt='plus icon' />
           </button>
         </div>
         <Input
-          className={
-            errors.email && touched.email ? 'input-error border-error' : ''
-          }
+          className=''
           value={values.email}
           handleBlur={handleBlur}
           handleChange={handleChange}
@@ -69,11 +85,7 @@ export default function MechanicPage() {
         />
 
         <Input
-          className={
-            errors.fullName && touched.fullName
-              ? 'input-error border-error'
-              : ''
-          }
+          className=''
           value={values.fullName}
           handleBlur={handleBlur}
           handleChange={handleChange}
@@ -84,9 +96,7 @@ export default function MechanicPage() {
         <div className='flex flex-row gap-3'>
           <div className='flex-1 flex flex-col gap-3'>
             <Input
-              className={
-                errors.dni && touched.dni ? 'input-error border-error' : ''
-              }
+              className=''
               value={values.dni}
               handleBlur={handleBlur}
               handleChange={handleChange}
@@ -95,9 +105,7 @@ export default function MechanicPage() {
               type='text'
             />
             <Input
-              className={
-                errors.rol && touched.rol ? 'input-error border-error' : ''
-              }
+              className=''
               value={values.rol}
               handleBlur={handleBlur}
               handleChange={handleChange}
@@ -108,9 +116,7 @@ export default function MechanicPage() {
           </div>
           <div className='flex-1  flex flex-col gap-3'>
             <Input
-              className={
-                errors.phone && touched.phone ? 'input-error border-error' : ''
-              }
+              className=''
               value={values.phone}
               handleBlur={handleBlur}
               handleChange={handleChange}
@@ -119,11 +125,7 @@ export default function MechanicPage() {
               type='text'
             />
             <Input
-              className={
-                errors.password && touched.password
-                  ? 'input-error border-error'
-                  : ''
-              }
+              className=''
               value={values.password}
               handleBlur={handleBlur}
               handleChange={handleChange}
@@ -134,12 +136,10 @@ export default function MechanicPage() {
           </div>
         </div>
         <div className='flex justify-center mt-6'>
-
           <button
             type='submit'
             className='btn w-20 text-lg font-bold btn-primary text-secondary'
           >
-
             Listo
           </button>
         </div>

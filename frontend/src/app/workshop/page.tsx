@@ -9,9 +9,11 @@ import {
   AddressIcon,
 } from '@/assets/icons';
 import Image from 'next/image';
-import { useFormik } from 'formik';
+
 import * as yup from 'yup';
 import swal from 'sweetalert';
+
+import { useFormik } from 'formik';
 
 const basicSchema = yup.object().shape({
   email: yup.string().email('Plesase enter a valid email').required('Required'),
@@ -21,26 +23,34 @@ const basicSchema = yup.object().shape({
   address: yup.string().required('Required'),
 });
 
+interface InitialValues {
+  email: string;
+  workshopName: string;
+  phone: string;
+  password: string;
+  address: string;
+}
+const initialValues: InitialValues = {
+  email: '',
+  workshopName: '',
+  phone: '',
+  password: '',
+  address: '',
+};
+
 const WorkshopRegister = (): JSX.Element => {
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
-    useFormik({
-      initialValues: {
-        email: '',
-        workshopName: '',
-        phone: '',
-        password: '',
-        address: '',
-      },
-      validationSchema: basicSchema,
-      onSubmit: async values => {
-        console.log(values);
-        await swal(
-          'Taller registrado',
-          '( simulacion no tiene endpoint )',
-          'success'
-        );
-      },
-    });
+  const { values, handleChange, handleBlur, handleSubmit } = useFormik({
+    initialValues,
+    validationSchema: basicSchema,
+    onSubmit: async (values: InitialValues) => {
+      console.log(values);
+      await swal(
+        'Taller registrado',
+        '( simulacion no tiene endpoint )',
+        'success'
+      );
+    },
+  });
 
   return (
     <div className='flex flex-col items-center mt-8'>
@@ -62,11 +72,7 @@ const WorkshopRegister = (): JSX.Element => {
             name='workshopName'
             placeholder='Nombre del taller'
             type='text'
-            className={
-              errors.workshopName && touched.workshopName
-                ? 'input-error border-error'
-                : ''
-            }
+            className=''
             value={values.workshopName}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -78,11 +84,7 @@ const WorkshopRegister = (): JSX.Element => {
             name='password'
             placeholder='Contraseña'
             type='password'
-            className={
-              errors.password && touched.password
-                ? 'input-error border-error'
-                : ''
-            }
+            className=''
             value={values.password}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -94,9 +96,7 @@ const WorkshopRegister = (): JSX.Element => {
             name='email'
             placeholder='Email'
             type='text'
-            className={
-              errors.email && touched.email ? 'input-error border-error' : ''
-            }
+            className=''
             value={values.email}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -108,9 +108,7 @@ const WorkshopRegister = (): JSX.Element => {
             name='phone'
             placeholder='Teléfono'
             type='tel'
-            className={
-              errors.phone && touched.phone ? 'input-error border-error' : ''
-            }
+            className=''
             value={values.phone}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -122,11 +120,7 @@ const WorkshopRegister = (): JSX.Element => {
             name='address'
             placeholder='Direccion'
             type='text'
-            className={
-              errors.address && touched.address
-                ? 'input-error border-error'
-                : ''
-            }
+            className=''
             value={values.address}
             handleBlur={handleBlur}
             handleChange={handleChange}
