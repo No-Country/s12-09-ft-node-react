@@ -16,11 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en' data-theme="light">
+    <html lang='en' data-theme='light'>
       <body className={inter.className}>
-        <Header/>
+        <>algo</>
+        <Header />
         {children}
-        </body>
+      </body>
     </html>
   );
 }

@@ -1,6 +1,6 @@
 name: "Deploy frontend on Vercel"
 on:
-  pull_request:
+  push:
     branches: [frontend-dev]
     paths:
       - "frontend/**"
