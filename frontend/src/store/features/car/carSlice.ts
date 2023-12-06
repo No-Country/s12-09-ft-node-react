@@ -2,12 +2,12 @@
 
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { CarModel } from '@/model';
+import type { CarModel } from '@/model';
 
 import { carService } from '@/services'
 
 export interface CarState {
-    value: Array<CarModel>
+    value: CarModel[]
 }
 
 const initialState: CarState = {
