@@ -5,7 +5,7 @@ import { PlusIcon } from '@/assets/icons';
 import { type CarModel } from '@/model';
 import { useCar } from '@/hook';
 import botonmas from '../../assets/icons/botonmas.svg';
-import RegisterClient from '@/components/RegisterClient';
+import RegisterClient from '@/components/registerClient';
 const VehiclePage = () => {
   const { getAllCars, cars } = useCar();
 
@@ -76,6 +76,8 @@ const VehiclePage = () => {
                 <section className='bg-base-300 rounded-3xl w-24 h-24 flex justify-center items-center'>
                   <Image
                     className='h-7 w-20'
+                    height={28}
+                    width={80}
                     src={vehicle.imageUrl}
                     alt={`Imagen de ${vehicle.brand}`}
                   />
@@ -96,6 +98,7 @@ const VehiclePage = () => {
       
       
       <RegisterClient open={openModal} handleOpen={setOpenModal} />
+
     </div>
   );
 };
