@@ -1,1 +1,1 @@
-export { default as carService } from './carService';
+export * as carService from './carService';

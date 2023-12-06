@@ -1,7 +1,6 @@
 'use client';
 
-import { useCar } from '@/hook/useCar';
-import { carService } from '@/services';
+import { useCar } from '@/hook';
 
 export default function Home() {
   const { getAllCars, cars } = useCar();

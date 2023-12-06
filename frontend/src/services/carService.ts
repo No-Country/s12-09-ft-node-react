@@ -1,7 +1,7 @@
 import { CarModel } from '@/model'
 import axios from 'axios'
 
-const getAllCar = (): Promise<CarModel[]> => {
+export const getAllCar = (): Promise<CarModel[]> => {
     return new Promise((resolve, reject) => {
         axios.get('https://mechanicalertbackend.onrender.com/api/v1/vehicle')
             .then((response) => (
@@ -11,4 +11,6 @@ const getAllCar = (): Promise<CarModel[]> => {
     })
 }
 
-export default { getAllCar }
+export const getOneCar = () => {}
+export const deleteCar = () => {}
+export const udpateCar = () => {}

@@ -6,8 +6,13 @@ import Link from 'next/link';
 export const header = () => {
   const links = [
     {
-      name: 'Home',
+      name: 'LOGO',
       href: '/',
+      icon: '',
+    },
+    {
+      name: 'Home',
+      href: '/home',
       icon: '',
     },
     {
@@ -18,6 +23,11 @@ export const header = () => {
     {
       name: 'Workshop',
       href: '/workshop',
+      icon: '',
+    },
+    {
+      name: 'Car',
+      href: '/car',
       icon: '',
     },
   ];
