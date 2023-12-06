@@ -90,8 +90,8 @@ export class Users extends Model {
 		allowNull: false,
 		validate: {
 			len: {
-				args: [8, 8],
-				msg: 'The password must have exactly 8 characters',
+				args: [5, 15],
+				msg: 'The password must have 5 - 15 characters',
 			},
 			isStrongPassword(value: string) {
 				if (!/[A-Z]/.test(value) || !/[a-z]/.test(value)) {
@@ -110,8 +110,8 @@ export class Users extends Model {
 		unique: true,
 		validate: {
 			len: {
-				args: [8, 8],
-				msg: 'The document must have exactly 8 characters',
+				args: [5, 8],
+				msg: 'The document must have 5 - 8 characters',
 			},
 		},
 	})
