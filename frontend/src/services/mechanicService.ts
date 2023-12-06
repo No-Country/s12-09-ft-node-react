@@ -1,4 +1,4 @@
-import type { CarModel, MechanicModel } from '@/model';
+import type { MechanicModel } from '@/model';
 import axios from 'axios';
 
 export const createMechanic = async (

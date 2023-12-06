@@ -5,7 +5,7 @@ import { PlusIcon } from '@/assets/icons';
 import { type CarModel } from '@/model';
 import { useCar } from '@/hook';
 import botonmas from '../../assets/icons/botonmas.svg';
-
+import RegisterClient from '@/components/RegisterClient';
 const VehiclePage = () => {
   const { getAllCars, cars } = useCar();
 
@@ -90,6 +90,9 @@ const VehiclePage = () => {
           <Image src={botonmas} alt='boton' />
         </div>
       </div>
+      {/* Placeholder de la modal para agregar clientes a los vehiculos, solo esta aqui para poder visualizarlo
+      Removerlo si desean, esto ira en otro lado */}
+      <RegisterClient open={currentView === 'cliente'} />
     </div>
   );
 };
