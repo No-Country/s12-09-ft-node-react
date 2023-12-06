@@ -6,7 +6,7 @@ const router = Router()
 router.get('/', BudgetController.getAllBudget)
 router.post('/', BudgetController.createBudget)
 router.delete('/:id', BudgetController.deleteBudgetById)
-// router.put('/:id', BudgetController.update)
-// router.get('/:id', BudgetController.getOne)
+router.put('/:id', BudgetController.budgetUpdate)
+router.get('/:id', BudgetController.findBudgetById)
 
 export { router }

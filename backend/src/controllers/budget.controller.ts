@@ -73,4 +73,61 @@ export class BudgetController {
 			return res.status(500).json({ error: 'Error when deleting user' })
 		}
 	}
+
+	static async findBudgetById(req: Request, res: Response) {
+		try {
+			const { id } = req.params
+			if (!id) {
+				return res.status(400).json({ message: 'Invalid ID' })
+			}
+			const budgetToFind = await Budget.findByPk(id, {
+				include: [{ model: Service, as: 'services' }],
+			})
+
+			return res.status(200).json(budgetToFind)
+		} catch (error) {
+			console.error(error)
+			return res.status(500).json({ error: 'budget does not exist' })
+		}
+	}
+
+	static async budgetUpdate(req: Request, res: Response) {
+		const { id } = req.params
+		const { description, state, serviceIds } = req.body
+
+		try {
+			const budgetToUpdate = await Budget.findByPk(id, {
+				include: [{ model: Service, as: 'services' }],
+			})
+
+			if (!budgetToUpdate) {
+				return res.status(404).json({ error: `Budget with id ${id} not found` })
+			}
+
+			// Eliminar servicios existentes que no están en la lista de serviceIds
+			const servicesToRemove = budgetToUpdate.services.filter(
+				(service) => !serviceIds.includes(service.id),
+			)
+			await budgetToUpdate.$remove('services', servicesToRemove)
+			// Agregar nuevos servicios
+			if (serviceIds && serviceIds.length > 0) {
+				const servicesToAdd = await Service.findAll({
+					where: { id: serviceIds },
+				})
+				await budgetToUpdate.$add('services', servicesToAdd)
+			}
+
+			// Actualizar otros campos del presupuesto
+			budgetToUpdate.description = description
+			budgetToUpdate.state = state
+
+			// Guardar los cambios
+			await budgetToUpdate.save()
+
+			return res.status(200).json(budgetToUpdate)
+		} catch (error) {
+			console.error(error)
+			res.status(500).json({ error: 'Internal Server Error' })
+		}
+	}
 }
