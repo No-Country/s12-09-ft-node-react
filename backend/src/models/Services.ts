@@ -19,7 +19,7 @@ export class Service extends Model {
 	@Column({
 		type: DataType.STRING,
 	})
-	descripcion!: string
+	description!: string
 
 	@AllowNull(false)
 	@Column({
