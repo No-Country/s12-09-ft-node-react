@@ -1,10 +1,9 @@
 import { Request, Response } from 'express'
-import validator from 'validator'
 import { z } from 'zod'
 import { RepairLog } from '../models/RepairLog'
 import { Users } from '../models/Users'
 import { Vehicle } from '../models/Vehicle'
-import { vehicleSchema, uuidSchema } from '../utils/zodSchemas'
+import { uuidSchema, vehicleSchema } from '../utils/zodSchemas'
 
 export class VehicleController {
 	static async getVehicles(req: Request, res: Response) {
@@ -26,7 +25,10 @@ export class VehicleController {
 		try {
 			uuidSchema.parse(id)
 			const vehicle = await Vehicle.findByPk(id, {
-				include: { model: Users, as: 'user' },
+				include: [
+					{ model: Users, as: 'user' },
+					{ model: RepairLog, as: 'repairLog' },
+				],
 			})
 			if (!vehicle) {
 				res.status(404).json({ error: 'Vehicle not found' })

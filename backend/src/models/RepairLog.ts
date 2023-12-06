@@ -65,3 +65,9 @@ export class RepairLog extends Model {
 	@BelongsTo(() => Mechanic)
 	mechanic!: Mechanic
 }
+
+RepairLog.prototype.toJSON = function () {
+	const values = Object.assign({}, this.get())
+	delete values.MechanicId
+	return values
+}

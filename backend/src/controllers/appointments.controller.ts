@@ -1,70 +1,71 @@
-import { Request, Response } from 'express'
-import validator from 'validator'
+import { NextFunction, Request, Response } from 'express'
 import { Appointments } from '../models/Appointments'
+import { appointmentsSchema, uuidSchema } from '../utils/zodSchemas'
 
 export class appointmentsController {
-	static async getAll(req: Request, res: Response) {
+	static async getAll(req: Request, res: Response, next: NextFunction) {
 		try {
 			const results = await Appointments.findAll()
 			res.status(200).json(results)
 		} catch (error) {
-			res.status(500).json(error)
+			next(error)
 		}
 	}
-	static async create(req: Request, res: Response) {
+	static async create(req: Request, res: Response, next: NextFunction) {
 		try {
-			const result = await Appointments.create(req.body)
+			const { date } = req.body
+
+			const dateObject = new Date(date)
+			appointmentsSchema.parse({ ...req.body, date: dateObject })
+			const result = await Appointments.create({
+				...req.body,
+				date: dateObject,
+			})
 			res.status(201).json(result)
 		} catch (error) {
-			res.status(500).json(error)
+			next(error)
 		}
 	}
-	static async getOne(req: Request, res: Response) {
+	static async getOne(req: Request, res: Response, next: NextFunction) {
 		try {
 			const { id } = req.params
-			if (!validator.isUUID(id)) {
-				return res.status(400).json({ message: 'Invalid ID' })
-			}
+			uuidSchema.parse(id)
 			const result = await Appointments.findByPk(id)
 			if (!result) {
-				return res.status(404).json({ message: 'Appointment not found' })
+				throw new Error('Appointment not found')
 			}
 			res.status(200).json(result)
 		} catch (error) {
-			res.status(500).json(error)
+			next(error)
 		}
 	}
-	static async update(req: Request, res: Response) {
+	static async update(req: Request, res: Response, next: NextFunction) {
 		try {
 			const { id } = req.params
-			if (!validator.isUUID(id)) {
-				return res.status(400).json({ message: 'Invalid ID' })
-			}
+			uuidSchema.parse(id)
 			const result = await Appointments.update(req.body, {
 				where: { id },
 				returning: true,
 			})
 			if (result[0] === 0) {
-				return res.status(404).json({ message: 'Appointment not found' })
+				throw new Error('Appointment not found')
 			}
 			res.status(200).json(result[1][0])
 		} catch (error) {
-			res.status(500).json(error)
+			next(error)
 		}
 	}
-	static async delete(req: Request, res: Response) {
+	static async delete(req: Request, res: Response, next: NextFunction) {
 		try {
 			const { id } = req.params
-			if (!validator.isUUID(id)) {
-				return res.status(400).json({ message: 'Invalid ID' })
-			}
+			uuidSchema.parse(id)
 			const result = await Appointments.destroy({ where: { id } })
 			if (!result) {
-				return res.status(404).json({ message: 'Appointment not found' })
+				throw new Error('Appointment not found')
 			}
 			res.status(200).json({ message: 'Appointment deleted' })
 		} catch (error) {
-			res.status(500).json(error)
+			next(error)
 		}
 	}
 }
