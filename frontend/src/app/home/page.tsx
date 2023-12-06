@@ -18,6 +18,9 @@ const VehiclePage = () => {
   const [currentView, setCurrentView] = useState<'taller' | 'cliente'>(
     'taller'
   );
+
+  const [openModal, setOpenModal] = useState(false)
+
   const filteredData =
     currentView === 'taller'
       ? vehicleData
@@ -55,12 +58,12 @@ const VehiclePage = () => {
       <section className=' flex justify-center mt-10'>
         <div className='md:flex md:flex-row md:flex-wrap gap-10 grid grid-cols-2 items-center justify-center w-full'>
           <div className='hidden md:block '>
-            <div className=' flex flex-col justify-center items-center gap-5'>
+            <button onClick={() => {setOpenModal(true)}} className=' flex flex-col justify-center items-center gap-5'>
               <section className='bg-base-300 rounded-3xl w-24 h-24 flex place-content-center'>
                 <Image width={36} height={36} src={PlusIcon} alt='clio 1.2' />
               </section>
               <p className='font-bold'>Agregar vehiculo</p>
-            </div>
+            </button>
           </div>
           {filteredData.length === 0 ? (
             <p>No hay vehículos disponibles.</p>
@@ -85,14 +88,14 @@ const VehiclePage = () => {
         </div>
       </section>
 
-      <div className=' block md:hidden  fixed  bottom-[5%] left-[48%]'>
+      <button onClick={() => {setOpenModal(true)}} className=' block md:hidden  fixed  bottom-[5%] left-[48%]'>
         <div className='flex justify-center'>
           <Image src={botonmas} alt='boton' />
         </div>
-      </div>
+      </button>
       {/* Placeholder de la modal para agregar clientes a los vehiculos, solo esta aqui para poder visualizarlo
       Removerlo si desean, esto ira en otro lado */}
-      <RegisterClient open={currentView === 'cliente'} />
+      <RegisterClient open={openModal} handleOpen={setOpenModal} />
     </div>
   );
 };

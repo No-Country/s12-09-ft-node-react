@@ -34,9 +34,10 @@ const initialValues: InitialValues = {
 
 interface Props {
   open: boolean;
+  handleOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const RegisterClient: React.FC<Props> = ({ open }) => {
+const RegisterClient: React.FC<Props> = ({ open, handleOpen }) => {
   const { values, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues,
     validationSchema: basicSchema,
@@ -51,6 +52,10 @@ const RegisterClient: React.FC<Props> = ({ open }) => {
   });
 
   const [currentView, setCurrentView] = useState<'new' | 'existing'>('new');
+
+  const closeModal = () => {
+    handleOpen(false)
+  }
 
   return (
     <div
@@ -180,6 +185,12 @@ const RegisterClient: React.FC<Props> = ({ open }) => {
           </div>
         )}
       </main>
+
+      <div className='flex justify-center items-center py-2'>
+        <button onClick={closeModal}>
+          cerrar modal
+        </button>
+      </div>
     </div>
   );
 };
