@@ -1,0 +1,25 @@
+name: "Deploy vercel"
+on:
+  pull_request:
+    branches: [frontend-dev]
+    paths:
+      - "frontend/**"
+jobs:
+  deploy:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@2
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Pull Vercel Enviroment Information
+        run: vercel pull --yes --environment=production --cwd ~/frontend --token=${{ secrets.VERCEL_TOKEN}}
+
+      - name: Build Project Artifacts
+        run: vercel build --prod --cwd ~/frontend --token=${{ secrets.VERCEL_TOKEN}}
+
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --cwd ~/frontend --token=${{ secrets.VERCEL_TOKEN}}
