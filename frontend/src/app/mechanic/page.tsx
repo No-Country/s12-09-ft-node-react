@@ -1,4 +1,5 @@
 'use client';
+import { useRouter } from 'next/navigation';
 
 import { input as Input } from '@/components';
 import { PlusIcon, UserIcon } from '@/assets/icons';
@@ -8,41 +9,47 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import swal from 'sweetalert';
 
+import { useMechanic } from '@/hook';
+import { MechanicModel } from '@/model';
+
 const basicSchema = yup.object().shape({
   email: yup.string().email('Plesase enter a valid email').required('Required'),
-  fullName: yup.string().required('Required'),
-  dni: yup.number().positive().integer().required('Required'),
-  phone: yup.number().positive().integer().required('Required'),
-  rol: yup.string().required('Required'),
-  password: yup.string().min(5).required('Required'),
+  firstName: yup.string().required('Required'),
+  lastName: yup.string().required('Required'),
+  document: yup.number().positive().integer().required('Required'),
+  phone: yup.string().required('Required'),
+  // role: yup.string().required('Required'),
+  // password: yup.string().min(5).required('Required'),
 });
 
-interface InitialValues {
-  email: string;
-  fullName: string;
-  dni: string;
-  phone: string;
-  rol: string;
-  password: string;
-}
-const initialValues: InitialValues = {
+const initialValues: MechanicModel = {
   email: '',
-  fullName: '',
-  dni: '',
+  firstName: '',
+  lastName: '',
+  document: 0,
   phone: '',
-  rol: '',
-  password: '',
+  // role: '',
+  // password: '',
 };
-
 export default function MechanicPage() {
-  const { values, handleChange, handleBlur, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema: basicSchema,
-    onSubmit: (values: InitialValues) => {
-      console.log(values);
-      swal('Mecanico guardado', '( simulacion no tiene endpoint )', 'success');
-    },
-  });
+  const { mechanics, createMechanic } = useMechanic();
+  const router = useRouter();
+
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: basicSchema,
+      onSubmit: (values: MechanicModel) => {
+        createMechanic(values);
+        // if(response){
+        swal('Mecanico guardado', '', 'success');
+        // } else {
+        //   swal('El mecanico no fue gruardado', '', 'error');
+        // }
+
+        router.push('/home', { scroll: false });
+      },
+    });
 
   return (
     <form
@@ -75,7 +82,9 @@ export default function MechanicPage() {
           </button>
         </div>
         <Input
-          className=''
+          className={
+            errors.email && touched.email ? 'border-error border-2' : ''
+          }
           value={values.email}
           handleBlur={handleBlur}
           handleChange={handleChange}
@@ -84,55 +93,78 @@ export default function MechanicPage() {
           type='text'
         />
 
-        <Input
-          className=''
-          value={values.fullName}
-          handleBlur={handleBlur}
-          handleChange={handleChange}
-          name='fullName'
-          placeholder='Nombre y apellido'
-          type='text'
-        />
+        <div className='flex w-full gap-5'>
+          <Input
+            className={
+              errors.firstName && touched.firstName
+                ? 'border-error border-2'
+                : ''
+            }
+            value={values.firstName}
+            handleBlur={handleBlur}
+            handleChange={handleChange}
+            name='firstName'
+            placeholder='Nombre'
+            type='text'
+          />
+          <Input
+            className={
+              errors.lastName && touched.lastName ? 'border-error border-2' : ''
+            }
+            value={values.lastName}
+            handleBlur={handleBlur}
+            handleChange={handleChange}
+            name='lastName'
+            placeholder='Apellido'
+            type='text'
+          />
+        </div>
         <div className='flex flex-row gap-3'>
           <div className='flex-1 flex flex-col gap-3'>
             <Input
-              className=''
-              value={values.dni}
+              className={
+                errors.document && touched.document
+                  ? 'border-error border-2'
+                  : ''
+              }
+              value={values.document}
               handleBlur={handleBlur}
               handleChange={handleChange}
-              name='dni'
-              placeholder='DNI'
-              type='text'
+              name='document'
+              placeholder='Dni'
+              type='number'
             />
-            <Input
-              className=''
-              value={values.rol}
+            {/* <Input
+              className={(errors.role && touched.role) ? 'border-error border-2' : ''}
+              value={values.role}
               handleBlur={handleBlur}
               handleChange={handleChange}
-              name='rol'
+              name='role'
               placeholder='Rol'
               type='text'
-            />
+            /> */}
           </div>
           <div className='flex-1  flex flex-col gap-3'>
             <Input
-              className=''
+              className={
+                errors.phone && touched.phone ? 'border-error border-2' : ''
+              }
               value={values.phone}
               handleBlur={handleBlur}
               handleChange={handleChange}
               name='phone'
               placeholder='Teléfono'
-              type='text'
+              type='string'
             />
-            <Input
-              className=''
+            {/* <Input
+              className={(errors.password && touched.password) ? 'border-error border-2' : ''}
               value={values.password}
               handleBlur={handleBlur}
               handleChange={handleChange}
               name='password'
               placeholder='Contraseña'
               type='password'
-            />
+            /> */}
           </div>
         </div>
         <div className='flex justify-center mt-6'>

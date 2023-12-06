@@ -1,1 +1,2 @@
-export * as carService from './carService';
+export *  from './carService';
+export * from './mechanicService';
