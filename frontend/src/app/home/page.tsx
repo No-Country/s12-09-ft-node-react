@@ -1,7 +1,6 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type Vehicle from '@/interface/home';
-import { useCar } from '@/hook/useCar';
 import Image from 'next/image';
 import { PlusIcon } from '@/assets/icons';
 import { CarImage } from '@/assets/image';
@@ -201,8 +200,8 @@ const VehiclePage: React.FC = () => {
             <p className='font-bold'>Agregar vehiculo</p>
           </div>
 
-          {filteredData.map(vehicle => (
-            <div className=' flex flex-col justify-center items-center'>
+          {filteredData.map((vehicle:Vehicle,index:number) => (
+            <div key={index} className=' flex flex-col justify-center items-center'>
               <section className='bg-base-300 rounded-3xl w-24 h-24 flex justify-center items-center'>
                 <Image
                 className=' h-7 w-20'
