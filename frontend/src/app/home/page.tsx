@@ -5,6 +5,7 @@ import { useCar } from '@/hook/useCar';
 import Image from 'next/image';
 import { PlusIcon } from '@/assets/icons';
 import { CarImage } from '@/assets/image';
+import RegisterClient from '@/components/RegisterClient';
 
 const VehiclePage: React.FC = () => {
   //   const { getAllCars, cars } = useCar();
@@ -221,6 +222,8 @@ const VehiclePage: React.FC = () => {
       {/* <div className='flex justify-center'>
                 <button className=' bg-cyan-400 p-4 font-bold mt-5 text-white rounded-[100%] text-[20px] '>+</button>
             </div> */}
+
+      <RegisterClient/>
     </div>
   );
 };
