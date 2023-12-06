@@ -4,8 +4,8 @@ import axios from 'axios';
 export const createMechanic = async (
   mechanic: MechanicModel
 ): Promise<MechanicModel[]> => {
-  return await new Promise((resolve, rejects) => {
-    axios('https://mechanicalertbackend.onrender.com/api/v1/mechanic',{
+  return await new Promise((resolve, reject) => {
+    axios('https://mechanicalertbackend.onrender.com/api/v1/mechanic', {
       method: 'post',
       data: mechanic,
     })
@@ -13,7 +13,7 @@ export const createMechanic = async (
         resolve(response.data);
       })
       .catch(err => {
-        rejects(err);
+        reject(err);
       });
   });
 };

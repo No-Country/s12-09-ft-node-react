@@ -10,7 +10,7 @@ import * as yup from 'yup';
 import swal from 'sweetalert';
 
 import { useMechanic } from '@/hook';
-import { MechanicModel } from '@/model';
+import type { MechanicModel } from '@/model';
 
 const basicSchema = yup.object().shape({
   email: yup.string().email('Plesase enter a valid email').required('Required'),
@@ -32,24 +32,23 @@ const initialValues: MechanicModel = {
   // password: '',
 };
 export default function MechanicPage() {
-  const { mechanics, createMechanic } = useMechanic();
+  const { createMechanic } = useMechanic();
   const router = useRouter();
 
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
-    useFormik({
-      initialValues,
-      validationSchema: basicSchema,
-      onSubmit: (values: MechanicModel) => {
-        createMechanic(values);
-        // if(response){
-        swal('Mecanico guardado', '', 'success');
-        // } else {
-        //   swal('El mecanico no fue gruardado', '', 'error');
-        // }
+  const { values, handleChange, handleBlur, handleSubmit } = useFormik({
+    initialValues,
+    validationSchema: basicSchema,
+    onSubmit: (values: MechanicModel) => {
+      createMechanic(values);
+      // if(response){
+      swal('Mecanico guardado', '', 'success');
+      // } else {
+      //   swal('El mecanico no fue gruardado', '', 'error');
+      // }
 
-        router.push('/home', { scroll: false });
-      },
-    });
+      router.push('/home', { scroll: false });
+    },
+  });
 
   return (
     <form
@@ -82,9 +81,7 @@ export default function MechanicPage() {
           </button>
         </div>
         <Input
-          className={
-            errors.email && touched.email ? 'border-error border-2' : ''
-          }
+          className=''
           value={values.email}
           handleBlur={handleBlur}
           handleChange={handleChange}
@@ -95,11 +92,7 @@ export default function MechanicPage() {
 
         <div className='flex w-full gap-5'>
           <Input
-            className={
-              errors.firstName && touched.firstName
-                ? 'border-error border-2'
-                : ''
-            }
+            className=''
             value={values.firstName}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -108,9 +101,7 @@ export default function MechanicPage() {
             type='text'
           />
           <Input
-            className={
-              errors.lastName && touched.lastName ? 'border-error border-2' : ''
-            }
+            className=''
             value={values.lastName}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -122,11 +113,7 @@ export default function MechanicPage() {
         <div className='flex flex-row gap-3'>
           <div className='flex-1 flex flex-col gap-3'>
             <Input
-              className={
-                errors.document && touched.document
-                  ? 'border-error border-2'
-                  : ''
-              }
+              className=''
               value={values.document}
               handleBlur={handleBlur}
               handleChange={handleChange}
@@ -146,9 +133,7 @@ export default function MechanicPage() {
           </div>
           <div className='flex-1  flex flex-col gap-3'>
             <Input
-              className={
-                errors.phone && touched.phone ? 'border-error border-2' : ''
-              }
+              className=''
               value={values.phone}
               handleBlur={handleBlur}
               handleChange={handleChange}
