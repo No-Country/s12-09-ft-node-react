@@ -5,13 +5,13 @@ import { PlusIcon } from '@/assets/icons';
 import { type CarModel } from '@/model';
 import { useCar } from '@/hook';
 import botonmas from '../../assets/icons/botonmas.svg';
-import React from 'react';
 import RegisterClient from '@/components/RegisterClient';
 const VehiclePage = () => {
   const { getAllCars, cars } = useCar();
+
   useEffect(() => {
     getAllCars();
-  }, []);
+  }, [getAllCars]);
 
   const vehicleData: CarModel[] = cars;
 
@@ -71,7 +71,7 @@ const VehiclePage = () => {
                 className=' flex flex-col justify-center items-center'
               >
                 <section className='bg-base-300 rounded-3xl w-24 h-24 flex justify-center items-center'>
-                  <img
+                  <Image
                     className='h-7 w-20'
                     src={vehicle.imageUrl}
                     alt={`Imagen de ${vehicle.brand}`}
