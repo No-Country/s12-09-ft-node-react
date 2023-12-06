@@ -7,7 +7,7 @@ interface InputProps {
   className?: string;
   handleChange?: ChangeEventHandler;
   handleBlur?: ChangeEventHandler;
-  value?: string;
+  value?: string | number;
 }
 
 export const input = ({

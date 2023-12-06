@@ -5,10 +5,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import type { TypedUseSelectorHook } from 'react-redux';
 
 import { carReducer } from './features/car/carSlice';
+import { mechanicReducer } from './features/mechanic/mechanicSlice';
 
 export const store = configureStore({
     reducer: {
-        cars: carReducer
+        cars: carReducer,
+        mechanics: mechanicReducer
     }
 })
 

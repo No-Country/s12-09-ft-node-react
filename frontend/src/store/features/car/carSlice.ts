@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import type { CarModel } from '@/model';
 
-import { carService } from '@/services'
+import { getAllCar } from '@/services'
 
 export interface CarState {
     value: CarModel[]
@@ -17,7 +17,7 @@ const initialState: CarState = {
 export const getAllCarAsync = createAsyncThunk(
     'car/getAll',
     async () => {
-        const aux =await carService.getAllCar()
+        const aux =await getAllCar()
         return aux
     }
 )
