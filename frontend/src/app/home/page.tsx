@@ -5,7 +5,6 @@ import { PlusIcon } from '@/assets/icons';
 import { type CarModel } from '@/model';
 import { useCar } from '@/hook';
 import botonmas from '../../assets/icons/botonmas.svg';
-import React from 'react';
 import RegisterClient from '@/components/RegisterClient';
 const VehiclePage = () => {
   const { getAllCars, cars } = useCar();
@@ -18,6 +17,9 @@ const VehiclePage = () => {
   const [currentView, setCurrentView] = useState<'taller' | 'cliente'>(
     'taller'
   );
+
+  const [openModal, setOpenModal] = useState(false)
+
   const filteredData =
     currentView === 'taller'
       ? vehicleData
@@ -92,7 +94,7 @@ const VehiclePage = () => {
       </div>
       {/* Placeholder de la modal para agregar clientes a los vehiculos, solo esta aqui para poder visualizarlo
       Removerlo si desean, esto ira en otro lado */}
-      <RegisterClient open={currentView === 'cliente'} />
+      <RegisterClient open={currentView === 'cliente'} handleOpen={setOpenModal} />
     </div>
   );
 };
