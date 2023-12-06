@@ -222,7 +222,9 @@ const VehiclePage: React.FC = () => {
                 <button className=' bg-cyan-400 p-4 font-bold mt-5 text-white rounded-[100%] text-[20px] '>+</button>
             </div> */}
 
-      <RegisterClient/>
+      {/* Placeholder de la modal para agregar clientes a los vehiculos, solo esta aqui para poder visualizarlo
+          Removerlo si desean, esto ira en otro lado */}
+      <RegisterClient open={currentView === 'cliente'}/> 
     </div>
   );
 };
