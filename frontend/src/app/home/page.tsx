@@ -93,8 +93,8 @@ const VehiclePage = () => {
           <Image src={botonmas} alt='boton' />
         </div>
       </button>
-      {/* Placeholder de la modal para agregar clientes a los vehiculos, solo esta aqui para poder visualizarlo
-      Removerlo si desean, esto ira en otro lado */}
+      
+      
       <RegisterClient open={openModal} handleOpen={setOpenModal} />
     </div>
   );
