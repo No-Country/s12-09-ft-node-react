@@ -53,6 +53,10 @@ const RegisterClient: React.FC<Props> = ({ open, handleOpen }) => {
 
   const [currentView, setCurrentView] = useState<'new' | 'existing'>('new');
 
+  const closeModal = () => {
+    handleOpen(false)
+  }
+
   return (
     <div
       className={`absolute w-full bottom-0 bg-gray-200 rounded-t-[3rem] sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[3rem] sm:max-w-md ${
@@ -183,7 +187,7 @@ const RegisterClient: React.FC<Props> = ({ open, handleOpen }) => {
       </main>
 
       <div className='flex justify-center items-center py-2'>
-        <button>
+        <button onClick={closeModal}>
           cerrar modal
         </button>
       </div>
