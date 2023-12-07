@@ -1,9 +1,9 @@
 import { BarsIcon } from '@/assets/icons';
-import { logo as Logo } from '@/components';
+import { Logo } from '@/components';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export const header = () => {
+export const Header = () => {
   const links = [
     {
       name: 'LOGO',
@@ -26,8 +26,8 @@ export const header = () => {
       icon: '',
     },
     {
-      name: 'Car',
-      href: '/car',
+      name: 'Vehicle',
+      href: '/vehicles',
       icon: '',
     },
   ];
@@ -44,7 +44,7 @@ export const header = () => {
             <Image src={BarsIcon} alt='bars icon' className='h-8 w-6' />
           </label>
         </div>
-        <div className='drawer-side'>
+        <div className='drawer-side z-10'>
           <label
             htmlFor='my-drawer'
             aria-label='close sidebar'

@@ -1,6 +1,8 @@
 'use client';
 
+import { User } from '@/@types';
 import { input as Input } from '@/components';
+import { useClient } from '@/hook/useClient';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import swal from 'sweetalert';
@@ -12,24 +14,16 @@ const basicSchema = yup.object().shape({
   email: yup.string().email('Plesase enter a valid email').required('Required'),
   phone: yup.number().positive().integer().required('Required'),
   pass: yup.string().min(5).required('Required'),
-  document: yup.number().required('Required'),
+  document: yup.number().min(5).required('Required'),
 });
 
-interface InitialValues {
-  lastName: string;
-  firstName: string;
-  email: string;
-  phone: string;
-  pass: string;
-  document: string;
-}
-const initialValues: InitialValues = {
+const initialValues: User = {
   lastName: '',
   firstName: '',
   email: '',
-  phone: '',
+  phone: 0,
   pass: '',
-  document: '',
+  document: 0,
 };
 
 interface Props {
@@ -37,25 +31,27 @@ interface Props {
   handleOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const RegisterClient: React.FC<Props> = ({ open, handleOpen }) => {
-  const { values, handleChange, handleBlur, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema: basicSchema,
-    onSubmit: async (values: InitialValues) => {
-      console.log(values);
-      await swal(
-        'Cliente registrado',
-        '( simulacion no tiene endpoint )',
-        'success'
-      );
-    },
-  });
+export const RegisterClient = ({ open, handleOpen }: Props) => {
+  const { clients, createClient } = useClient();
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: basicSchema,
+      onSubmit: async (values: User) => {
+        try {
+          createClient(values);
+          await swal('Cliente registrado', '', 'success');
+        } catch (error) {
+          await swal('No se pudo registrar el cliente', '', 'error');
+        }
+      },
+    });
 
   const [currentView, setCurrentView] = useState<'new' | 'existing'>('new');
 
   const closeModal = () => {
-    handleOpen(false)
-  }
+    handleOpen(false);
+  };
 
   return (
     <div
@@ -106,7 +102,11 @@ const RegisterClient: React.FC<Props> = ({ open, handleOpen }) => {
                   name='firstName'
                   type='text'
                   placeholder='Nombre'
-                  className='bg-base-100 text-sm'
+                  className={
+                    errors.document && toched.document
+                      ? 'border-error'
+                      : 'bg-base-100 text-sm'
+                  }
                   value={values.firstName}
                   handleBlur={handleBlur}
                   handleChange={handleChange}
@@ -139,6 +139,7 @@ const RegisterClient: React.FC<Props> = ({ open, handleOpen }) => {
             <div className='flex gap-2 w-full'>
               <div className='w-full'>
                 <Input
+                  type='number'
                   name='document'
                   placeholder='DNI'
                   className='bg-base-100 text-sm'
@@ -150,6 +151,7 @@ const RegisterClient: React.FC<Props> = ({ open, handleOpen }) => {
 
               <div className='w-full'>
                 <Input
+                  type='number'
                   name='phone'
                   placeholder='Teléfono'
                   className='bg-base-100 text-sm'
@@ -187,12 +189,8 @@ const RegisterClient: React.FC<Props> = ({ open, handleOpen }) => {
       </main>
 
       <div className='flex justify-center items-center py-2'>
-        <button onClick={closeModal}>
-          cerrar modal
-        </button>
+        <button onClick={closeModal}>cerrar modal</button>
       </div>
     </div>
   );
 };
-
-export default RegisterClient;

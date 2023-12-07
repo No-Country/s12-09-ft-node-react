@@ -1,32 +1,23 @@
 import type { WorkShopModel } from '@/model';
-import axios from 'axios';
+import { httpClient } from '@/utils';
 
-const API = 'https://mechanicalertbackend.onrender.com/api/v1/';
+const path = 'workshop';
 
 export const createWorkShop = async (
   newWorkshop: WorkShopModel
 ): Promise<WorkShopModel> => {
   return await new Promise((resolve, reject) => {
-    axios
-      .post(`${API}workshop`, newWorkshop)
-      .then(response => {
-        resolve(response.data);
-      })
-      .catch(err => {
-        reject(err);
-      });
+    httpClient
+      .post(`${path}`, newWorkshop)
+      .then(response => resolve(response.data))
+      .catch(err => reject(err));
   });
 };
-
 export const getWorkShop = async (id: string): Promise<WorkShopModel> => {
   return await new Promise((resolve, reject) => {
-    axios
-      .get(`${API}workshop/${id}`)
-      .then(response => {
-        resolve(response.data);
-      })
-      .catch(err => {
-        reject(err);
-      });
+    httpClient
+      .get(`${path}/${id}`)
+      .then(response => resolve(response.data))
+      .catch(err => reject(err));
   });
 };
