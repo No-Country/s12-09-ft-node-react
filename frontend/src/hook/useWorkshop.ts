@@ -7,9 +7,9 @@ export const useWorkshop = () => {
   const { workShop } = useAppSelector(state => state.workShop);
   const dispatch: AppDispatch = useDispatch();
 
-  function getWorkShop() {
+  function getWorkShop(id: string) {
     if (workShop.id === '') {
-      dispatch(getWorkShopAsync());
+      dispatch(getWorkShopAsync(id));
     }
   }
 

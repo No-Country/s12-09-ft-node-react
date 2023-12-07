@@ -14,51 +14,47 @@ import * as yup from 'yup';
 import swal from 'sweetalert';
 
 import { useFormik } from 'formik';
-import { useEffect } from 'react';
-import { createWorkShop, getWorkShop } from '@/services/workshopService';
-import { getWorkShopAsync } from '@/store/features/workShop/workShopSlice';
+import { createWorkShop } from '@/services/workshopService';
 import { useWorkshop } from '@/hook';
+import { WorkShopModel } from '@/model';
 
 const basicSchema = yup.object().shape({
   email: yup.string().email('Plesase enter a valid email').required('Required'),
-  workshopName: yup.string().required('Required'),
-  phone: yup.number().positive().integer().required('Required'),
+  name: yup.string().required('Required'),
+  phone: yup.string().required('Required'),
   password: yup.string().min(5).required('Required'),
   address: yup.string().required('Required'),
 });
 
 interface InitialValues {
-  email: string;
-  workshopName: string;
-  phone: string;
   password: string;
+  name: string;
+  email: string;
+  phone: string;
   address: string;
 }
 const initialValues: InitialValues = {
-  email: '',
-  workshopName: '',
-  phone: '',
   password: '',
+  name: '',
+  email: '',
+  phone: '',
   address: '',
 };
 
 const WorkshopRegister = (): JSX.Element => {
   const { getWorkShop, workShop } = useWorkshop();
 
-  useEffect(() => {
-    getWorkShop('8cc6f577-621f-4a75-bcec-fd46659c1322');
-  }, []);
-
   const { values, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues,
     validationSchema: basicSchema,
     onSubmit: async (values: InitialValues) => {
-      console.log(values);
-      await swal(
-        'Taller registrado',
-        '( simulacion no tiene endpoint )',
-        'success'
-      );
+      try {
+        const response: WorkShopModel = await createWorkShop(values);
+        await getWorkShop(response.id);
+        await swal('Taller registrado', '', 'success');
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 
@@ -79,11 +75,11 @@ const WorkshopRegister = (): JSX.Element => {
         <div className='flex flex-row gap-2'>
           <Image src={GroupIcon} alt='user icon' />
           <Input
-            name='workshopName'
+            name='name'
             placeholder='Nombre del taller'
             type='text'
             className=''
-            value={values.workshopName}
+            value={values.name}
             handleBlur={handleBlur}
             handleChange={handleChange}
           />
