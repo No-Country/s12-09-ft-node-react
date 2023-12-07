@@ -31,7 +31,7 @@ export interface User {
   email: string;
   phone: number;
   document: number;
-  rol: Rol;
+  rol?: Rol;
   pass?: string;
   vehicle?: Vehicle[];
 }

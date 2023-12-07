@@ -6,6 +6,7 @@ import { carReducer } from './features/car/carSlice';
 import { workShopReducer } from './features/workShop/workShopSlice';
 import { mechanicReducer } from './features/mechanic/mechanicSlice';
 import { vehicleReducer } from './features';
+import { clientReducer } from './features';
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     workShop: workShopReducer,
     mechanics: mechanicReducer,
     vehicles: vehicleReducer,
+    clients: clientReducer,
   },
 });
 

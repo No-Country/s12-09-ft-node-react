@@ -5,7 +5,7 @@ import { PlusIcon } from '@/assets/icons';
 import { type CarModel } from '@/model';
 import { useCar } from '@/hook';
 import botonmas from '../../assets/icons/botonmas.svg';
-import RegisterClient from '@/components/RegisterClient';
+import { RegisterClient } from '@/components';
 import Link from 'next/link';
 
 const VehiclePage = () => {
