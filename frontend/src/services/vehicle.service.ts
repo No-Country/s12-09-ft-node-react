@@ -1,45 +1,20 @@
 import { Vehicle } from '@/@types';
-import { httpClient } from '@/utils';
+import { handleRequest, httpClient } from '@/utils';
 
-const path = 'vihicle';
+const path = 'vehicle';
 
 export function getAll(): Promise<Vehicle[]> {
-  return new Promise((resolve, reject) => {
-    httpClient
-      .get(`${path}`)
-      .then(({ data }) => resolve(data))
-      .catch(err => reject(new Error(err)));
-  });
+  return handleRequest(httpClient.get(`${path}`));
 }
 export function create(newVehicle: Vehicle): Promise<Vehicle> {
-  return new Promise((resolve, reject) => {
-    httpClient
-      .post(`${path}`, newVehicle)
-      .then(({ data }) => resolve(data))
-      .catch(err => reject(new Error(err)));
-  });
+  return handleRequest(httpClient.post(`${path}`, newVehicle));
 }
 export function getOneById(id: string): Promise<Vehicle> {
-  return new Promise((resolve, reject) => {
-    httpClient
-      .get(`${path}/${id}`)
-      .then(({ data }) => resolve(data))
-      .catch(err => reject(new Error(err)));
-  });
+  return handleRequest(httpClient.get(`${path}/${id}`));
 }
 export function update(modified: Vehicle): Promise<Vehicle> {
-  return new Promise((resolve, reject) => {
-    httpClient
-      .put(`${path}/${modified.id}`, modified)
-      .then(({ data }) => resolve(data))
-      .catch(err => reject(new Error(err)));
-  });
+  return handleRequest(httpClient.put(`${path}/${modified.id}`, modified));
 }
 export function deleteById(id: string): Promise<Vehicle> {
-  return new Promise((resolve, reject) => {
-    httpClient
-      .delete(`${path}/${id}`)
-      .then(({ data }) => resolve(data))
-      .catch(err => reject(new Error(err)));
-  });
+  return handleRequest(httpClient.delete(`${path}/${id}`));
 }
