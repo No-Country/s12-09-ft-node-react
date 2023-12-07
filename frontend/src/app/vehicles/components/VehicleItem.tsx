@@ -1,4 +1,4 @@
-import { Vehicle } from '@/@types';
+import type { Vehicle } from '@/@types';
 import Image from 'next/image';
 
 export interface Props {

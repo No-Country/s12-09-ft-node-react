@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 'use client';
 
 import { createContext, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
 import { ModalPortal } from '@/components/';
 
 interface Props {
@@ -51,7 +51,7 @@ export function ModalProvider({ children }: Props) {
       openModal,
       closeModal,
     }),
-    [modal]
+    []
   );
 
   return (

@@ -1,20 +1,20 @@
-import { User } from '@/@types';
+import type { User } from '@/@types';
 import { handleRequest, httpClient } from '@/utils';
 
 const path = 'user';
 
-export function getAll(): Promise<User[]> {
-  return handleRequest(httpClient.get(`${path}`));
+export async function getAll(): Promise<User[]> {
+  return await handleRequest(httpClient.get(`${path}`));
 }
-export function create(newClient: User): Promise<User> {
-  return handleRequest(httpClient.post(`${path}`, newClient));
+export async function create(newClient: User): Promise<User> {
+  return await handleRequest(httpClient.post(`${path}`, newClient));
 }
-export function getOneById(id: string): Promise<User> {
-  return handleRequest(httpClient.get(`${path}/${id}`));
+export async function getOneById(id: string): Promise<User> {
+  return await handleRequest(httpClient.get(`${path}/${id}`));
 }
-export function update(modified: User): Promise<User> {
-  return handleRequest(httpClient.put(`${path}/${modified.id}`, modified));
+export async function update(modified: User): Promise<User> {
+  return await handleRequest(httpClient.put(`${path}/${modified.id}`, modified));
 }
-// export function deleteById(id: string): Promise<boolean> {
+// export async function deleteById(id: string): Promise<boolean> {
 //   return handleRequest(httpClient.delete(`${path}/${id}`));
 // }

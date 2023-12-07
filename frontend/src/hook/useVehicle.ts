@@ -1,4 +1,4 @@
-import { Vehicle } from '@/@types';
+import type { Vehicle } from '@/@types';
 import { useAppSelector, useAppDispatch } from '@/store';
 import {
   getAllVehiclesAsync,
@@ -12,7 +12,7 @@ export function useVehicle() {
   const { vehicles, isLoading } = useAppSelector(state => state.vehicles);
 
   function getAllVehicles() {
-    !vehicles.length && displatch(getAllVehiclesAsync());
+    vehicles.length === 0 && displatch(getAllVehiclesAsync());
   }
   function getOneVehicleById(id: string) {
     displatch(getOneVehicleByIdAsync(id));

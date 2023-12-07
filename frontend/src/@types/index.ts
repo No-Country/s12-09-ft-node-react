@@ -36,19 +36,6 @@ export interface User {
   vehicle?: Vehicle[];
 }
 
-export interface Vehicle {
-  id?: string;
-  brand: string;
-  model: string;
-  color: string;
-  year: number;
-  licensePlate: string;
-  mileage: number;
-  imageUrl: string;
-  userId?: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
 
 export enum Role {
   Mechanic = 'mechanic',

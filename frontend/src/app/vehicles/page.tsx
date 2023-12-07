@@ -21,7 +21,7 @@ export default function VehiclesPage() {
         </>
       </Container>
       <button
-        onClick={() => openModal(<>Contenido</>, { title: 'Modal' })}
+        onClick={() => {openModal(<>Contenido</>, { title: 'Modal' })}}
         className='btn btn-sm btn-circle'
       >
         +

@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
 import { useVehicle } from '@/hook';
 import { VehicleItem } from '.';
-import { Vehicle } from '@/@types';
 
 export function VehiclesGrid() {
   const { vehicles, isLoading, getAllVehicles } = useVehicle();
 
   useEffect(() => {
     getAllVehicles();
-  }, []);
+  }, [getAllVehicles]);
 
   return (
     <div className='vehicle-page-grid flex flex-wrap gap-4 justify-center'>

@@ -1,6 +1,7 @@
-import { User } from '@/@types';
+import type { User } from '@/@types';
 import { clientService } from '@/services';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import swal from 'sweetalert';
 
 interface State {
   clients: User[];
@@ -23,8 +24,14 @@ export const getAllClientsAsync = createAsyncThunk(
 export const createClientAsync = createAsyncThunk(
   'client/create',
   async (newClient: User) => {
-    const created = await clientService.create(newClient);
-    return created;
+    try {
+      const created = await clientService.create(newClient);
+      await swal('Cliente registrado', '', 'success');
+      return created
+    } catch (error) {
+      await swal('No se pudo registrar el cliente', '', 'error');
+      return undefined
+    }
   }
 );
 export const getOneClientByIdAsync = createAsyncThunk(
@@ -68,7 +75,7 @@ const clientSlice = createSlice({
     builder.addCase(createClientAsync.fulfilled, (state, action) => {
       console.log('CLIENT/CREATE', action.payload);
       const newClient = action.payload;
-      state.clients.push(newClient);
+      newClient !== undefined && state.clients.push(newClient);
       state.isLoading = false;
     });
     // GETBYID

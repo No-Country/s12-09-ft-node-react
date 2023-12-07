@@ -1,4 +1,4 @@
-import { User } from '@/@types';
+import type { User } from '@/@types';
 import { useAppSelector, useAppDispatch } from '@/store';
 import {
   getAllClientsAsync,
@@ -12,7 +12,7 @@ export function useClient() {
   const { clients, isLoading } = useAppSelector(state => state.clients);
 
   function getAllClients() {
-    !clients.length && displatch(getAllClientsAsync());
+    clients.length === 0 && displatch(getAllClientsAsync());
   }
   function getOneClientById(id: string) {
     displatch(getOneClientByIdAsync(id));

@@ -1,4 +1,4 @@
-import { Vehicle } from '@/@types';
+import type { Vehicle } from '@/@types';
 import { vehicleService } from '@/services';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 

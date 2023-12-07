@@ -5,22 +5,21 @@ import { input as Input } from '@/components';
 import { useClient } from '@/hook/useClient';
 import { useFormik } from 'formik';
 import { useState } from 'react';
-import swal from 'sweetalert';
 import * as yup from 'yup';
 
-const passwordRules = /^(?=.\d)(?=.[a-z])(?=.*[A-Z]).{5,}$/;
-
+/* const passwordRules = /^(?=.\d)(?=.[a-z])(?=.*[A-Z]).{5,}$/;
+ */
 const basicSchema = yup.object().shape({
   lastName: yup.string().required('Required'),
   firstName: yup.string().required('Required'),
   email: yup.string().email('Plesase enter a valid email').required('Required'),
-  phone: yup.number().positive().integer().min(5).max(9).required('Required'),
+  phone: yup.number().positive().integer().min(5).required('Required'),
   pass: yup
     .string()
     .min(5)
-    .matches(passwordRules, { message: 'Please create a stronger password' })
+    /* .matches(passwordRules, { message: 'Please create a stronger password' }) */
     .required('Required'),
-  document: yup.number().min(6).max(10).required('Required'),
+  document: yup.number().min(6).required('Required'),
 });
 
 const initialValues: User = {
@@ -44,12 +43,7 @@ export const RegisterClient = ({ open, handleOpen }: Props) => {
       initialValues,
       validationSchema: basicSchema,
       onSubmit: async (values: User) => {
-        try {
-          createClient(values);
-          await swal('Cliente registrado', '', 'success');
-        } catch (error) {
-          await swal('No se pudo registrar el cliente', '', 'error');
-        }
+        createClient(values);
       },
     });
 
