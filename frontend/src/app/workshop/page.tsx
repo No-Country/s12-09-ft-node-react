@@ -14,6 +14,10 @@ import * as yup from 'yup';
 import swal from 'sweetalert';
 
 import { useFormik } from 'formik';
+import { useEffect } from 'react';
+import { createWorkShop, getWorkShop } from '@/services/workshopService';
+import { getWorkShopAsync } from '@/store/features/workShop/workShopSlice';
+import { useWorkshop } from '@/hook';
 
 const basicSchema = yup.object().shape({
   email: yup.string().email('Plesase enter a valid email').required('Required'),
@@ -39,6 +43,12 @@ const initialValues: InitialValues = {
 };
 
 const WorkshopRegister = (): JSX.Element => {
+  const { getWorkShop, workShop } = useWorkshop();
+
+  useEffect(() => {
+    getWorkShop('8cc6f577-621f-4a75-bcec-fd46659c1322');
+  }, []);
+
   const { values, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues,
     validationSchema: basicSchema,
