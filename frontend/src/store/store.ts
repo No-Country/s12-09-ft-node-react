@@ -6,11 +6,14 @@ import type { TypedUseSelectorHook } from 'react-redux';
 
 import { carReducer } from './features/car/carSlice';
 import { workShopReducer } from './features/workShop/workShopSlice';
+import { mechanicReducer } from './features/mechanic/mechanicSlice';
 
 export const store = configureStore({
   reducer: {
     cars: carReducer,
     workShop: workShopReducer,
+
+    mechanics: mechanicReducer,
   },
 });
 

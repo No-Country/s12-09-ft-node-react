@@ -1,4 +1,5 @@
 'use client';
+import { useRouter } from 'next/navigation';
 
 import { input as Input } from '@/components';
 import { PlusIcon, UserIcon } from '@/assets/icons';
@@ -8,39 +9,44 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import swal from 'sweetalert';
 
+import { useMechanic } from '@/hook';
+import type { MechanicModel } from '@/model';
+
 const basicSchema = yup.object().shape({
   email: yup.string().email('Plesase enter a valid email').required('Required'),
-  fullName: yup.string().required('Required'),
-  dni: yup.number().positive().integer().required('Required'),
-  phone: yup.number().positive().integer().required('Required'),
-  rol: yup.string().required('Required'),
-  password: yup.string().min(5).required('Required'),
+  firstName: yup.string().required('Required'),
+  lastName: yup.string().required('Required'),
+  document: yup.number().positive().integer().required('Required'),
+  phone: yup.string().required('Required'),
+  // role: yup.string().required('Required'),
+  // password: yup.string().min(5).required('Required'),
 });
 
-interface InitialValues {
-  email: string;
-  fullName: string;
-  dni: string;
-  phone: string;
-  rol: string;
-  password: string;
-}
-const initialValues: InitialValues = {
+const initialValues: MechanicModel = {
   email: '',
-  fullName: '',
-  dni: '',
+  firstName: '',
+  lastName: '',
+  document: 0,
   phone: '',
-  rol: '',
-  password: '',
+  // role: '',
+  // password: '',
 };
-
 export default function MechanicPage() {
+  const { createMechanic } = useMechanic();
+  const router = useRouter();
+
   const { values, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues,
     validationSchema: basicSchema,
-    onSubmit: (values: InitialValues) => {
-      console.log(values);
-      swal('Mecanico guardado', '( simulacion no tiene endpoint )', 'success');
+    onSubmit: (values: MechanicModel) => {
+      createMechanic(values);
+      // if(response){
+      swal('Mecanico guardado', '', 'success');
+      // } else {
+      //   swal('El mecanico no fue gruardado', '', 'error');
+      // }
+
+      router.push('/home', { scroll: false });
     },
   });
 
@@ -84,35 +90,46 @@ export default function MechanicPage() {
           type='text'
         />
 
-        <Input
-          className=''
-          value={values.fullName}
-          handleBlur={handleBlur}
-          handleChange={handleChange}
-          name='fullName'
-          placeholder='Nombre y apellido'
-          type='text'
-        />
+        <div className='flex w-full gap-5'>
+          <Input
+            className=''
+            value={values.firstName}
+            handleBlur={handleBlur}
+            handleChange={handleChange}
+            name='firstName'
+            placeholder='Nombre'
+            type='text'
+          />
+          <Input
+            className=''
+            value={values.lastName}
+            handleBlur={handleBlur}
+            handleChange={handleChange}
+            name='lastName'
+            placeholder='Apellido'
+            type='text'
+          />
+        </div>
         <div className='flex flex-row gap-3'>
           <div className='flex-1 flex flex-col gap-3'>
             <Input
               className=''
-              value={values.dni}
+              value={values.document}
               handleBlur={handleBlur}
               handleChange={handleChange}
-              name='dni'
-              placeholder='DNI'
-              type='text'
+              name='document'
+              placeholder='Dni'
+              type='number'
             />
-            <Input
-              className=''
-              value={values.rol}
+            {/* <Input
+              className={(errors.role && touched.role) ? 'border-error border-2' : ''}
+              value={values.role}
               handleBlur={handleBlur}
               handleChange={handleChange}
-              name='rol'
+              name='role'
               placeholder='Rol'
               type='text'
-            />
+            /> */}
           </div>
           <div className='flex-1  flex flex-col gap-3'>
             <Input
@@ -122,17 +139,17 @@ export default function MechanicPage() {
               handleChange={handleChange}
               name='phone'
               placeholder='Teléfono'
-              type='text'
+              type='string'
             />
-            <Input
-              className=''
+            {/* <Input
+              className={(errors.password && touched.password) ? 'border-error border-2' : ''}
               value={values.password}
               handleBlur={handleBlur}
               handleChange={handleChange}
               name='password'
               placeholder='Contraseña'
               type='password'
-            />
+            /> */}
           </div>
         </div>
         <div className='flex justify-center mt-6'>
