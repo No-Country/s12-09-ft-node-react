@@ -179,6 +179,7 @@ export const RegisterClient = ({ open, handleOpen }: Props) => {
             </div>
             <div>
               <Input
+                type='password'
                 name='pass'
                 placeholder='Contraseña'
                 className={`bg-base-100 text-sm ${

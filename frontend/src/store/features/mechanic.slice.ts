@@ -1,6 +1,7 @@
 import type { Mechanic } from '@/@types';
 import { mechanicService } from '@/services';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import swal from 'sweetalert';
 
 interface State {
   mechanics: Mechanic[];
@@ -23,8 +24,14 @@ export const getAllMechanicsAsync = createAsyncThunk(
 export const createMechanicAsync = createAsyncThunk(
   'mechanic/create',
   async (newMechanic: Mechanic) => {
-    const created = await mechanicService.create(newMechanic);
-    return created;
+    try {
+      const created = await mechanicService.create(newMechanic);
+      await swal('Mecanico registrado', '', 'success');
+      return created;
+    } catch (error) {
+      await swal('No se pudo registrar el mecanico', '', 'error');
+      return undefined;
+    }
   }
 );
 export const getOneMechanicByIdAsync = createAsyncThunk(
