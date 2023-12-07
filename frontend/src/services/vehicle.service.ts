@@ -15,6 +15,6 @@ export function getOneById(id: string): Promise<Vehicle> {
 export function update(modified: Vehicle): Promise<Vehicle> {
   return handleRequest(httpClient.put(`${path}/${modified.id}`, modified));
 }
-export function deleteById(id: string): Promise<Vehicle> {
-  return handleRequest(httpClient.delete(`${path}/${id}`));
-}
+// export function deleteById(id: string): Promise<boolean> {
+//   return handleRequest(httpClient.delete(`${path}/${id}`));
+// }
