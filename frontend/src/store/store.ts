@@ -2,14 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import type { TypedUseSelectorHook } from 'react-redux';
 
-import { carReducer } from './features/car/carSlice';
-import { workShopReducer } from './features/workShop/workShopSlice';
-import { mechanicReducer } from './features/mechanic/mechanicSlice';
-import { vehicleReducer, clientReducer  } from './features';
+import { workShopReducer } from './features/workshop.slice';
+import { mechanicReducer } from './features/mechanic.slice';
+import { vehicleReducer, clientReducer } from './features';
 
 export const store = configureStore({
   reducer: {
-    cars: carReducer,
     workShop: workShopReducer,
     mechanics: mechanicReducer,
     vehicles: vehicleReducer,

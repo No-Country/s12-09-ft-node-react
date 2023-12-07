@@ -1,21 +1,23 @@
 'use client';
 import { useState, useEffect } from 'react';
+
 import Image from 'next/image';
-import { PlusIcon } from '@/assets/icons';
-import { type CarModel } from '@/model';
-import { useCar } from '@/hook';
-import botonmas from '../../assets/icons/botonmas.svg';
-import Link from 'next/link';
 import { RegisterClient } from './components/registerClient';
+import Link from 'next/link';
+
+import { PlusIcon, BotonmasIcon } from '@/assets/icons';
+
+import { useVehicle } from '@/hook';
+import type { Vehicle } from '@/@types';
 
 const VehiclePage = () => {
-  const { getAllCars, cars } = useCar();
+  const { vehicles, getAllVehicles } = useVehicle();
 
   useEffect(() => {
-    getAllCars();
-  }, [getAllCars]);
+    getAllVehicles();
+  }, [getAllVehicles]);
 
-  const vehicleData: CarModel[] = cars;
+  const vehicleData: Vehicle[] = vehicles;
 
   const [currentView, setCurrentView] = useState<'taller' | 'cliente'>(
     'taller'
@@ -75,7 +77,7 @@ const VehiclePage = () => {
           {filteredData.length === 0 ? (
             <p>No hay vehículos disponibles.</p>
           ) : (
-            filteredData.map((vehicle: CarModel, index: number) => (
+            filteredData.map((vehicle: Vehicle, index: number) => (
               <div
                 key={index}
                 className=' flex flex-col justify-center items-center'
@@ -106,7 +108,7 @@ const VehiclePage = () => {
         className=' block md:hidden    fixed  bottom-[5%] left-[48%]'
       >
         <div className='flex justify-center '>
-          <Image className='hover:scale-150' src={botonmas} alt='boton' />
+          <Image className='hover:scale-150' src={BotonmasIcon} alt='boton' />
         </div>
       </button>
 
