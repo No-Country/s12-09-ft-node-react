@@ -1,6 +1,6 @@
 'use client';
 
-import { User } from '@/@types';
+import type { User } from '@/@types';
 import { input as Input } from '@/components';
 import { useClient } from '@/hook/useClient';
 import { useFormik } from 'formik';
@@ -8,13 +8,19 @@ import { useState } from 'react';
 import swal from 'sweetalert';
 import * as yup from 'yup';
 
+const passwordRules = /^(?=.\d)(?=.[a-z])(?=.*[A-Z]).{5,}$/;
+
 const basicSchema = yup.object().shape({
   lastName: yup.string().required('Required'),
   firstName: yup.string().required('Required'),
   email: yup.string().email('Plesase enter a valid email').required('Required'),
-  phone: yup.number().positive().integer().required('Required'),
-  pass: yup.string().min(5).required('Required'),
-  document: yup.number().min(5).required('Required'),
+  phone: yup.number().positive().integer().min(5).max(9).required('Required'),
+  pass: yup
+    .string()
+    .min(5)
+    .matches(passwordRules, { message: 'Please create a stronger password' })
+    .required('Required'),
+  document: yup.number().min(6).max(10).required('Required'),
 });
 
 const initialValues: User = {
@@ -32,7 +38,7 @@ interface Props {
 }
 
 export const RegisterClient = ({ open, handleOpen }: Props) => {
-  const { clients, createClient } = useClient();
+  const { createClient } = useClient();
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
       initialValues,
@@ -102,11 +108,11 @@ export const RegisterClient = ({ open, handleOpen }: Props) => {
                   name='firstName'
                   type='text'
                   placeholder='Nombre'
-                  className={
-                    errors.document && toched.document
-                      ? 'border-error'
-                      : 'bg-base-100 text-sm'
-                  }
+                  className={`bg-base-100 text-sm ${
+                    errors.firstName != null && touched.firstName != null
+                      ? 'border-error border-2'
+                      : ''
+                  }`}
                   value={values.firstName}
                   handleBlur={handleBlur}
                   handleChange={handleChange}
@@ -118,7 +124,11 @@ export const RegisterClient = ({ open, handleOpen }: Props) => {
                   name='lastName'
                   type='text'
                   placeholder='Apellidos'
-                  className='bg-base-100 text-sm'
+                  className={`bg-base-100 text-sm ${
+                    errors.lastName != null && touched.lastName != null
+                      ? 'border-error border-2'
+                      : ''
+                  }`}
                   value={values.lastName}
                   handleBlur={handleBlur}
                   handleChange={handleChange}
@@ -130,7 +140,11 @@ export const RegisterClient = ({ open, handleOpen }: Props) => {
               <Input
                 name='email'
                 placeholder='Email'
-                className='bg-base-100 text-sm'
+                className={`bg-base-100 text-sm ${
+                  errors.email != null && touched.email != null
+                    ? 'border-error border-2'
+                    : ''
+                }`}
                 value={values.email}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
@@ -142,7 +156,11 @@ export const RegisterClient = ({ open, handleOpen }: Props) => {
                   type='number'
                   name='document'
                   placeholder='DNI'
-                  className='bg-base-100 text-sm'
+                  className={`bg-base-100 text-sm ${
+                    errors.document != null && touched.document != null
+                      ? 'border-error border-2'
+                      : ''
+                  }`}
                   value={values.document}
                   handleBlur={handleBlur}
                   handleChange={handleChange}
@@ -154,7 +172,11 @@ export const RegisterClient = ({ open, handleOpen }: Props) => {
                   type='number'
                   name='phone'
                   placeholder='Teléfono'
-                  className='bg-base-100 text-sm'
+                  className={`bg-base-100 text-sm ${
+                    errors.phone != null && touched.phone != null
+                      ? 'border-error border-2'
+                      : ''
+                  }`}
                   value={values.phone}
                   handleBlur={handleBlur}
                   handleChange={handleChange}
@@ -165,7 +187,11 @@ export const RegisterClient = ({ open, handleOpen }: Props) => {
               <Input
                 name='pass'
                 placeholder='Contraseña'
-                className='bg-base-100 text-sm'
+                className={`bg-base-100 text-sm ${
+                  errors.pass != null && touched.pass != null
+                    ? 'border-error border-2'
+                    : ''
+                }`}
                 value={values.pass}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
