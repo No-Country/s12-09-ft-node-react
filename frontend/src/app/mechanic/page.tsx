@@ -10,7 +10,8 @@ import * as yup from 'yup';
 import swal from 'sweetalert';
 
 import { useMechanic } from '@/hook';
-import type { MechanicModel } from '@/model';
+import type { Mechanic } from '@/@types';
+import { Welcome } from './components/Welcome';
 
 const basicSchema = yup.object().shape({
   email: yup.string().email('Plesase enter a valid email').required('Required'),
@@ -22,7 +23,7 @@ const basicSchema = yup.object().shape({
   // password: yup.string().min(5).required('Required'),
 });
 
-const initialValues: MechanicModel = {
+const initialValues: Mechanic = {
   email: '',
   firstName: '',
   lastName: '',
@@ -38,7 +39,7 @@ export default function MechanicPage() {
   const { values, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues,
     validationSchema: basicSchema,
-    onSubmit: (values: MechanicModel) => {
+    onSubmit: (values: Mechanic) => {
       createMechanic(values);
       // if(response){
       swal('Mecanico guardado', '', 'success');
@@ -56,11 +57,7 @@ export default function MechanicPage() {
       autoComplete='off'
       className='flex flex-col justify-center items-center m-5 gap-5 [&>div]:mt-5'
     >
-      <h1 className='text-3xl font-bold text-secondary'>Tu equipo</h1>
-
-      <h2 className='text-xl text-center text-accent'>
-        Crea usuarios para tu equipo de trabajo
-      </h2>
+      <Welcome />
       <div className='flex flex-col gap-3'>
         <div className='flex justify-between'>
           <button type='button' className='btn btn-sm btn-circle bg-base-300'>

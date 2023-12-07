@@ -5,7 +5,7 @@ export interface Mechanic {
   email: string;
   document: number;
   phone: string;
-  role: Role;
+  // role: Role;
 }
 
 export interface Vehicle {
@@ -35,7 +35,6 @@ export interface User {
   pass?: string;
   vehicle?: Vehicle[];
 }
-
 
 export enum Role {
   Mechanic = 'mechanic',
