@@ -1,162 +1,28 @@
 'use client';
-import { useState } from 'react';
-import type Vehicle from '@/interface/home';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { PlusIcon } from '@/assets/icons';
-import { CarImage } from '@/assets/image';
+import { type CarModel } from '@/model';
+import { useCar } from '@/hook';
+import botonmas from '../../assets/icons/botonmas.svg';
+import RegisterClient from '@/components/RegisterClient';
+import Link from 'next/link';
 
-const VehiclePage: React.FC = () => {
-  //   const { getAllCars, cars } = useCar();
-  //   useEffect(() => {
-  //     getAllCars();
-  //   }, []);
+const VehiclePage = () => {
+  const { getAllCars, cars } = useCar();
 
-  const [vehicleData] = useState<Vehicle[]>([
-    {
-      id: '1497cedd-6361-41ec',
-      brand: 'Tesla',
-      model: 'Model S',
-      color: 'red',
-      year: 2020,
-      licensePlate: 'hdksak',
-      mileage: 2332,
-      imageUrl:
-        'https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg',
-      userId: '88b7c240-3227-4046-96c1-b19b85d7074f',
-      createdAt: '2023-12-03T05:56:50.942Z',
-      updatedAt: '2023-12-03T05:56:50.942Z',
-      user: {
-        id: '88b7c240-3227-4046-96c1-b19b85d7074f',
-        lastName: 'Yordan',
-        firstName: 'Jimenez',
-        email: 'yordan@hotmail.com',
-        phone: 1122332212,
-        rol: 'user',
-        pass: '$2b$10$2y1ZaU1JNO8OwZwIooVTze8JVknL.B69O9X6KNtIrkU2kmba85vgC',
-      },
-      repairLog: [
-        {
-          id: 'b9a91a5a-a378-4ed4-956a-8758b4b2a18f',
-          date: '2023-12-03T00:00:00.000Z',
-          description: 'Probando ando',
-          cost: 90,
-          state: 'Cotizar',
-          vehicleId: '1497cedd-6361-41ec-b0ff-4e62cf090782',
-          mechanicId: 'b5926459-c4aa-4274-8e6b-3f9c9866ae31',
-          MechanicId: null,
-        },
-      ],
-    },
-    {
-      id: '1497cedf4-4e62cf090782',
-      brand: 'Tesla',
-      model: 'Model S',
-      color: 'red',
-      year: 2020,
-      licensePlate: 'hdksak',
-      mileage: 2332,
-      imageUrl:
-        'https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg',
-      userId: '88b7c240-3227-4046-96c1-b19b85d7074f',
-      createdAt: '2023-12-03T05:56:50.942Z',
-      updatedAt: '2023-12-03T05:56:50.942Z',
-      user: {
-        id: '88b7c240-3227-4046-96c1-b19b85d7074f',
-        lastName: 'Yordan',
-        firstName: 'Jimenez',
-        email: 'yordan@hotmail.com',
-        phone: 1122332212,
-        rol: 'user',
-        pass: '$2b$10$2y1ZaU1JNO8OwZwIooVTze8JVknL.B69O9X6KNtIrkU2kmba85vgC',
-      },
-      repairLog: [
-        {
-          id: 'b9a91a5a-a378-4ed4-954a-8758b4b2a18f',
-          date: '2023-12-03T00:00:00.000Z',
-          description: 'Probando ando',
-          cost: 90,
-          state: 'Cotizar',
-          vehicleId: '1497cedd-6361-41ec-b0ff-4e62cf090782',
-          mechanicId: 'b5926459-c4aa-4274-8e6b-3f9c9866ae31',
-          MechanicId: null,
-        },
-      ],
-    },
-    {
-      id: '1497ce782',
-      brand: 'Tesla',
-      model: 'Model S',
-      color: 'red',
-      year: 2020,
-      licensePlate: 'hdksak',
-      mileage: 2332,
-      imageUrl:
-        'https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg',
-      userId: '88b7c240-3227-4046-96c1-b19b85d7074f',
-      createdAt: '2023-12-03T05:56:50.942Z',
-      updatedAt: '2023-12-03T05:56:50.942Z',
-      user: {
-        id: '88b7c240-3227-4046-96c1-b19b85d7074f',
-        lastName: 'Yordan',
-        firstName: 'Jimenez',
-        email: 'yordan@hotmail.com',
-        phone: 1122332212,
-        rol: 'user',
-        pass: '$2b$10$2y1ZaU1JNO8OwZwIooVTze8JVknL.B69O9X6KNtIrkU2kmba85vgC',
-      },
-      repairLog: [
-        {
-          id: 'b9a91a5a-a378-4ed4-956a-8758b4b2a18f',
-          date: '2023-12-03T00:00:00.000Z',
-          description: 'Probando ando',
-          cost: 90,
-          state: 'Cotizar',
-          vehicleId: '1497cedd-6361-41ec-b0ff-4e62cf090782',
-          mechanicId: 'b5926459-c4aa-4274-8e6b-3f9c9866ae31',
-          MechanicId: null,
-        },
-      ],
-    },
-    {
-      id: '1497ced2',
-      brand: 'Tesla',
-      model: 'Model S',
-      color: 'red',
-      year: 2020,
-      licensePlate: 'hdksak',
-      mileage: 2332,
-      imageUrl:
-        'https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg',
-      userId: '88b7c240-3227-4046-96c1-b19b85d7074f',
-      createdAt: '2023-12-03T05:56:50.942Z',
-      updatedAt: '2023-12-03T05:56:50.942Z',
-      user: {
-        id: '88b7c240-3227-4046-96c1-b19b85d7074f',
-        lastName: 'Yordan',
-        firstName: 'Jimenez',
-        email: 'yordan@hotmail.com',
-        phone: 1122332212,
-        rol: 'user',
-        pass: '$2b$10$2y1ZaU1JNO8OwZwIooVTze8JVknL.B69O9X6KNtIrkU2kmba85vgC',
-      },
-      repairLog: [
-        {
-          id: 'b9a91a5a-a378-4ed4-956a-8758b4b2a18f',
-          date: '2023-12-03T00:00:00.000Z',
-          description: 'Probando ando',
-          cost: 90,
-          state: 'Cotizar',
-          vehicleId: '1497cedd-6361-41ec-b0ff-4e62cf090782',
-          mechanicId: 'b5926459-c4aa-4274-8e6b-3f9c9866ae31',
-          MechanicId: null,
-        },
-      ],
-    },
-  ]);
+  useEffect(() => {
+    getAllCars();
+  }, [getAllCars]);
+
+  const vehicleData: CarModel[] = cars;
 
   const [currentView, setCurrentView] = useState<'taller' | 'cliente'>(
     'taller'
   );
+
+  const [openModal, setOpenModal] = useState(false)
+
   const filteredData =
     currentView === 'taller'
       ? vehicleData
@@ -169,11 +35,10 @@ const VehiclePage: React.FC = () => {
           onClick={() => {
             setCurrentView('taller');
           }}
-          className={`${
-            currentView === 'taller'
-              ? ' text-secondary font-bold underline'
-              : 'text-secondary font-bold'
-          }`}
+          className={`${currentView === 'taller'
+            ? ' text-secondary font-bold underline'
+            : 'text-secondary font-bold'
+            }`}
         >
           Taller
         </button>
@@ -181,45 +46,60 @@ const VehiclePage: React.FC = () => {
           onClick={() => {
             setCurrentView('cliente');
           }}
-          className={` ${
-            currentView === 'cliente'
-              ? ' text-secondary font-bold underline'
-              : 'text-secondary font-bold'
-          }`}
+          className={` ${currentView === 'cliente'
+            ? ' text-secondary font-bold underline'
+            : 'text-secondary font-bold'
+            }`}
         >
           Cliente
         </button>
       </div>
 
-      <section className='flex justify-center mt-10'>
-        <div className='flex flex-row flex-wrap gap-10 justify-center '>
-          <div className=' flex flex-col justify-center items-center gap-5'>
-            <section className='bg-base-300 rounded-3xl w-24 h-24 flex place-content-center'>
-              <Image width={36} height={36} src={PlusIcon} alt='clio 1.2' />
-            </section>
-            <p className='font-bold'>Agregar vehiculo</p>
-          </div>
-
-          {filteredData.map((vehicle:Vehicle,index:number) => (
-            <div key={index} className=' flex flex-col justify-center items-center'>
-              <section className='bg-base-300 rounded-3xl w-24 h-24 flex justify-center items-center'>
-                <Image
-                className=' h-7 w-20'
-                  src={
-                    /* vehicle.imageUrl */ CarImage
-                  }
-                  alt='clio 1.2'
-                />
+      <section className=' flex justify-center mt-10'>
+        <div className='md:flex md:flex-row md:flex-wrap gap-10 grid grid-cols-2 items-center justify-center w-full'>
+          <div className='hidden md:block '>
+            <button onClick={() => { setOpenModal(true) }} className=' flex flex-col justify-center items-center gap-5'>
+              <section className='bg-base-300 rounded-3xl w-24 h-24 flex place-content-center'>
+                <Image width={36} height={36} src={PlusIcon} alt='clio 1.2' />
               </section>
-              <p className='text-base font-bold'>{vehicle.brand}</p>
-              <p className='text-base font-normal text-accent'>{`${vehicle.user.firstName} ${vehicle.user.lastName}`}</p>
-            </div>
-          ))}
+              <p className='font-bold'>Agregar vehiculo</p>
+            </button>
+          </div>
+          {filteredData.length === 0 ? (
+            <p>No hay vehículos disponibles.</p>
+          ) : (
+            filteredData.map((vehicle: CarModel, index: number) => (
+
+              <div
+                key={index}
+                className=' flex flex-col justify-center items-center'
+
+              >
+                <Link href={`/car/${vehicle.id}`}><section className='bg-base-300 hover:shadow-lg cursor-pointer rounded-3xl w-24 h-24 flex justify-center items-center'>
+                  <Image
+                    className='h-7 w-20'
+                    src={vehicle.imageUrl}
+                    alt={`Imagen de ${vehicle.brand}`}
+                    width={30}
+                    height={30}
+                  />
+                </section></Link>
+                <p className='text-base font-bold'>{vehicle.brand}</p>
+                <p className='text-base font-normal text-accent'>{`${vehicle.user.firstName} ${vehicle.user.lastName}`}</p>
+              </div>
+            ))
+          )}
         </div>
       </section>
-      {/* <div className='flex justify-center'>
-                <button className=' bg-cyan-400 p-4 font-bold mt-5 text-white rounded-[100%] text-[20px] '>+</button>
-            </div> */}
+
+      <button onClick={() => { setOpenModal(true) }} className=' block md:hidden    fixed  bottom-[5%] left-[48%]'>
+        <div className='flex justify-center '>
+          <Image className='hover:scale-150' src={botonmas} alt='boton' />
+        </div>
+      </button>
+
+
+      <RegisterClient open={openModal} handleOpen={setOpenModal} />
     </div>
   );
 };
