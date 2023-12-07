@@ -14,9 +14,9 @@ import * as yup from 'yup';
 import swal from 'sweetalert';
 
 import { useFormik } from 'formik';
-import { useEffect } from 'react';
-import { createWorkShop, getWorkShop } from '@/services/workshopService';
-import { getWorkShopAsync } from '@/store/features/workShop/workShopSlice';
+// import { useEffect } from 'react';
+// import { createWorkShop, getWorkShop } from '@/services/workshopService';
+// import { getWorkShopAsync } from '@/store/features/workShop/workShopSlice';
 import { useWorkshop } from '@/hook';
 
 const basicSchema = yup.object().shape({
@@ -45,9 +45,9 @@ const initialValues: InitialValues = {
 const WorkshopRegister = (): JSX.Element => {
   const { getWorkShop, workShop } = useWorkshop();
 
-  useEffect(() => {
-    getWorkShop('8cc6f577-621f-4a75-bcec-fd46659c1322');
-  }, []);
+  // useEffect(() => {
+
+  // }, []);
 
   const { values, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues,
@@ -77,7 +77,7 @@ const WorkshopRegister = (): JSX.Element => {
         className='flex flex-col w-full gap-2 my-8 items-center'
       >
         <div className='flex flex-row gap-2'>
-          <Image src={GroupIcon} alt='user icon' />
+          <Image src={GroupIcon} alt='user icon' width={25} height={25} />
           <Input
             name='workshopName'
             placeholder='Nombre del taller'
@@ -89,7 +89,7 @@ const WorkshopRegister = (): JSX.Element => {
           />
         </div>
         <div className='flex flex-row gap-2'>
-          <Image src={LockIcon} alt='user icon' />
+          <Image src={LockIcon} alt='user icon' width={25} height={25} />
           <Input
             name='password'
             placeholder='Contraseña'
@@ -101,7 +101,7 @@ const WorkshopRegister = (): JSX.Element => {
           />
         </div>
         <div className='flex flex-row gap-2'>
-          <Image src={MailIcon} alt='user icon' />
+          <Image src={MailIcon} alt='user icon' width={25} height={25} />
           <Input
             name='email'
             placeholder='Email'
@@ -113,7 +113,7 @@ const WorkshopRegister = (): JSX.Element => {
           />
         </div>
         <div className='flex flex-row gap-2'>
-          <Image src={PhoneIcon} alt='user icon' />
+          <Image src={PhoneIcon} alt='user icon' width={25} height={25} />
           <Input
             name='phone'
             placeholder='Teléfono'
@@ -125,7 +125,7 @@ const WorkshopRegister = (): JSX.Element => {
           />
         </div>
         <div className='flex flex-row gap-2'>
-          <Image src={AddressIcon} alt='user icon' />
+          <Image src={AddressIcon} alt='user icon' width={25} height={25} />
           <Input
             name='address'
             placeholder='Direccion'
