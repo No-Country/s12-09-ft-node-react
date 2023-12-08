@@ -1,12 +1,11 @@
-import { Request, Response } from 'express'
-import { z } from 'zod'
+import { NextFunction, Request, Response } from 'express'
 import { RepairLog } from '../models/RepairLog'
 import { Users } from '../models/Users'
 import { Vehicle } from '../models/Vehicle'
 import { uuidSchema, vehicleSchema } from '../utils/zodSchemas'
 
 export class VehicleController {
-	static async getVehicles(req: Request, res: Response) {
+	static async getVehicles(req: Request, res: Response, next: NextFunction) {
 		try {
 			const vehicles = await Vehicle.findAll({
 				include: [
@@ -16,11 +15,11 @@ export class VehicleController {
 			})
 			res.json(vehicles)
 		} catch (error) {
-			res.status(500).json(error)
+			next(error)
 		}
 	}
 
-	static async getVehicleById(req: Request, res: Response) {
+	static async getVehicleById(req: Request, res: Response, next: NextFunction) {
 		const { id } = req.params
 		try {
 			uuidSchema.parse(id)
@@ -35,17 +34,11 @@ export class VehicleController {
 			}
 			res.json(vehicle)
 		} catch (error) {
-			if (error instanceof z.ZodError) {
-				res
-					.status(400)
-					.json({ message: 'Validation error', details: error.errors })
-			} else {
-				res.status(500).json({ error: 'Internal Server Error' })
-			}
+			next(error)
 		}
 	}
 
-	static async createVehicle(req: Request, res: Response) {
+	static async createVehicle(req: Request, res: Response, next: NextFunction) {
 		try {
 			// Validar los datos del cuerpo de la solicitud
 			const data = vehicleSchema.parse(req.body)
@@ -53,26 +46,18 @@ export class VehicleController {
 			// Verificar si el usuario existe
 			const user = await Users.findByPk(data.userId)
 			if (!user) {
-				return res.status(400).json({ message: 'User not found' })
+				throw new Error('User not found')
 			}
 
 			// Crear el nuevo vehículo
 			const newVehicle = await Vehicle.create(data)
 			res.status(201).json(newVehicle)
 		} catch (error) {
-			if (error instanceof z.ZodError) {
-				// Errores de validación de Zod
-				res
-					.status(400)
-					.json({ message: 'Validation error', details: error.errors })
-			} else {
-				// Otros errores
-				res.status(500).json({ error: 'Internal Server Error' })
-			}
+			next(error)
 		}
 	}
 
-	static async updateVehicle(req: Request, res: Response) {
+	static async updateVehicle(req: Request, res: Response, next: NextFunction) {
 		const { id } = req.params
 		const { brand, model, color, year, licensePlate, mileage, userId } =
 			req.body
@@ -92,43 +77,29 @@ export class VehicleController {
 			})
 
 			const existingVehicle = await Vehicle.findByPk(id)
-			if (existingVehicle) {
-				await existingVehicle.update(data)
-				res.json(existingVehicle)
-			} else {
-				res.status(404).json({ error: 'Vehicle not found' })
+			if (!existingVehicle) {
+				throw new Error('Vehicle not found')
 			}
+			await existingVehicle.update(data)
+			res.json(existingVehicle)
 		} catch (error) {
-			if (error instanceof z.ZodError) {
-				res
-					.status(400)
-					.json({ message: 'Validation error', details: error.errors })
-			} else {
-				res.status(500).json({ error: 'Internal Server Error' })
-			}
+			next(error)
 		}
 	}
 
-	static async deleteVehicle(req: Request, res: Response) {
+	static async deleteVehicle(req: Request, res: Response, next: NextFunction) {
 		const { id } = req.params
 		try {
 			// Validar el ID
 			uuidSchema.parse(id)
 
 			const deletedVehicleCount = await Vehicle.destroy({ where: { id } })
-			if (deletedVehicleCount > 0) {
-				res.json({ message: 'Vehicle deleted successfully' })
-			} else {
-				res.status(404).json({ error: 'Vehicle not found' })
+			if (!deletedVehicleCount) {
+				throw new Error('Vehicle not found')
 			}
+			res.json({ message: 'Vehicle deleted successfully' })
 		} catch (error) {
-			if (error instanceof z.ZodError) {
-				res
-					.status(400)
-					.json({ message: 'Validation error', details: error.errors })
-			} else {
-				res.status(500).json({ error: 'Internal Server Error' })
-			}
+			next(error)
 		}
 	}
 }

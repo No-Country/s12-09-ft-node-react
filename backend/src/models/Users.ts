@@ -72,7 +72,7 @@ export class Users extends Model {
 	email!: string
 
 	@Column({
-		type: DataType.INTEGER,
+		type: DataType.STRING,
 		allowNull: false,
 		unique: true,
 	})

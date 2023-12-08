@@ -68,4 +68,20 @@ export class appointmentsController {
 			next(error)
 		}
 	}
+	// static async prueba(req: Request, res: Response, next: NextFunction) {
+	// 	try {
+	// 		const ejemploProyecto = {
+	// 			reparacion: [...req.body[0]],
+	// 			mantenimiento: [...req.body[1]],
+	// 		}
+
+	// 		const result = await Appointments.create({
+	// 			pruebas:ejemploProyecto
+	// 		})
+
+	// 		res.status(200).json(result)
+	// 	} catch (error) {
+	// 		res.status(500).json(error)
+	// 	}
+	// }
 }

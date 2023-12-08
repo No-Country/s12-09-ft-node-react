@@ -33,6 +33,18 @@ export const mechanicSchema = z.object({
 	phone: z.string().optional(),
 	role: z.string().default('mechanic'),
 })
+export const userSchema = z.object({
+	firstName: z.string().min(2, 'First name too small'),
+	lastName: z.string().min(2, 'Last name too small'),
+	email: z.string().email({ message: 'Invalid email address' }),
+	document: z
+		.number()
+		.min(6)
+		.int()
+		.positive({ message: 'Document must be a positive integer' }),
+	phone: z.string().optional(),
+	role: z.string().default('user'),
+})
 
 export const repairLogSchema = z.object({
 	description: z.string().min(2, 'Description too small'),
@@ -47,7 +59,7 @@ export const repairLogSchema = z.object({
 
 export const appointmentsSchema = z.object({
 	date: z.date(),
-	menssage: z.string().min(3,{ message: 'Message too small' }),
+	menssage: z.string().min(3, { message: 'Message too small' }),
 })
 
 export const uuidSchema = z.string().uuid()
