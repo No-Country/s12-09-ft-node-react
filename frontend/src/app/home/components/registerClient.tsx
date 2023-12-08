@@ -151,7 +151,7 @@ export const RegisterClient = ({ open, handleOpen }: Props) => {
             <div className='flex gap-2 w-full'>
               <div className='w-full'>
                 <Input
-                  type='number'
+                  type='text'
                   name='document'
                   placeholder='DNI'
                   className={`bg-base-100 text-sm ${
@@ -167,7 +167,7 @@ export const RegisterClient = ({ open, handleOpen }: Props) => {
 
               <div className='w-full'>
                 <Input
-                  type='number'
+                  type='text'
                   name='phone'
                   placeholder='Teléfono'
                   className={`bg-base-100 text-sm ${
