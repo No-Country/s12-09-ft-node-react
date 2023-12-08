@@ -9,6 +9,9 @@ import PhoneIcon from './phone.svg';
 import AddressIcon from './address.svg';
 import BotonmasIcon from './botonmas.svg';
 
+import OpenEyeIcon from './openEye.svg';
+import CloseEyeIcon from './closeEye.svg';
+
 export {
   BarsIcon,
   PlusIcon,
@@ -19,4 +22,6 @@ export {
   PhoneIcon,
   AddressIcon,
   BotonmasIcon,
+  OpenEyeIcon,
+  CloseEyeIcon,
 };
