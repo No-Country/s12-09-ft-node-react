@@ -9,6 +9,7 @@ import { PlusIcon, BotonmasIcon } from '@/assets/icons';
 
 import { useVehicle } from '@/hook';
 import type { Vehicle } from '@/@types';
+import RegisterVehicle from './components/registerVehicle';
 
 const VehiclePage = () => {
   const { vehicles, getAllVehicles } = useVehicle();
@@ -113,6 +114,7 @@ const VehiclePage = () => {
       </button>
 
       <RegisterClient open={openModal} handleOpen={setOpenModal} />
+      <RegisterVehicle/>
     </div>
   );
 };
