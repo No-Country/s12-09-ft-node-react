@@ -1,8 +1,4 @@
-import {
-  useAppSelector,
-  type AppDispatch,
-  useAppDispatch,
-} from '@/store/store';
+import { useAppSelector, useAppDispatch } from '@/store/store';
 import {
   openClientModal,
   closeClientModal,
@@ -13,48 +9,46 @@ import {
 } from '@/store/features/modal.slice';
 
 export const useModal = () => {
-  const { isOpen: isClientModalOpen, userData } = useAppSelector(
-    state => state.modal.clientModal
-  );
+  const dispatch = useAppDispatch();
+  const { isOpen: isClientModalOpen, userData } = useAppSelector(state => state.modal.clientModal);
+
   const {
-    isOpen: isRegisterModalOpen,
+    isOpen: isVehicleModalOpen,
     userId,
     vehicleData,
   } = useAppSelector(state => state.modal.vehicleModal);
 
-  const dispatch: AppDispatch = useAppDispatch();
-
-  const openClientModalAction = () => {
+  function openClientModalAction() {
     dispatch(openClientModal());
-  };
+  }
 
-  const closeClientModalAction = () => {
+  function closeClientModalAction() {
     dispatch(closeClientModal());
-  };
+  }
 
-  const setUserDataAction = (data: any) => {
+  function setUserDataAction(data: any) {
     dispatch(setUserData(data));
-  };
+  }
 
-  const openVehicleModalAction = (userId: string) => {
+  function openVehicleModalAction(userId: string) {
     dispatch(openVehicleModal(userId));
-  };
+  }
 
-  const closeVehicleModalAction = () => {
+  function closeVehicleModalAction() {
     dispatch(closeVehicleModal());
-  };
+  }
 
-  const setVehicleDataAction = (data: any) => {
+  function setVehicleDataAction(data: any) {
     dispatch(setVehicleData(data));
-  };
+  }
 
   return {
     isClientModalOpen,
     userData,
-    openClientModalAction,
+    openClientModal: openClientModalAction,
     closeClientModal: closeClientModalAction,
     setUserData: setUserDataAction,
-    isRegisterModalOpen,
+    isVehicleModalOpen,
     userId,
     vehicleData,
     openVehicleModal: openVehicleModalAction,

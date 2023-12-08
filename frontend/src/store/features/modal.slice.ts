@@ -1,6 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+interface ClientModal {
+    isOpen: boolean,
+    userData: null
+}
+
+interface VehicleModel {
+    isOpen: boolean,
+    userId: null,
+    vehicleData: null
+}
+
+export interface State {
+    clientModal: ClientModal;
+    vehicleModal: VehicleModel
+}
+
+const initialState: State = {
     clientModal: {
       isOpen: false,
       userData: null,

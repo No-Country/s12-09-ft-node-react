@@ -3,8 +3,9 @@
 import type { User } from '@/@types';
 import { Input } from '@/components/input';
 import { useClient } from '@/hook/useClient';
+import { useModal } from '@/hook/useModal';
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as yup from 'yup';
 
 const passwordRules = /^(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
@@ -36,12 +37,8 @@ const initialValues: User = {
   document: 0,
 };
 
-interface Props {
-  open: boolean;
-  handleOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export const RegisterClient = ({ open, handleOpen }: Props) => {
+export const RegisterClient = () => {
+  const { isClientModalOpen, closeClientModal } = useModal();
   const { createClient } = useClient();
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
@@ -54,14 +51,14 @@ export const RegisterClient = ({ open, handleOpen }: Props) => {
 
   const [currentView, setCurrentView] = useState<'new' | 'existing'>('new');
 
-  const closeModal = () => {
-    handleOpen(false);
-  };
+  useEffect(() => {
+    console.log('ClientModal', isClientModalOpen);
+  }, [isClientModalOpen]);
 
   return (
     <div
       className={`absolute w-full bottom-0 bg-gray-200 rounded-t-[3rem] sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[3rem] sm:max-w-md ${
-        open ? '' : 'hidden'
+        isClientModalOpen ? '' : 'hidden'
       } transition-all`}
     >
       <header className='flex gap-8 sm:gap-16 justify-center pt-8'>
@@ -216,7 +213,7 @@ export const RegisterClient = ({ open, handleOpen }: Props) => {
       </main>
 
       <div className='flex justify-center items-center py-2'>
-        <button onClick={closeModal}>cerrar modal</button>
+        <button onClick={closeClientModal}>cerrar modal</button>
       </div>
     </div>
   );

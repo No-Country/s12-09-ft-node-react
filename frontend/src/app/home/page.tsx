@@ -10,9 +10,12 @@ import { PlusIcon, BotonmasIcon } from '@/assets/icons';
 import { useVehicle } from '@/hook';
 import type { Vehicle } from '@/@types';
 import RegisterVehicle from './components/registerVehicle';
+import { useModal } from '@/hook/useModal';
 
 const VehiclePage = () => {
   const { vehicles, getAllVehicles } = useVehicle();
+  const { openClientModal } = useModal()
+  
 
   useEffect(() => {
     getAllVehicles();
@@ -23,8 +26,6 @@ const VehiclePage = () => {
   const [currentView, setCurrentView] = useState<'taller' | 'cliente'>(
     'taller'
   );
-
-  const [openModal, setOpenModal] = useState(false);
 
   const filteredData =
     currentView === 'taller'
@@ -64,9 +65,7 @@ const VehiclePage = () => {
         <div className='md:flex md:flex-row md:flex-wrap gap-10 grid grid-cols-2 items-center justify-center w-full'>
           <div className='hidden md:block '>
             <button
-              onClick={() => {
-                setOpenModal(true);
-              }}
+              onClick={openClientModal}
               className=' flex flex-col justify-center items-center gap-5'
             >
               <section className='bg-base-300 rounded-3xl w-24 h-24 flex place-content-center'>
@@ -103,9 +102,7 @@ const VehiclePage = () => {
       </section>
 
       <button
-        onClick={() => {
-          setOpenModal(true);
-        }}
+        onClick={openClientModal}
         className=' block md:hidden    fixed  bottom-[5%] left-[48%]'
       >
         <div className='flex justify-center '>
@@ -113,7 +110,7 @@ const VehiclePage = () => {
         </div>
       </button>
 
-      <RegisterClient open={openModal} handleOpen={setOpenModal} />
+      <RegisterClient />
       <RegisterVehicle/>
     </div>
   );
