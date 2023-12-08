@@ -1,7 +1,7 @@
 'use client';
 
 import type { User } from '@/@types';
-import { Input } from '@/components';
+import { Input } from '@/components/input';
 import { useClient } from '@/hook/useClient';
 import { useFormik } from 'formik';
 import { useState } from 'react';
@@ -94,7 +94,7 @@ export const RegisterClient = ({ open, handleOpen }: Props) => {
                 currentView === 'existing' ? '' : 'hidden'
               }`}
             />
-          </div>
+          </div>/home/alvaro/proyectos/s12-09-ft-node-react/frontend/src/app/car
         </button>
       </header>
 

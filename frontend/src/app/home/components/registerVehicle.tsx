@@ -1,7 +1,7 @@
 'use client';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { input as Input } from '@/components';
+import { Input } from '@/components/input';
 
 const basicSchema = yup.object().shape({
   brand: yup.string().required('Required'),
