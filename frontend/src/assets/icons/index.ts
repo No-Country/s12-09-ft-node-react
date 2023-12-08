@@ -7,6 +7,10 @@ import LockIcon from './lock.svg';
 import MailIcon from './mail.svg';
 import PhoneIcon from './phone.svg';
 import AddressIcon from './address.svg';
+import BotonmasIcon from './botonmas.svg';
+
+import OpenEyeIcon from './openEye.svg';
+import CloseEyeIcon from './closeEye.svg';
 
 export {
   BarsIcon,
@@ -17,4 +21,7 @@ export {
   MailIcon,
   PhoneIcon,
   AddressIcon,
+  BotonmasIcon,
+  OpenEyeIcon,
+  CloseEyeIcon,
 };

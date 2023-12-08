@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { header as Header } from '@/components';
-import { Providers } from '@/store/provider';
+import { Header } from '@/components';
+import { StoreProvider } from '@/store';
+import { ModalProvider } from '@/context';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -11,16 +12,17 @@ export const metadata: Metadata = {
   description: 'Automotive service manager',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+interface Props {
+  children: JSX.Element;
+}
+export default function RootLayout({ children }: Props) {
   return (
     <html lang='en' data-theme='light'>
       <body className={inter.className}>
         <Header />
-        <Providers>{children}</Providers>
+        <StoreProvider>
+          <ModalProvider>{children}</ModalProvider>
+        </StoreProvider>
       </body>
     </html>
   );

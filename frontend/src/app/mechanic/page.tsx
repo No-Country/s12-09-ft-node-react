@@ -1,6 +1,4 @@
 'use client';
-import { useRouter } from 'next/navigation';
-
 import { input as Input } from '@/components';
 import { PlusIcon, UserIcon } from '@/assets/icons';
 import Image from 'next/image';
@@ -10,7 +8,8 @@ import * as yup from 'yup';
 import swal from 'sweetalert';
 
 import { useMechanic } from '@/hook';
-import type { MechanicModel } from '@/model';
+import type { Mechanic } from '@/@types';
+import { Welcome } from './components/Welcome';
 
 const basicSchema = yup.object().shape({
   email: yup.string().email('Plesase enter a valid email').required('Required'),
@@ -22,7 +21,7 @@ const basicSchema = yup.object().shape({
   // password: yup.string().min(5).required('Required'),
 });
 
-const initialValues: MechanicModel = {
+const initialValues: Mechanic = {
   email: '',
   firstName: '',
   lastName: '',
@@ -33,22 +32,15 @@ const initialValues: MechanicModel = {
 };
 export default function MechanicPage() {
   const { createMechanic } = useMechanic();
-  const router = useRouter();
 
-  const { values, handleChange, handleBlur, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema: basicSchema,
-    onSubmit: (values: MechanicModel) => {
-      createMechanic(values);
-      // if(response){
-      swal('Mecanico guardado', '', 'success');
-      // } else {
-      //   swal('El mecanico no fue gruardado', '', 'error');
-      // }
-
-      router.push('/home', { scroll: false });
-    },
-  });
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: basicSchema,
+      onSubmit: (values: Mechanic) => {
+        createMechanic(values);
+      },
+    });
 
   return (
     <form
@@ -56,11 +48,7 @@ export default function MechanicPage() {
       autoComplete='off'
       className='flex flex-col justify-center items-center m-5 gap-5 [&>div]:mt-5'
     >
-      <h1 className='text-3xl font-bold text-secondary'>Tu equipo</h1>
-
-      <h2 className='text-xl text-center text-accent'>
-        Crea usuarios para tu equipo de trabajo
-      </h2>
+      <Welcome />
       <div className='flex flex-col gap-3'>
         <div className='flex justify-between'>
           <button type='button' className='btn btn-sm btn-circle bg-base-300'>
@@ -81,7 +69,11 @@ export default function MechanicPage() {
           </button>
         </div>
         <Input
-          className=''
+          className={
+            errors.email != null && touched.email != null
+              ? 'border-error border-2'
+              : ''
+          }
           value={values.email}
           handleBlur={handleBlur}
           handleChange={handleChange}
@@ -89,31 +81,36 @@ export default function MechanicPage() {
           placeholder='Email'
           type='text'
         />
-
-        <div className='flex w-full gap-5'>
-          <Input
-            className=''
-            value={values.firstName}
-            handleBlur={handleBlur}
-            handleChange={handleChange}
-            name='firstName'
-            placeholder='Nombre'
-            type='text'
-          />
-          <Input
-            className=''
-            value={values.lastName}
-            handleBlur={handleBlur}
-            handleChange={handleChange}
-            name='lastName'
-            placeholder='Apellido'
-            type='text'
-          />
-        </div>
+        {errors.email != null && touched.email != null && (
+          <p className='text-xs text-error mt-[-10px]'>{errors.email}</p>
+        )}
         <div className='flex flex-row gap-3'>
           <div className='flex-1 flex flex-col gap-3'>
             <Input
-              className=''
+              className={
+                errors.firstName != null && touched.firstName != null
+                  ? 'border-error border-2'
+                  : ''
+              }
+              value={values.firstName}
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+              name='firstName'
+              placeholder='Nombre'
+              type='text'
+            />
+            {errors.firstName != null && touched.firstName != null && (
+              <p className='text-xs text-error mt-[-10px]'>
+                {errors.firstName}
+              </p>
+            )}
+
+            <Input
+              className={
+                errors.document != null && touched.document != null
+                  ? 'border-error border-2'
+                  : ''
+              }
               value={values.document}
               handleBlur={handleBlur}
               handleChange={handleChange}
@@ -121,19 +118,33 @@ export default function MechanicPage() {
               placeholder='Dni'
               type='number'
             />
-            {/* <Input
-              className={(errors.role && touched.role) ? 'border-error border-2' : ''}
-              value={values.role}
-              handleBlur={handleBlur}
-              handleChange={handleChange}
-              name='role'
-              placeholder='Rol'
-              type='text'
-            /> */}
+            {errors.document != null && touched.document != null && (
+              <p className='text-xs text-error mt-[-10px]'>{errors.document}</p>
+            )}
           </div>
           <div className='flex-1  flex flex-col gap-3'>
             <Input
-              className=''
+              className={
+                errors.lastName != null && touched.lastName != null
+                  ? 'border-error border-2'
+                  : ''
+              }
+              value={values.lastName}
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+              name='lastName'
+              placeholder='Apellido'
+              type='text'
+            />
+            {errors.lastName != null && touched.lastName != null && (
+              <p className='text-xs text-error mt-[-10px]'>{errors.lastName}</p>
+            )}
+            <Input
+              className={
+                errors.phone != null && touched.phone != null
+                  ? 'border-error border-2'
+                  : ''
+              }
               value={values.phone}
               handleBlur={handleBlur}
               handleChange={handleChange}
@@ -141,15 +152,9 @@ export default function MechanicPage() {
               placeholder='Teléfono'
               type='string'
             />
-            {/* <Input
-              className={(errors.password && touched.password) ? 'border-error border-2' : ''}
-              value={values.password}
-              handleBlur={handleBlur}
-              handleChange={handleChange}
-              name='password'
-              placeholder='Contraseña'
-              type='password'
-            /> */}
+            {errors.phone != null && touched.phone != null && (
+              <p className='text-xs text-error mt-[-10px]'>{errors.phone}</p>
+            )}
           </div>
         </div>
         <div className='flex justify-center mt-6'>

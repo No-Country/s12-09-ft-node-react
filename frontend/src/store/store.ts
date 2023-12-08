@@ -1,19 +1,23 @@
-'use client';
-
-import { useSelector } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit';
+import { useDispatch, useSelector } from 'react-redux';
 import type { TypedUseSelectorHook } from 'react-redux';
 
-import { carReducer } from './features/car/carSlice';
-import { mechanicReducer } from './features/mechanic/mechanicSlice';
+import { workShopReducer } from './features/workshop.slice';
+import { mechanicReducer } from './features/mechanic.slice';
+import { vehicleReducer, clientReducer } from './features';
 
 export const store = configureStore({
-    reducer: {
-        cars: carReducer,
-        mechanics: mechanicReducer
-    }
-})
+  reducer: {
+    workShop: workShopReducer,
+    mechanics: mechanicReducer,
+    vehicles: vehicleReducer,
+    clients: clientReducer,
+  },
+});
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
+
+// Use throughout your app instead of plain `useDispatch` and `useSelector`
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

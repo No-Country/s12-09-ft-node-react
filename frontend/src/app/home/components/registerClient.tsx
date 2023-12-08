@@ -1,35 +1,37 @@
 'use client';
 
+import type { User } from '@/@types';
 import { input as Input } from '@/components';
+import { useClient } from '@/hook/useClient';
 import { useFormik } from 'formik';
 import { useState } from 'react';
-import swal from 'sweetalert';
 import * as yup from 'yup';
 
+import { OpenEyeIcon, CloseEyeIcon } from '@/assets/icons';
+import Image from 'next/image';
+
+/* const passwordRules = /^(?=.\d)(?=.[a-z])(?=.*[A-Z]).{5,}$/;
+ */
 const basicSchema = yup.object().shape({
   lastName: yup.string().required('Required'),
   firstName: yup.string().required('Required'),
   email: yup.string().email('Plesase enter a valid email').required('Required'),
-  phone: yup.number().positive().integer().required('Required'),
-  pass: yup.string().min(5).required('Required'),
-  document: yup.number().required('Required'),
+  phone: yup.number().positive().integer().min(5).required('Required'),
+  pass: yup
+    .string()
+    .min(5)
+    /* .matches(passwordRules, { message: 'Please create a stronger password' }) */
+    .required('Required'),
+  document: yup.number().min(6).required('Required'),
 });
 
-interface InitialValues {
-  lastName: string;
-  firstName: string;
-  email: string;
-  phone: string;
-  pass: string;
-  document: string;
-}
-const initialValues: InitialValues = {
+const initialValues: User = {
   lastName: '',
   firstName: '',
   email: '',
-  phone: '',
+  phone: 0,
   pass: '',
-  document: '',
+  document: 0,
 };
 
 interface Props {
@@ -37,25 +39,23 @@ interface Props {
   handleOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const RegisterClient: React.FC<Props> = ({ open, handleOpen }) => {
-  const { values, handleChange, handleBlur, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema: basicSchema,
-    onSubmit: async (values: InitialValues) => {
-      console.log(values);
-      await swal(
-        'Cliente registrado',
-        '( simulacion no tiene endpoint )',
-        'success'
-      );
-    },
-  });
+export const RegisterClient = ({ open, handleOpen }: Props) => {
+  const [passwordType, setPasswordType] = useState<string>('password');
+  const { createClient } = useClient();
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: basicSchema,
+      onSubmit: async (values: User) => {
+        createClient(values);
+      },
+    });
 
   const [currentView, setCurrentView] = useState<'new' | 'existing'>('new');
 
   const closeModal = () => {
-    handleOpen(false)
-  }
+    handleOpen(false);
+  };
 
   return (
     <div
@@ -106,7 +106,11 @@ const RegisterClient: React.FC<Props> = ({ open, handleOpen }) => {
                   name='firstName'
                   type='text'
                   placeholder='Nombre'
-                  className='bg-base-100 text-sm'
+                  className={`bg-base-100 text-sm ${
+                    errors.firstName != null && touched.firstName != null
+                      ? 'border-error border-2'
+                      : ''
+                  }`}
                   value={values.firstName}
                   handleBlur={handleBlur}
                   handleChange={handleChange}
@@ -118,7 +122,11 @@ const RegisterClient: React.FC<Props> = ({ open, handleOpen }) => {
                   name='lastName'
                   type='text'
                   placeholder='Apellidos'
-                  className='bg-base-100 text-sm'
+                  className={`bg-base-100 text-sm ${
+                    errors.lastName != null && touched.lastName != null
+                      ? 'border-error border-2'
+                      : ''
+                  }`}
                   value={values.lastName}
                   handleBlur={handleBlur}
                   handleChange={handleChange}
@@ -130,7 +138,11 @@ const RegisterClient: React.FC<Props> = ({ open, handleOpen }) => {
               <Input
                 name='email'
                 placeholder='Email'
-                className='bg-base-100 text-sm'
+                className={`bg-base-100 text-sm ${
+                  errors.email != null && touched.email != null
+                    ? 'border-error border-2'
+                    : ''
+                }`}
                 value={values.email}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
@@ -139,9 +151,14 @@ const RegisterClient: React.FC<Props> = ({ open, handleOpen }) => {
             <div className='flex gap-2 w-full'>
               <div className='w-full'>
                 <Input
+                  type='text'
                   name='document'
                   placeholder='DNI'
-                  className='bg-base-100 text-sm'
+                  className={`bg-base-100 text-sm ${
+                    errors.document != null && touched.document != null
+                      ? 'border-error border-2'
+                      : ''
+                  }`}
                   value={values.document}
                   handleBlur={handleBlur}
                   handleChange={handleChange}
@@ -150,9 +167,14 @@ const RegisterClient: React.FC<Props> = ({ open, handleOpen }) => {
 
               <div className='w-full'>
                 <Input
+                  type='text'
                   name='phone'
                   placeholder='Teléfono'
-                  className='bg-base-100 text-sm'
+                  className={`bg-base-100 text-sm ${
+                    errors.phone != null && touched.phone != null
+                      ? 'border-error border-2'
+                      : ''
+                  }`}
                   value={values.phone}
                   handleBlur={handleBlur}
                   handleChange={handleChange}
@@ -161,18 +183,46 @@ const RegisterClient: React.FC<Props> = ({ open, handleOpen }) => {
             </div>
             <div>
               <Input
+                type={passwordType}
                 name='pass'
                 placeholder='Contraseña'
-                className='bg-base-100 text-sm'
+                className={`bg-base-100 text-sm ${
+                  errors.pass != null && touched.pass != null
+                    ? 'border-error border-2'
+                    : ''
+                }`}
                 value={values.pass}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
               />
+              <label className='swap absolute right-12 bottom-[150px]'>
+                <input type='checkbox' />
+                <Image
+                  onClick={() => {
+                    setPasswordType('password');
+                  }}
+                  className='swap-off fill-current'
+                  src={OpenEyeIcon}
+                  alt='icon'
+                  width={20}
+                  height={20}
+                />
+                <Image
+                  onClick={() => {
+                    setPasswordType('text');
+                  }}
+                  className='swap-on fill-current'
+                  src={CloseEyeIcon}
+                  alt='icon'
+                  width={18}
+                  height={18}
+                />
+              </label>
             </div>
             <div className='flex justify-center pt-2 '>
               <button
                 type='submit'
-                className='btn text-lg font-medium btn-accent text-base-100 sm:w-full'
+                className='btn text-lg font-medium btn-accent text-base-180 sm:w-full'
               >
                 Registrar
               </button>
@@ -187,12 +237,8 @@ const RegisterClient: React.FC<Props> = ({ open, handleOpen }) => {
       </main>
 
       <div className='flex justify-center items-center py-2'>
-        <button onClick={closeModal}>
-          cerrar modal
-        </button>
+        <button onClick={closeModal}>cerrar modal</button>
       </div>
     </div>
   );
 };
-
-export default RegisterClient;
