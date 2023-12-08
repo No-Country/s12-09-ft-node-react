@@ -7,6 +7,9 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as yup from 'yup';
 
+import { OpenEyeIcon, CloseEyeIcon } from '@/assets/icons';
+import Image from 'next/image';
+
 /* const passwordRules = /^(?=.\d)(?=.[a-z])(?=.*[A-Z]).{5,}$/;
  */
 const basicSchema = yup.object().shape({
@@ -37,6 +40,7 @@ interface Props {
 }
 
 export const RegisterClient = ({ open, handleOpen }: Props) => {
+  const [passwordType, setPasswordType] = useState<string>('password');
   const { createClient } = useClient();
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
@@ -179,7 +183,7 @@ export const RegisterClient = ({ open, handleOpen }: Props) => {
             </div>
             <div>
               <Input
-                type='password'
+                type={passwordType}
                 name='pass'
                 placeholder='Contraseña'
                 className={`bg-base-100 text-sm ${
@@ -191,11 +195,34 @@ export const RegisterClient = ({ open, handleOpen }: Props) => {
                 handleBlur={handleBlur}
                 handleChange={handleChange}
               />
+              <label className='swap absolute right-12 bottom-[150px]'>
+                <input type='checkbox' />
+                <Image
+                  onClick={() => {
+                    setPasswordType('password');
+                  }}
+                  className='swap-off fill-current'
+                  src={OpenEyeIcon}
+                  alt='icon'
+                  width={20}
+                  height={20}
+                />
+                <Image
+                  onClick={() => {
+                    setPasswordType('text');
+                  }}
+                  className='swap-on fill-current'
+                  src={CloseEyeIcon}
+                  alt='icon'
+                  width={18}
+                  height={18}
+                />
+              </label>
             </div>
             <div className='flex justify-center pt-2 '>
               <button
                 type='submit'
-                className='btn text-lg font-medium btn-accent text-base-100 sm:w-full'
+                className='btn text-lg font-medium btn-accent text-base-180 sm:w-full'
               >
                 Registrar
               </button>

@@ -1,15 +1,13 @@
 import { BarsIcon } from '@/assets/icons';
-import { Logo } from '@/components';
+import { LogoBlue, LogoWhite } from '@/components';
 import Image from 'next/image';
 import Link from 'next/link';
+// import { useRouter } from 'next/router';
 
 export const Header = () => {
+  // const route = useRouter();
+  // console.log(route.query);
   const links = [
-    {
-      name: 'LOGO',
-      href: '/',
-      icon: '',
-    },
     {
       name: 'Home',
       href: '/home',
@@ -39,7 +37,9 @@ export const Header = () => {
 
   return (
     <div className='navbar bg-primary'>
-      <Logo />
+      <Link className='hover:bg-inherit' href={'/'}>
+        <LogoWhite />
+      </Link>
 
       <div className='drawer justify-end'>
         <input id='my-drawer' type='checkbox' className='drawer-toggle' />
@@ -56,6 +56,11 @@ export const Header = () => {
             className='drawer-overlay'
           ></label>
           <ul className='menu p-4 w-80 min-h-full bg-base-200 text-base-content'>
+            <li key='logo'>
+              <Link className='hover:bg-inherit' href={'/'}>
+                <LogoBlue />
+              </Link>
+            </li>
             {links.map(item => {
               return (
                 <li key={item.name}>
