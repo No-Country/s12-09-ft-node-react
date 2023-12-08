@@ -1,5 +1,5 @@
 'use client';
-import { input as Input } from '@/components';
+import { Input } from '@/components';
 import { PlusIcon, UserIcon } from '@/assets/icons';
 import Image from 'next/image';
 
@@ -15,7 +15,13 @@ const basicSchema = yup.object().shape({
   email: yup.string().email('Plesase enter a valid email').required('Required'),
   firstName: yup.string().required('Required'),
   lastName: yup.string().required('Required'),
-  document: yup.number().positive().integer().required('Required'),
+  document: yup
+    .number()
+    .positive()
+    .integer()
+    .min(10000, 'Must be higher to 10000')
+    .max(99999999, 'Must be lesser to 99999999')
+    .required('Required'),
   phone: yup.string().required('Required'),
   // role: yup.string().required('Required'),
   // password: yup.string().min(5).required('Required'),

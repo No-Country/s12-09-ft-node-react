@@ -1,28 +1,30 @@
 'use client';
 
 import type { User } from '@/@types';
-import { input as Input } from '@/components';
+import { Input } from '@/components';
 import { useClient } from '@/hook/useClient';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as yup from 'yup';
 
-import { OpenEyeIcon, CloseEyeIcon } from '@/assets/icons';
-import Image from 'next/image';
+const passwordRules = /^(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 
-/* const passwordRules = /^(?=.\d)(?=.[a-z])(?=.*[A-Z]).{5,}$/;
- */
 const basicSchema = yup.object().shape({
-  lastName: yup.string().required('Required'),
-  firstName: yup.string().required('Required'),
-  email: yup.string().email('Plesase enter a valid email').required('Required'),
-  phone: yup.number().positive().integer().min(5).required('Required'),
+  lastName: yup.string().required('Requerida'),
+  firstName: yup.string().required('Requerida'),
+  email: yup
+    .string()
+    .email('Porfavor ingrese un mail valido')
+    .required('Requerida'),
+  phone: yup.number().positive().integer().min(5).required('Requerida'),
   pass: yup
     .string()
-    .min(5)
-    /* .matches(passwordRules, { message: 'Please create a stronger password' }) */
-    .required('Required'),
-  document: yup.number().min(6).required('Required'),
+    .min(5, 'Ingrese mas de 5 caracteres')
+    .matches(passwordRules, {
+      message: 'Por favor crea una contraseña mas fuerte',
+    })
+    .required('Requerida'),
+  document: yup.number().min(6).required('Requerida'),
 });
 
 const initialValues: User = {
@@ -40,7 +42,6 @@ interface Props {
 }
 
 export const RegisterClient = ({ open, handleOpen }: Props) => {
-  const [passwordType, setPasswordType] = useState<string>('password');
   const { createClient } = useClient();
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
@@ -183,7 +184,7 @@ export const RegisterClient = ({ open, handleOpen }: Props) => {
             </div>
             <div>
               <Input
-                type={passwordType}
+                type='password'
                 name='pass'
                 placeholder='Contraseña'
                 className={`bg-base-100 text-sm ${
@@ -195,29 +196,7 @@ export const RegisterClient = ({ open, handleOpen }: Props) => {
                 handleBlur={handleBlur}
                 handleChange={handleChange}
               />
-              <label className='swap absolute right-12 bottom-[150px]'>
-                <input type='checkbox' />
-                <Image
-                  onClick={() => {
-                    setPasswordType('password');
-                  }}
-                  className='swap-off fill-current'
-                  src={OpenEyeIcon}
-                  alt='icon'
-                  width={20}
-                  height={20}
-                />
-                <Image
-                  onClick={() => {
-                    setPasswordType('text');
-                  }}
-                  className='swap-on fill-current'
-                  src={CloseEyeIcon}
-                  alt='icon'
-                  width={18}
-                  height={18}
-                />
-              </label>
+              {errors.pass != null && touched.pass != null && errors.pass}
             </div>
             <div className='flex justify-center pt-2 '>
               <button
