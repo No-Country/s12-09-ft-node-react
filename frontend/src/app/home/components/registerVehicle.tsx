@@ -151,7 +151,7 @@ const RegisterVehicle = () => {
                   onClick={() => {
                     handleChange('color')(color.name);
                   }}
-                  className={`cursor-pointer h-7 w-7 border-2 rounded-full`}
+                  className={`cursor-pointer h-7 w-7 border-2 rounded-full transition-all`}
                   style={{'borderColor': color.class, 'backgroundColor': values.color === color.name ? color.class : ''}}
                 />
               ))}

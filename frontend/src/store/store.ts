@@ -4,7 +4,7 @@ import type { TypedUseSelectorHook } from 'react-redux';
 
 import { workShopReducer } from './features/workshop.slice';
 import { mechanicReducer } from './features/mechanic.slice';
-import { vehicleReducer, clientReducer } from './features';
+import { vehicleReducer, clientReducer, modalReducer } from './features';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +12,7 @@ export const store = configureStore({
     mechanics: mechanicReducer,
     vehicles: vehicleReducer,
     clients: clientReducer,
+    modal: modalReducer,
   },
 });
 
