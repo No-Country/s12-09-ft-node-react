@@ -2,6 +2,7 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Input } from '@/components/input';
+import { useState } from 'react';
 
 const basicSchema = yup.object().shape({
   brand: yup.string().required('Required'),
@@ -31,6 +32,8 @@ const RegisterVehicle = () => {
       },
     });
 
+  const [openModal, setOpenModal] = useState(true)
+
   const colors = [
     {
       name: 'white',
@@ -38,19 +41,19 @@ const RegisterVehicle = () => {
     },
     {
       name: 'red',
-      class: 'red-500',
+      class: '#ef4444',
     },
     {
-      name: 'yellow',
-      class: 'yellow-500',
+      name: 'blue',
+      class: '#3b82f6',
     },
     {
       name: 'green',
-      class: 'green-500',
+      class: '#22c55e',
     },
     {
       name: 'orange',
-      class: 'orange-500',
+      class: '#f97316',
     },
     {
       name: 'black',
@@ -60,7 +63,7 @@ const RegisterVehicle = () => {
 
   return (
     <div
-      className={`absolute w-full bottom-0 bg-gray-200 rounded-t-[3rem] sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[3rem] sm:max-w-md transition-all`}
+      className={`absolute w-full bottom-0 bg-gray-200 rounded-t-[3rem] sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[3rem] sm:max-w-md transition-all ${openModal ? '' : 'hidden'}`}
     >
       <header className='flex gap-8 sm:gap-16 justify-center pt-8'>
         <span className=' text-sm sm:text-base font-medium'>
@@ -148,9 +151,8 @@ const RegisterVehicle = () => {
                   onClick={() => {
                     handleChange('color')(color.name);
                   }}
-                  className={`cursor-pointer h-7 w-7 border-2 rounded-full ${
-                    values.color === color.name ? `bg-${color.class}` : ''
-                  } ${'border-' + color.class}`}
+                  className={`cursor-pointer h-7 w-7 border-2 rounded-full`}
+                  style={{'borderColor': color.class, 'backgroundColor': values.color === color.name ? color.class : ''}}
                 />
               ))}
             </ul>
@@ -181,6 +183,12 @@ const RegisterVehicle = () => {
           </div>
         </form>
       </main>
+      
+      <div className='flex justify-center'>
+        <button onClick={() => {setOpenModal(false)}}>
+          Close Modal
+        </button>
+      </div>
     </div>
   );
 };

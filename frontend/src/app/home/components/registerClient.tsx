@@ -94,7 +94,7 @@ export const RegisterClient = ({ open, handleOpen }: Props) => {
                 currentView === 'existing' ? '' : 'hidden'
               }`}
             />
-          </div>/home/alvaro/proyectos/s12-09-ft-node-react/frontend/src/app/car
+          </div>
         </button>
       </header>
 
