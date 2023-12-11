@@ -2,7 +2,7 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Input } from '@/components/input';
-import { useModal } from '@/hook/useModal';
+import type {Dispatch, SetStateAction} from 'react'
 
 const basicSchema = yup.object().shape({
   brand: yup.string().required('Required'),
@@ -22,9 +22,12 @@ const initialValues = {
   licensePlate: '',
 };
 
-const RegisterVehicle = () => {
-  const { isVehicleModalOpen, closeVehicleModal} = useModal()
+interface Props {
+  isOpen: boolean,
+  handleOpen: Dispatch<SetStateAction<boolean>>
+}
 
+const RegisterVehicle: React.FC<Props> = ({isOpen, handleOpen}) => {
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
       initialValues,
@@ -63,7 +66,7 @@ const RegisterVehicle = () => {
 
   return (
     <div
-      className={`absolute w-full bottom-0 bg-gray-200 rounded-t-[3rem] sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[3rem] sm:max-w-md transition-all ${isVehicleModalOpen ? '' : 'hidden'}`}
+      className={`absolute w-full bottom-0 bg-gray-200 rounded-t-[3rem] sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[3rem] sm:max-w-md transition-all ${isOpen ? '' : 'hidden'}`}
     >
       <header className='flex gap-8 sm:gap-16 justify-center pt-8'>
         <span className=' text-sm sm:text-base font-medium'>
@@ -185,7 +188,7 @@ const RegisterVehicle = () => {
       </main>
       
       <div className='flex justify-center'>
-        <button onClick={closeVehicleModal}>
+        <button onClick={() => {handleOpen(false)}}>
           Close Modal
         </button>
       </div>

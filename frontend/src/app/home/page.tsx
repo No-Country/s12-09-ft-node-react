@@ -10,12 +10,11 @@ import { PlusIcon, BotonmasIcon } from '@/assets/icons';
 import { useVehicle } from '@/hook';
 import type { Vehicle } from '@/@types';
 import RegisterVehicle from './components/registerVehicle';
-import { useModal } from '@/hook/useModal';
 
 const VehiclePage = () => {
   const { vehicles, getAllVehicles } = useVehicle();
-  const { openClientModal } = useModal()
-  
+  const [openClientModal, setOpenClientModal] = useState(false);
+  const [openVehicleModal, setOpenVehicleModal] = useState(false);
 
   useEffect(() => {
     getAllVehicles();
@@ -65,7 +64,7 @@ const VehiclePage = () => {
         <div className='md:flex md:flex-row md:flex-wrap gap-10 grid grid-cols-2 items-center justify-center w-full'>
           <div className='hidden md:block '>
             <button
-              onClick={openClientModal}
+              onClick={() => {setOpenClientModal(true)}}
               className=' flex flex-col justify-center items-center gap-5'
             >
               <section className='bg-base-300 rounded-3xl w-24 h-24 flex place-content-center'>
@@ -102,7 +101,7 @@ const VehiclePage = () => {
       </section>
 
       <button
-        onClick={openClientModal}
+        onClick={() => {setOpenClientModal(true)}}
         className=' block md:hidden    fixed  bottom-[5%] left-[48%]'
       >
         <div className='flex justify-center '>
@@ -110,8 +109,8 @@ const VehiclePage = () => {
         </div>
       </button>
 
-      <RegisterClient />
-      <RegisterVehicle/>
+      <RegisterClient isOpen={openClientModal} handleOpen={setOpenClientModal} nextModal={setOpenVehicleModal}/>
+      <RegisterVehicle isOpen={openVehicleModal} handleOpen={setOpenVehicleModal}/>
     </div>
   );
 };

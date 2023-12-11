@@ -3,14 +3,14 @@
 import type { User } from '@/@types';
 import { Input } from '@/components/input';
 import { useClient } from '@/hook/useClient';
-import { useModal } from '@/hook/useModal';
 import { useFormik } from 'formik';
-import { useEffect, useState } from 'react';
+import type {Dispatch, SetStateAction} from 'react'
+import { useState } from 'react';
 import * as yup from 'yup';
 
 const passwordRules = /^(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 
-const basicSchema = yup.object().shape({
+const clientSchema = yup.object().shape({
   lastName: yup.string().required('Requerida'),
   firstName: yup.string().required('Requerida'),
   email: yup
@@ -37,28 +37,30 @@ const initialValues: User = {
   document: 0,
 };
 
-export const RegisterClient = () => {
-  const { isClientModalOpen, closeClientModal } = useModal();
-  const { createClient } = useClient();
+interface Props {
+  isOpen: boolean,
+  handleOpen: Dispatch<SetStateAction<boolean>>,
+  nextModal: Dispatch<SetStateAction<boolean>>
+}
+
+export const RegisterClient: React.FC<Props> = ({isOpen, handleOpen, nextModal}) => {
+  const { createClient, clients } = useClient();
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
       initialValues,
-      validationSchema: basicSchema,
+      validationSchema: clientSchema,
       onSubmit: async (values: User) => {
         createClient(values);
       },
     });
 
+  console.log('Cliente creado', clients)
   const [currentView, setCurrentView] = useState<'new' | 'existing'>('new');
-
-  useEffect(() => {
-    console.log('ClientModal', isClientModalOpen);
-  }, [isClientModalOpen]);
 
   return (
     <div
       className={`absolute w-full bottom-0 bg-gray-200 rounded-t-[3rem] sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[3rem] sm:max-w-md ${
-        isClientModalOpen ? '' : 'hidden'
+        isOpen ? '' : 'hidden'
       } transition-all`}
     >
       <header className='flex gap-8 sm:gap-16 justify-center pt-8'>
@@ -212,8 +214,9 @@ export const RegisterClient = () => {
         )}
       </main>
 
-      <div className='flex justify-center items-center py-2'>
-        <button onClick={closeClientModal}>cerrar modal</button>
+      <div className='flex flex-col gap-1 justify-center items-center pb-2'>
+        <button onClick={() => {nextModal(true); handleOpen(false)}}>abrir siguiente modal</button>
+        <button onClick={() => {handleOpen(false)}}>cerrar modal</button>
       </div>
     </div>
   );
