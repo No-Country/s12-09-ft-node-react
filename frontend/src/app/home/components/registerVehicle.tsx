@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Input } from '@/components/input';
 import type {Dispatch, SetStateAction} from 'react'
+import { useClient } from '@/hook/useClient';
 
 const basicSchema = yup.object().shape({
   brand: yup.string().required('Required'),
@@ -28,12 +29,18 @@ interface Props {
 }
 
 const RegisterVehicle: React.FC<Props> = ({isOpen, handleOpen}) => {
+  const { clients } = useClient()
+
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
-      initialValues,
+      initialValues: {
+        ...initialValues,
+        userId: clients.length > 0 ? clients[0].id : null
+      },
       validationSchema: basicSchema,
       onSubmit: values => {
         console.log(values);
+        handleOpen(false)
       },
     });
 

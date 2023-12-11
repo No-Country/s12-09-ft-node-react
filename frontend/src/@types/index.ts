@@ -29,7 +29,7 @@ export interface User {
   lastName: string;
   firstName: string;
   email: string;
-  phone: number;
+  phone: string;
   document: number;
   rol?: Rol | string;
   pass?: string;

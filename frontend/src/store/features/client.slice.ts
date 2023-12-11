@@ -22,7 +22,7 @@ export const getAllClientsAsync = createAsyncThunk(
   }
 );
 export const createClientAsync = createAsyncThunk(
-  'client/create',
+  'user',
   async (newClient: User) => {
     try {
       const created = await clientService.create(newClient);

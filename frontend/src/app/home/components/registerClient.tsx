@@ -5,7 +5,7 @@ import { Input } from '@/components/input';
 import { useClient } from '@/hook/useClient';
 import { useFormik } from 'formik';
 import type {Dispatch, SetStateAction} from 'react'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as yup from 'yup';
 
 const passwordRules = /^(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
@@ -17,7 +17,7 @@ const clientSchema = yup.object().shape({
     .string()
     .email('Porfavor ingrese un mail valido')
     .required('Requerida'),
-  phone: yup.number().positive().integer().min(5).required('Requerida'),
+  phone: yup.string().min(5).required('Requerida'),
   pass: yup
     .string()
     .min(5, 'Ingrese mas de 5 caracteres')
@@ -32,7 +32,7 @@ const initialValues: User = {
   lastName: '',
   firstName: '',
   email: '',
-  phone: 0,
+  phone: '',
   pass: '',
   document: 0,
 };
@@ -54,8 +54,20 @@ export const RegisterClient: React.FC<Props> = ({isOpen, handleOpen, nextModal})
       },
     });
 
-  console.log('Cliente creado', clients)
   const [currentView, setCurrentView] = useState<'new' | 'existing'>('new');
+
+  useEffect(() => {
+
+    const openNextModal = () => {
+      if(clients[0] !== undefined) {
+        handleOpen(false)
+        nextModal(true)
+      }
+    }
+
+    openNextModal()
+
+  }, [clients, handleOpen, nextModal])
 
   return (
     <div
@@ -151,7 +163,7 @@ export const RegisterClient: React.FC<Props> = ({isOpen, handleOpen, nextModal})
             <div className='flex gap-2 w-full'>
               <div className='w-full'>
                 <Input
-                  type='text'
+                  type='number'
                   name='document'
                   placeholder='DNI'
                   className={`bg-base-100 text-sm ${
