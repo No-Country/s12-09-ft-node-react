@@ -33,6 +33,11 @@ export const Header = () => {
       href: '/car',
       icon: '',
     },
+    {
+      name: 'Client - Car Service',
+      href: '/client',
+      icon: '',
+    },
   ];
 
   return (
