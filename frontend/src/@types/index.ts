@@ -18,8 +18,8 @@ export interface Vehicle {
   mileage: number;
   imageUrl: string;
   userId?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date | string;
+  updatedAt: Date | string;
   user: User;
   repairLog: any[];
 }
@@ -31,7 +31,7 @@ export interface User {
   email: string;
   phone: number;
   document: number;
-  rol?: Rol;
+  rol?: Rol | string;
   pass?: string;
   vehicle?: Vehicle[];
 }
