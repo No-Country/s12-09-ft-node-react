@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { input as Input } from '@/components';
 import {
   GroupIcon,
@@ -14,49 +15,49 @@ import * as yup from 'yup';
 import swal from 'sweetalert';
 
 import { useFormik } from 'formik';
+import { createWorkShop } from '@/services/workshopService';
 // import { useEffect } from 'react';
-// import { createWorkShop, getWorkShop } from '@/services/workshopService';
-// import { getWorkShopAsync } from '@/store/features/workShop/workShopSlice';
 
 const basicSchema = yup.object().shape({
   email: yup.string().email('Plesase enter a valid email').required('Required'),
-  workshopName: yup.string().required('Required'),
-  phone: yup.number().positive().integer().required('Required'),
+  name: yup.string().required('Required'),
+  phone: yup.string().required('Required'),
   password: yup.string().min(5).required('Required'),
   address: yup.string().required('Required'),
 });
 
 interface InitialValues {
   email: string;
-  workshopName: string;
+  name: string;
   phone: string;
   password: string;
   address: string;
 }
 const initialValues: InitialValues = {
   email: '',
-  workshopName: '',
+  name: '',
   phone: '',
   password: '',
   address: '',
 };
 
 const WorkshopRegister = (): JSX.Element => {
-
-  // useEffect(() => {
-
-  // }, []);
+  const router = useRouter();
 
   const { values, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues,
     validationSchema: basicSchema,
     onSubmit: async (values: InitialValues) => {
       console.log(values);
-      await swal(
-        'Taller registrado',
-        '( simulacion no tiene endpoint )',
-        'success'
-      );
+
+      try {
+        // console.log(values);
+        createWorkShop(values);
+        await swal('Taller registrado', '', 'success');
+        router.push('/mechanic', { scroll: false });
+      } catch (error) {
+        await swal('Error de registro', '', 'error');
+      }
     },
   });
 
@@ -77,11 +78,11 @@ const WorkshopRegister = (): JSX.Element => {
         <div className='flex flex-row gap-2'>
           <Image src={GroupIcon} alt='user icon' width={25} height={25} />
           <Input
-            name='workshopName'
+            name='name'
             placeholder='Nombre del taller'
             type='text'
             className=''
-            value={values.workshopName}
+            value={values.name}
             handleBlur={handleBlur}
             handleChange={handleChange}
           />
