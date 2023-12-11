@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import { appointmentsController } from '../controllers/appointments.controller';
+import { Router } from 'express'
+import { appointmentsController } from '../controllers/appointments.controller'
 
 const router = Router()
 
@@ -8,5 +8,6 @@ router.post('/', appointmentsController.create)
 router.delete('/:id', appointmentsController.delete)
 router.put('/:id', appointmentsController.update)
 router.get('/:id', appointmentsController.getOne)
+// router.post('/prueba', appointmentsController.prueba)
 
-export {router}
+export { router }

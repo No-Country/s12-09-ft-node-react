@@ -1,11 +1,11 @@
-import { Request, Response } from 'express'
-import validator from 'validator'
+import { NextFunction, Request, Response } from 'express'
 import { RepairLog } from '../models/RepairLog'
 import { Users } from '../models/Users'
 import { Vehicle } from '../models/Vehicle'
+import { uuidSchema, vehicleSchema } from '../utils/zodSchemas'
 
 export class VehicleController {
-	static async getVehicles(req: Request, res: Response) {
+	static async getVehicles(req: Request, res: Response, next: NextFunction) {
 		try {
 			const vehicles = await Vehicle.findAll({
 				include: [
@@ -15,54 +15,58 @@ export class VehicleController {
 			})
 			res.json(vehicles)
 		} catch (error) {
-			res.status(500).json(error)
+			next(error)
 		}
 	}
 
-	static async getVehicleById(req: Request, res: Response) {
+	static async getVehicleById(req: Request, res: Response, next: NextFunction) {
 		const { id } = req.params
-		if (!validator.isUUID(id)) {
-			return res.status(400).json({ message: 'Invalid ID' })
-		}
 		try {
+			uuidSchema.parse(id)
 			const vehicle = await Vehicle.findByPk(id, {
-				include: { model: Users, as: 'user' },
+				include: [
+					{ model: Users, as: 'user' },
+					{ model: RepairLog, as: 'repairLog' },
+				],
 			})
 			if (!vehicle) {
 				res.status(404).json({ error: 'Vehicle not found' })
 			}
 			res.json(vehicle)
 		} catch (error) {
-			res.status(500).json({ error: 'Internal Server Error' })
+			next(error)
 		}
 	}
 
-	static async createVehicle(req: Request, res: Response) {
+	static async createVehicle(req: Request, res: Response, next: NextFunction) {
+		try {
+			// Validar los datos del cuerpo de la solicitud
+			const data = vehicleSchema.parse(req.body)
+
+			// Verificar si el usuario existe
+			const user = await Users.findByPk(data.userId)
+			if (!user) {
+				throw new Error('User not found')
+			}
+
+			// Crear el nuevo vehículo
+			const newVehicle = await Vehicle.create(data)
+			res.status(201).json(newVehicle)
+		} catch (error) {
+			next(error)
+		}
+	}
+
+	static async updateVehicle(req: Request, res: Response, next: NextFunction) {
+		const { id } = req.params
 		const { brand, model, color, year, licensePlate, mileage, userId } =
 			req.body
-
-		if (!validator.isUUID(userId)) {
-			return res.status(400).json({ message: 'Invalid ID' })
-		}
-		const fields = { brand, model, color, year, licensePlate, mileage, userId }
-		const emptyFields = []
-
-		for (const [key, value] of Object.entries(fields)) {
-			if (!value) {
-				emptyFields.push(key)
-			}
-		}
-
-		if (emptyFields.length > 0) {
-			return res.status(400).json({
-				message: `Los campos ${emptyFields.join(', ')} son obligatorios`,
-			})
-		}
-
 		try {
-			const user = await Users.findByPk(userId)
-			if (!user) return res.status(400).json({ message: 'User not found' })
-			const newVehicle = await Vehicle.create({
+			// Validar el ID
+			uuidSchema.parse(id)
+
+			// Validar los datos del cuerpo de la solicitud
+			const data = vehicleSchema.parse({
 				brand,
 				model,
 				color,
@@ -71,56 +75,31 @@ export class VehicleController {
 				mileage,
 				userId,
 			})
-			res.status(201).json(newVehicle)
-		} catch (error) {
-			res.status(500).json({ error: 'Internal Server Error' })
-		}
-	}
 
-	static async updateVehicle(req: Request, res: Response) {
-		const { id } = req.params
-		if (!validator.isUUID(id)) {
-			return res.status(400).json({ message: 'Invalid ID' })
-		}
-		const { brand, model, color, year, licensePlate, mileage, userId } =
-			req.body
-
-		try {
 			const existingVehicle = await Vehicle.findByPk(id)
-			if (existingVehicle) {
-				await existingVehicle.update({
-					brand,
-					model,
-					color,
-					year,
-					licensePlate,
-					mileage,
-					userId,
-				})
-				res.json(existingVehicle)
-			} else {
-				res.status(404).json({ error: 'Vehicle not found' })
+			if (!existingVehicle) {
+				throw new Error('Vehicle not found')
 			}
+			await existingVehicle.update(data)
+			res.json(existingVehicle)
 		} catch (error) {
-			res.status(500).json({ error: 'Internal Server Error' })
+			next(error)
 		}
 	}
 
-	static async deleteVehicle(req: Request, res: Response) {
+	static async deleteVehicle(req: Request, res: Response, next: NextFunction) {
 		const { id } = req.params
-		if (!validator.isUUID(id)) {
-			return res.status(400).json({ message: 'Invalid ID' })
-		}
-
 		try {
+			// Validar el ID
+			uuidSchema.parse(id)
+
 			const deletedVehicleCount = await Vehicle.destroy({ where: { id } })
-			if (deletedVehicleCount > 0) {
-				res.json({ message: 'Vehicle deleted successfully' })
-			} else {
-				res.status(404).json({ error: 'Vehicle not found' })
+			if (!deletedVehicleCount) {
+				throw new Error('Vehicle not found')
 			}
+			res.json({ message: 'Vehicle deleted successfully' })
 		} catch (error) {
-			res.status(500).json({ error: 'Internal Server Error' })
+			next(error)
 		}
 	}
 }

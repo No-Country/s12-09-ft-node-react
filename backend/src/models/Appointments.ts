@@ -4,7 +4,6 @@ import { Column, DataType, Model, Table } from 'sequelize-typescript'
 	timestamps: false,
 	tableName: 'appointment',
 })
-
 export class Appointments extends Model {
 	@Column({
 		primaryKey: true,
@@ -15,13 +14,20 @@ export class Appointments extends Model {
 
 	@Column({
 		type: DataType.DATEONLY,
-		allowNull: false,
+		// allowNull: false,
 	})
 	date!: Date
 
 	@Column({
 		type: DataType.STRING,
-		allowNull: false,
+		// allowNull: false,
 	})
 	menssage!: string
+
+	// @Column({
+	// 	type: DataType.JSONB,
+	// 	// allowNull: false,
+	// 	defaultValue: [],
+	// })
+	// pruebas!: object[]
 }

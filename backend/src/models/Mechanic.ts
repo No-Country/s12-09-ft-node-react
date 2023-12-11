@@ -34,6 +34,7 @@ export class Mechanic extends Model {
 	@Column({
 		type: DataType.INTEGER,
 		allowNull: false,
+		unique: true,
 	})
 	document!: number
 
@@ -48,5 +49,10 @@ export class Mechanic extends Model {
 		defaultValue: 'mechanic',
 	})
 	role!: string
+}
 
+Mechanic.prototype.toJSON = function () {
+	const values = Object.assign({}, this.get())
+	delete values.MechanicId
+	return values
 }
