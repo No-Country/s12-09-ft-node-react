@@ -10,9 +10,9 @@ interface Props {
 export function LogoBlue({ width = 180, height = 295 }: Props) {
   return (
     <div className='flex-1'>
-      <a className='btn btn-ghost text-xl hover:bg-inherit'>
+      <div className='btn btn-ghost text-xl hover:bg-inherit'>
         <Image src={logoBlue} alt='logo' width={width} height={height} />
-      </a>
+      </div>
     </div>
   );
 }
@@ -20,9 +20,9 @@ export function LogoBlue({ width = 180, height = 295 }: Props) {
 export function LogoWhite({ width = 180, height = 295 }: Props) {
   return (
     <div className='flex-1'>
-      <a className='btn btn-ghost text-xl hover:bg-inherit'>
+      <div className='btn btn-ghost text-xl hover:bg-inherit'>
         <Image src={logoWhite} alt='logo' width={width} height={height} />
-      </a>
+      </div>
     </div>
   );
 }

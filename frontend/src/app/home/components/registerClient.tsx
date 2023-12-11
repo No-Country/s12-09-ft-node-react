@@ -2,6 +2,7 @@
 
 import type { User } from '@/@types';
 import { Input } from '@/components/input';
+import { useModal } from '@/context';
 import { useClient } from '@/hook/useClient';
 import { useFormik } from 'formik';
 import type {Dispatch, SetStateAction} from 'react'
@@ -45,6 +46,8 @@ interface Props {
 
 export const RegisterClient: React.FC<Props> = ({isOpen, handleOpen, nextModal}) => {
   const { createClient, clients } = useClient();
+  const { isModalOpen, closeModal, openModal } = useModal()
+
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
       initialValues,
@@ -72,7 +75,7 @@ export const RegisterClient: React.FC<Props> = ({isOpen, handleOpen, nextModal})
   return (
     <div
       className={`absolute w-full bottom-0 bg-gray-200 rounded-t-[3rem] sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[3rem] sm:max-w-md ${
-        isOpen ? '' : 'hidden'
+        isModalOpen('registerClient') ? '' : 'hidden'
       } transition-all`}
     >
       <header className='flex gap-8 sm:gap-16 justify-center pt-8'>
@@ -227,8 +230,8 @@ export const RegisterClient: React.FC<Props> = ({isOpen, handleOpen, nextModal})
       </main>
 
       <div className='flex flex-col gap-1 justify-center items-center pb-2'>
-        <button onClick={() => {nextModal(true); handleOpen(false)}}>abrir siguiente modal</button>
-        <button onClick={() => {handleOpen(false)}}>cerrar modal</button>
+        <button onClick={() => {closeModal('registerClient')  ; openModal('registerVehicle')}}>abrir siguiente modal</button>
+        <button onClick={() => {closeModal('registerClient')}}>cerrar modal</button>
       </div>
     </div>
   );

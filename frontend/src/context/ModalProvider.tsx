@@ -1,72 +1,51 @@
-/* eslint-disable @typescript-eslint/consistent-type-assertions */
-'use client';
+'use client'
 
-import { createContext, useMemo, useState } from 'react';
-import { ModalPortal } from '@/components/';
+import { createContext, useContext, useState } from 'react';
 
-interface Props {
+type ModalType = 'registerClient' | 'registerVehicle';
+
+interface ModalContextProps {
   children: JSX.Element;
 }
-interface InitialModalState {
-  open: boolean;
-  element: JSX.Element;
-  title: string;
-  className: string;
+
+interface ModalContextState {
+  openModal: (modalType: ModalType) => void;
+  closeModal: (modalType: ModalType) => void;
+  isModalOpen: (modalType: ModalType) => boolean;
 }
-const initialState: InitialModalState = {
-  open: false,
-  element: <></>,
-  title: '',
-  className: '',
+
+const ModalContext = createContext<ModalContextState | undefined>(undefined);
+
+export const ModalProvider: React.FC<ModalContextProps> = ({ children }) => {
+  const [openModals, setOpenModals] = useState<Record<ModalType, boolean>>({
+    registerClient: false,
+    registerVehicle: false,
+  });
+
+  const openModal = (modalType: ModalType) => {
+    setOpenModals((prev) => ({ ...prev, [modalType]: true }));
+  };
+
+  const closeModal = (modalType: ModalType) => {
+    setOpenModals((prev) => ({ ...prev, [modalType]: false }));
+  };
+
+  const isModalOpen = (modalType: ModalType) => openModals[modalType];
+
+  const contextValue: ModalContextState = {
+    openModal,
+    closeModal,
+    isModalOpen,
+  };
+
+  return <ModalContext.Provider value={contextValue}>{children}</ModalContext.Provider>;
 };
-interface Options {
-  title: string;
-  className?: string;
-}
-interface ModalContextValue {
-  openModal: (element: JSX.Element, options: Options) => void;
-  closeModal: () => void;
-}
 
-export const ModalContext = createContext({} as ModalContextValue);
-
-export function ModalProvider({ children }: Props) {
-  const [modal, setModal] = useState<InitialModalState>(initialState);
-
-  const openModal = (element: JSX.Element, options: Options) => {
-    setModal({
-      open: true,
-      element,
-      title: options?.title ?? '',
-      className: options?.className ?? '',
-    });
-  };
-
-  const closeModal = () => {
-    setModal({ ...initialState });
-  };
-
-  const valueMemo = useMemo(
-    () => ({
-      openModal,
-      closeModal,
-    }),
-    []
-  );
-
-  return (
-    <>
-      <ModalContext.Provider value={valueMemo}>
-        {children}
-        <ModalPortal
-          show={modal.open}
-          title={modal.title}
-          handleClose={closeModal}
-          className={modal.className}
-        >
-          {modal.element}
-        </ModalPortal>
-      </ModalContext.Provider>
-    </>
-  );
-}
+export const useModal = () => {
+  const context = useContext(ModalContext);
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  if (!context) {
+    throw new Error('useModal must be used within a ModalProvider');
+  }
+  return context;
+};
