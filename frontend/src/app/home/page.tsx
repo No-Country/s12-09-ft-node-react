@@ -82,7 +82,7 @@ const VehiclePage = () => {
                 key={index}
                 className=' flex flex-col justify-center items-center'
               >
-                <Link href={`/car/${vehicle.id}`}>
+                <Link href={`car/${vehicle.id}`}>
                   <section className='bg-base-300 hover:shadow-lg cursor-pointer rounded-3xl w-24 h-24 flex justify-center items-center'>
                     <Image
                       className='h-7 w-20'
