@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router } from 'express'
 import { VehicleController } from '../controllers/vehicle.controller'
 
 const router = Router()
@@ -9,4 +9,4 @@ router.post('/', VehicleController.createVehicle)
 router.put('/:id', VehicleController.updateVehicle)
 router.delete('/:id', VehicleController.deleteVehicle)
 
-export {router}
+export { router }
