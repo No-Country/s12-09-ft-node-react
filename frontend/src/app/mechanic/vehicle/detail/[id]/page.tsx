@@ -42,14 +42,14 @@ export default function VehicleDetail({ params }: VehicleDetailProps) {
                   />
                 </button>
                 <p className='text-accent'>
-                  {vehicleById.user.firstName} {vehicleById.user.lastName}
+                  {vehicleById.user?.firstName} {vehicleById.user?.lastName}
                 </p>
               </div>
             </div>
 
             <div className='flex place-content-center'>
               <Image
-                src={vehicleById.imageUrl}
+                src={vehicleById.imageUrl ?? ''}
                 alt='car detail'
                 width={100}
                 height={100}
@@ -76,8 +76,8 @@ export default function VehicleDetail({ params }: VehicleDetailProps) {
                     <Image src={UserIcon} alt='user icon' />
                   </button>
                   <p className='text-accent'>
-                    {vehicleById.user.firstName}
-                    {vehicleById.user.lastName}
+                    {vehicleById.user?.firstName}
+                    {vehicleById.user?.lastName}
                   </p>
                 </div>
                 {/* <p className='text-accent'>{`${dia}/${mes}`}</p> */}

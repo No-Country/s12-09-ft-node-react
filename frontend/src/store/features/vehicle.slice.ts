@@ -8,35 +8,9 @@ interface State {
   isLoading: boolean;
 }
 
-const initialVehicle: Vehicle = {
-  brand: '',
-  color: '',
-  createdAt: '',
-  imageUrl: '',
-  licensePlate: '',
-  mileage: 0,
-  model: '',
-  repairLog: [],
-  updatedAt: '',
-  user: {
-    document: 0,
-    email: '',
-    firstName: '',
-    lastName: '',
-    phone: '',
-    id: '',
-    pass: '',
-    rol: '',
-    vehicle: [],
-  },
-  year: 0,
-  id: '',
-  userId: '',
-};
-
 const initialState: State = {
   vehicles: [],
-  vehicleById: initialVehicle,
+  vehicleById: {},
   isLoading: false,
 };
 

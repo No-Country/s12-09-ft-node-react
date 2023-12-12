@@ -10,18 +10,18 @@ export interface Mechanic {
 
 export interface Vehicle {
   id?: string;
-  brand: string;
-  model: string;
-  color: string;
-  year: number;
-  licensePlate: string;
-  mileage: number;
-  imageUrl: string;
+  brand?: string;
+  model?: string;
+  color?: string;
+  year?: number;
+  licensePlate?: string;
+  mileage?: number;
+  imageUrl?: string;
   userId?: string;
-  createdAt: Date | string;
-  updatedAt: Date | string;
-  user: User;
-  repairLog: any[];
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  user?: User;
+  repairLog?: any[];
 }
 
 export interface NewVehicle {
@@ -36,11 +36,11 @@ export interface NewVehicle {
 
 export interface User {
   id?: string;
-  lastName: string;
-  firstName: string;
-  email: string;
-  phone: string;
-  document: number;
+  lastName?: string;
+  firstName?: string;
+  email?: string;
+  phone?: string;
+  document?: number;
   rol?: Rol | string;
   pass?: string;
   vehicle?: Vehicle[];
