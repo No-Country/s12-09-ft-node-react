@@ -69,30 +69,27 @@ export class Budget extends Model {
 	@Column({
 		type: DataType.ARRAY(DataType.JSONB),
 		allowNull: false,
-		defaultValue: [],
 	})
-	reparacion!: { nombre: string; descripcion: string; costo: number }[]
+	repair!: { name: string; description: string; cost: number }[]
 
 	@Column({
 		type: DataType.ARRAY(DataType.JSONB),
 		allowNull: false,
-		defaultValue: [],
 	})
-	mantenimiento!: { tarea: string; descripcion: string; costo: number }[]
+	maintenance!: { task: string; description: string; cost: number }[]
 
 	@Column({
 		type: DataType.DECIMAL(10, 2),
 		allowNull: false,
 		defaultValue: 0,
 	})
-	costos!: number
+	costs!: number
 
 	@Column({
 		type: DataType.DECIMAL(10, 2),
 		allowNull: false,
-		defaultValue: 0,
 	})
-	manoDeObra!: number
+	labor!: number
 
 	@Column({
 		type: DataType.BOOLEAN,
@@ -104,18 +101,20 @@ export class Budget extends Model {
 	@BeforeSave
 	static calculateCosts(budget: Budget) {
 		// Calcular la suma de los costos de reparaciones
-		const reparacionCosts = budget.reparacion.reduce(
-			(total, reparacion) => total + reparacion.costo,
+		const reparacionCosts = budget.repair.reduce(
+			(total, reparacion) => total + reparacion.cost,
 			0,
 		)
 
 		// Calcular la suma de los costos de mantenimientos
-		const mantenimientoCosts = budget.mantenimiento.reduce(
-			(total, mantenimiento) => total + mantenimiento.costo,
+		const mantenimientoCosts = budget.maintenance.reduce(
+			(total, mantenimiento) => total + mantenimiento.cost,
 			0,
 		)
 
+		const laborCosts = budget.labor
+
 		// Actualizar la columna costos con la suma total
-		budget.costos = reparacionCosts + mantenimientoCosts
+		budget.costs = reparacionCosts + mantenimientoCosts + laborCosts
 	}
 }
