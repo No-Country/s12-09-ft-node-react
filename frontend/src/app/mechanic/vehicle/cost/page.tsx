@@ -4,11 +4,18 @@ import Image from 'next/image';
 import { CabinAir } from '@/assets/icons';
 
 export default function CostPage() {
+  const data = {
+    repairs: ['Aire de cabina', 'Tren delantero'],
+    maintenance: ['Neumaticos'],
+  };
+
   return (
     <div>
       <header className='flex w-full justify-evenly pt-5 pb-4'>
         <div>
-          <span className='text-secondary font-bold underline'>Componentes</span>
+          <span className='text-secondary font-bold underline'>
+            Componentes
+          </span>
         </div>
 
         <div>
@@ -16,146 +23,128 @@ export default function CostPage() {
         </div>
       </header>
 
-      <main className='flex flex-col bg-base-300 mx-4 rounded-2xl p-3'>
-        <div className='flex flex-col pb-2'>
-          <h3 className='text-secondary font-semibold text-lg'>
-            Reparación
-          </h3>
+      <main className='flex flex-col bg-base-300 sm:bg-transparent mx-4 rounded-2xl p-3'>
+        <div className='flex flex-col sm:flex-row sm:gap-4 sm:border-b-2 sm:border-base-200 sm:pb-3 md:gap-20'>
+          <div className='flex flex-col pb-2 w-full'>
+            <h3 className='text-secondary font-semibold text-lg sm:text-xl sm:font-semibold'>
+              Reparación
+            </h3>
 
-          <div className='flex border-b-2 border-base-200 gap-2 py-3'>
-            <div className=''>
-              <div className='bg-white p-1 rounded-full'>
-                <Image
-                  src={CabinAir}
-                  alt=''
-                  height={70}
-                  width={70}
-                  className='p-1'
-                />
+            {data.repairs.map(data => (
+              <div
+                key={data}
+                className='flex border-b-2 border-base-200 sm:border-none gap-1 py-3 sm:gap-4'
+              >
+                <div className=''>
+                  <div className='relative p-1 bg-white sm:bg-base-300 flex justify-center h-7 w-7 sm:h-12 sm:w-12 rounded-full'>
+                    <Image
+                      src={CabinAir}
+                      alt=''
+                      fill
+                      className='p-1 sm:p-2'
+                    />
+                  </div>
+                </div>
+
+                <div className='flex flex-col gap-1 w-full'>
+                  <span className='text-sm text-base-accent pl-1 sm:text-base md:text-lg'>{data}</span>
+                  <Input
+                    name='description'
+                    placeholder='Objeto a reparar'
+                    className={'bg-white sm:bg-base-300 h-8 md:h-10 w-44'}
+                  />
+                </div>
+
+                <div className='flex items-end max-w-[98px] md:max-w-[112px] md:ml-3'>
+                  <div className='flex items-center gap-1'>
+                    <span>$</span>
+                    <Input
+                      name='cost'
+                      placeholder='Costo'
+                      className={'bg-white sm:bg-base-300 h-8 md:h-10'}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-
-            <div className='flex flex-col gap-1'>
-              <span className='text-sm text-base-accent pl-1'>
-                Componente 1
-              </span>
-              <Input
-                name='description'
-                placeholder='Objeto a reparar'
-                className={'bg-white h-6 w-44'}
-              />
-            </div>
-
-            <div className='flex  items-end'>
-              <span>$</span>
-              <Input
-                name='cost'
-                placeholder='Costo'
-                className={'bg-white h-6'}
-              />
-            </div>
+            ))}
           </div>
 
-          <div className='flex border-b-2 border-base-200 gap-2 py-3'>
-            <div className='pt-1'>
-              <div className='bg-white p-1 rounded-full'>
-                <Image
-                  src={CabinAir}
-                  alt=''
-                  height={70}
-                  width={70}
-                  className='p-1'
-                />
+          <div className='flex flex-col pb-2 w-full'>
+            <h3 className='text-secondary font-semibold text-lg pb-3 sm:text-xl sm:font-semibold'>
+              Mantenimiento
+            </h3>
+
+            {data.maintenance.map(data => (
+              <div
+                key={data}
+                className='flex border-b-2 border-base-200 sm:border-none gap-1 py-3 sm:gap-4'
+              >
+                <div className='pt-1'>
+                  <div className='relative p-1 bg-white sm:bg-base-300 flex justify-center h-7 w-7 sm:h-12 sm:w-12 rounded-full'>
+                    <Image
+                      src={CabinAir}
+                      alt=''
+                      fill
+                      className='p-1 sm:p-2'
+                    />
+                  </div>
+                </div>
+
+                <div className='flex flex-col gap-1 w-full'>
+                  <span className='text-sm text-base-accent pl-1 sm:text-base md:text-lg'>{data}</span>
+                  <Input
+                    name='description'
+                    placeholder='Objeto a reparar'
+                    className={'bg-white sm:bg-base-300 h-8 md:h-10 w-44'}
+                  />
+                </div>
+
+                <div className='flex items-end max-w-[98px] md:max-w-[112px] md:ml-3 md:mr-6'>
+                  <div className='flex items-center gap-1'>
+                    <span>$</span>
+                    <Input
+                      name='cost'
+                      placeholder='Costo'
+                      className={'bg-white sm:bg-base-300 h-8 md:h-10'}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-
-            <div className='flex flex-col gap-1'>
-              <span className='pl-1 text-sm'>Componente 2</span>
-              <Input
-                name='description'
-                placeholder='Objeto a reparar'
-                className={'bg-white h-6 w-44'}
-              />
-            </div>
-
-            <div className='flex  items-end'>
-              <span>$</span>
-              <Input
-                name='cost'
-                placeholder='Costo'
-                className={'bg-white h-6'}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className='flex flex-col pb-2'>
-          <h3 className='text-secondary font-semibold text-lg pb-3'>
-            Mantenimiento
-          </h3>
-
-          <div className='flex border-b-2 border-base-200 gap-2 pb-3'>
-            <div className='pt-1'>
-              <div className='bg-white p-1 rounded-full'>
-                <Image
-                  src={CabinAir}
-                  alt=''
-                  height={70}
-                  width={70}
-                  className='p-1'
-                />
-              </div>
-            </div>
-
-            <div className='flex flex-col gap-1'>
-              <span className='text-sm text-base-accent pl-1'>
-                Componente 1
-              </span>
-              <Input
-                name='description'
-                placeholder='Objeto a reparar'
-                className={'bg-white h-6 w-44'}
-              />
-            </div>
-
-            <div className='flex items-end gap-1'>
-              <span>$</span>
-              <Input
-                name='cost'
-                placeholder='Costo'
-                className={'bg-white h-6 w-20'}
-              />
-            </div>
+            ))}
           </div>
         </div>
 
-        <div className='flex border-b-2 border-base-200 pb-3'>
-          <h3 className='text-secondary font-medium pb-1 w-full flex-grow'>
+        <div className='flex items-center border-b-2 border-base-200 py-3'>
+          <h3 className='text-secondary font-medium pb-1 w-full flex-grow sm:text-xl sm:font-semibold'>
             Mano de obra
           </h3>
 
           <div className='flex items-end gap-1 max-w-[98px]'>
-            <span>$</span>
-            <Input
-              name='cost'
-              placeholder='Costo'
-              className={'bg-white h-6 w-20'}
-            />
+            <div className='flex items-center gap-1'>
+              <span>$</span>
+              <Input
+                name='cost'
+                placeholder='Costo'
+                className={'bg-white sm:bg-base-300 h-8 md:h-10 w-20'}
+              />
+            </div>
           </div>
         </div>
 
         <div className='flex pt-3 pb-2'>
-          <h3 className='text-secondary font-medium pb-1 w-full flex-grow'>
+          <h3 className='text-secondary font-medium pb-1 w-full flex-grow sm:text-xl sm:font-semibold'>
             TOTAL
           </h3>
 
           <div className='flex items-end gap-1 max-w-[98px]'>
-            <span>$</span>
-            <Input
-              name='total'
-              placeholder='Total'
-              className={'bg-white h-6 w-20'}
-            />
+            <div className='flex items-center gap-1'>
+              <span>$</span>
+              <Input
+                name='total'
+                placeholder='Total'
+                className={'bg-white sm:bg-base-300 h-8 md:h-10 w-20'}
+              />
+            </div>
           </div>
         </div>
       </main>
