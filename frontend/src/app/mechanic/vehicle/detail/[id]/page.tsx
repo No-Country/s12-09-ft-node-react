@@ -5,6 +5,7 @@ import { useVehicle } from '@/hook';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect } from 'react';
+import swal from 'sweetalert';
 
 interface VehicleDetailProps {
   params: { id: string };

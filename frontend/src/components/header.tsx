@@ -38,6 +38,16 @@ export const Header = () => {
       href: '/client',
       icon: '',
     },
+    {
+      name: '--------------',
+      href: '',
+      icon: '',
+    },
+    {
+      name: 'Mechanic Screen',
+      href: '/mechanic/login',
+      icon: '',
+    },
   ];
 
   return (
