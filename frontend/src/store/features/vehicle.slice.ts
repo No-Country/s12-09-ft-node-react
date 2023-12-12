@@ -4,11 +4,39 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 interface State {
   vehicles: Vehicle[];
+  vehicleById: Vehicle;
   isLoading: boolean;
 }
 
+const initialVehicle: Vehicle = {
+  brand: '',
+  color: '',
+  createdAt: '',
+  imageUrl: '',
+  licensePlate: '',
+  mileage: 0,
+  model: '',
+  repairLog: [],
+  updatedAt: '',
+  user: {
+    document: 0,
+    email: '',
+    firstName: '',
+    lastName: '',
+    phone: '',
+    id: '',
+    pass: '',
+    rol: '',
+    vehicle: [],
+  },
+  year: 0,
+  id: '',
+  userId: '',
+};
+
 const initialState: State = {
   vehicles: [],
+  vehicleById: initialVehicle,
   isLoading: false,
 };
 
@@ -79,6 +107,7 @@ const vehicleSlice = createSlice({
     });
     builder.addCase(getOneVehicleByIdAsync.fulfilled, (state, action) => {
       console.log('GETONE', action.payload);
+      state.vehicleById = action.payload;
       state.isLoading = false;
     });
     //  UPDATE

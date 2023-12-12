@@ -10,7 +10,9 @@ import { unwrapResult } from '@reduxjs/toolkit';
 
 export function useVehicle() {
   const dispatch = useAppDispatch();
-  const { vehicles, isLoading } = useAppSelector(state => state.vehicles);
+  const { vehicles, vehicleById, isLoading } = useAppSelector(
+    state => state.vehicles
+  );
 
   function getAllVehicles() {
     vehicles.length === 0 && dispatch(getAllVehiclesAsync());
@@ -28,6 +30,7 @@ export function useVehicle() {
 
   return {
     vehicles,
+    vehicleById,
     isLoading,
     getAllVehicles,
     getOneVehicleById,
