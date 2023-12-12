@@ -32,7 +32,8 @@ const errorHandler = (
 		error.message === 'Workshop not found' ||
 		error.message === 'Appointment not found' ||
 		error.message === 'Vehicle not found' ||
-		error.message === 'User not found'
+		error.message === 'User not found' ||
+		error.message === 'Budget not found'
 	) {
 		return res.status(404).json({ message: error.message })
 	}
