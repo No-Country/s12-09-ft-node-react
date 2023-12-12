@@ -8,11 +8,13 @@ import MailIcon from './mail.svg';
 import PhoneIcon from './phone.svg';
 import AddressIcon from './address.svg';
 import BotonmasIcon from './botonmas.svg';
+import BackArrowIcon from './BackArrow.svg';
 
 import OpenEyeIcon from './openEye.svg';
 import CloseEyeIcon from './closeEye.svg';
 
 export {
+  BackArrowIcon,
   BarsIcon,
   PlusIcon,
   UserIcon,

@@ -39,18 +39,20 @@ function MechanicHome() {
         >
           Taller
         </button>
-        <button
-          onClick={() => {
-            setCurrentView('cliente');
-          }}
-          className={` ${
-            currentView === 'cliente'
-              ? ' text-secondary font-bold underline'
-              : 'text-secondary font-bold'
-          }`}
-        >
-          Cliente
-        </button>
+        <Link href={'/mechanic/tracing'}>
+          <button
+            onClick={() => {
+              setCurrentView('cliente');
+            }}
+            className={` ${
+              currentView === 'cliente'
+                ? ' text-secondary font-bold underline'
+                : 'text-secondary font-bold'
+            }`}
+          >
+            Cliente
+          </button>
+        </Link>
       </div>
 
       <section className=' flex justify-center mt-10'>

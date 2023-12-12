@@ -1,11 +1,10 @@
 'use client';
 
-import { UserIcon } from '@/assets/icons';
+import { BackArrowIcon, UserIcon } from '@/assets/icons';
 import { useVehicle } from '@/hook';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect } from 'react';
-import swal from 'sweetalert';
 
 interface VehicleDetailProps {
   params: { id: string };
@@ -22,8 +21,12 @@ export default function VehicleDetail({ params }: VehicleDetailProps) {
 
   return (
     <div>
+      <div className='flex gap-1 mx-2 mt-2 lg:mx-5 lg:mt-5'>
+        <Image src={BackArrowIcon} alt='back arrow' height={15} width={15} />
+        <Link href={'/mechanic/home'}>Back</Link>
+      </div>
       {vehicleById !== null ? (
-        <section className='md:grid md:grid-cols-2 md:px-[10%] px-[5%] md:gap-20 justify-center items-center h-[90vh]'>
+        <section className='md:grid md:grid-cols-2 md:px-[10%] px-[5%] md:gap-20 justify-center items-center h-[80vh]'>
           <div className=''>
             <div className='hidden md:block'>
               <div className='flex  flex-row items-center gap-5'>
