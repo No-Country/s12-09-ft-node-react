@@ -12,6 +12,7 @@ import BackArrowIcon from './BackArrow.svg';
 
 import OpenEyeIcon from './openEye.svg';
 import CloseEyeIcon from './closeEye.svg';
+import CabinAir from './cabinAir.svg'
 
 export {
   BackArrowIcon,
@@ -26,4 +27,5 @@ export {
   BotonmasIcon,
   OpenEyeIcon,
   CloseEyeIcon,
+  CabinAir
 };
