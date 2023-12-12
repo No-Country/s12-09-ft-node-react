@@ -45,7 +45,8 @@ export class BudgetController {
 	static async findBudgetById(req: Request, res: Response, next: NextFunction) {
 		try {
 			const { id } = req.params
-			if (!id) {
+			const budgetFind = await Budget.findByPk(id)
+			if (!budgetFind) {
 				throw new Error('Budget not found')
 			}
 			const budgetToFind = await Budget.findByPk(id)
