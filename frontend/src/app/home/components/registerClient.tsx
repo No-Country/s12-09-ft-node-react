@@ -44,7 +44,6 @@ export const RegisterClient = () => {
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const param = e.target.value;
-    console.log(e.target.value);
     setSearchClient(param);
   };
 
@@ -69,7 +68,7 @@ export const RegisterClient = () => {
 
   return (
     <div
-      className={`absolute w-full bottom-0 bg-gray-200 rounded-t-[3rem] sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[3rem] sm:max-w-md ${
+      className={`fixed w-full bottom-0 bg-gray-200 rounded-t-[3rem] sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[3rem] sm:max-w-md ${
         isModalOpen('registerClient') ? '' : 'hidden'
       } transition-all`}
     >

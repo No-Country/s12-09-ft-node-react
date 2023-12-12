@@ -81,10 +81,10 @@ const RegisterVehicle = () => {
 
   return (
     <div
-      className={`absolute w-full bottom-0 bg-gray-200 rounded-t-[3rem] sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[3rem] sm:max-w-md transition-all ${isModalOpen('registerVehicle') ? '' : 'hidden'}`}
+      className={`fixed w-full bottom-0 bg-gray-200 rounded-t-[3rem] sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[3rem] sm:max-w-md transition-all ${isModalOpen('registerVehicle') ? '' : 'hidden'}`}
     >
       <header className='flex gap-8 sm:gap-16 justify-center pt-8'>
-        <span className=' text-sm sm:text-base font-medium'>
+        <span className='font-medium'>
           Datos de vehiculo
         </span>
       </header>
@@ -162,14 +162,14 @@ const RegisterVehicle = () => {
           <div className='px-2 py-2 flex justify-between'>
             <span>Color</span>
 
-            <ul className='flex gap-4'>
+            <ul className='flex gap-3 sm:gap-4'>
               {colors.map(color => (
                 <li
                   key={color.name}
                   onClick={() => {
                     handleChange('color')(color.name);
                   }}
-                  className={`cursor-pointer h-7 w-7 border-2 rounded-full transition-all`}
+                  className={`cursor-pointer h-6 w-6 sm:h-7 sm:w-7 border-2 rounded-full transition-all`}
                   style={{'borderColor': color.class, 'backgroundColor': values.color === color.name ? color.class : ''}}
                 />
               ))}
