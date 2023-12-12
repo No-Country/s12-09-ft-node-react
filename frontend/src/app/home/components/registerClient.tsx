@@ -254,14 +254,6 @@ export const RegisterClient = () => {
         <button
           onClick={() => {
             closeModal('registerClient');
-            openModal('registerVehicle');
-          }}
-        >
-          abrir siguiente modal
-        </button>
-        <button
-          onClick={() => {
-            closeModal('registerClient');
           }}
         >
           cerrar modal
