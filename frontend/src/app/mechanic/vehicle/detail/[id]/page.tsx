@@ -22,7 +22,7 @@ export default function VehicleDetail({ params }: VehicleDetailProps) {
   return (
     <div>
       {vehicleById !== null ? (
-        <section className='md:grid md:grid-cols-2 md:px-[10%] px-[5%] md:gap-20 justify-center items-center min-h-screen'>
+        <section className='md:grid md:grid-cols-2 md:px-[10%] px-[5%] md:gap-20 justify-center items-center h-[90vh]'>
           <div className=''>
             <div className='hidden md:block'>
               <div className='flex  flex-row items-center gap-5'>
