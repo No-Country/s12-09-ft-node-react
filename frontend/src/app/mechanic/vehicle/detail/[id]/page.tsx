@@ -3,6 +3,7 @@
 import { UserIcon } from '@/assets/icons';
 import { useVehicle } from '@/hook';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect } from 'react';
 
 interface VehicleDetailProps {
@@ -91,9 +92,11 @@ export default function VehicleDetail({ params }: VehicleDetailProps) {
                 </p>
 
                 <div className='flex justify-center mt-5'>
-                  <button className='btn btn-primary text-secondary font-bold w-56 text-xl'>
-                    Enviar Cotización
-                  </button>
+                  <Link href={`/mechanic/vehicle//quote/${vehicleById.id}`}>
+                    <button className='btn btn-primary text-secondary font-bold w-56 text-xl'>
+                      Enviar Cotización
+                    </button>
+                  </Link>
                 </div>
               </div>
             </section>
