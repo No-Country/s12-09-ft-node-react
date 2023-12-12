@@ -1,10 +1,18 @@
-import { Request, Response, NextFunction } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import { Budget } from '../models/Budget'
+import { Users } from '../models/Users'
 
 export class BudgetController {
 	static async getAllBudget(req: Request, res: Response, next: NextFunction) {
 		try {
-			const budgets = await Budget.findAll()
+			const budgets = await Budget.findAll({
+				include: [
+					{
+						model: Users,
+						attributes: { exclude: ['pass', 'rol'] },
+					},
+				],
+			})
 			return res.status(200).json(budgets)
 		} catch (error) {
 			next(error)
@@ -12,7 +20,13 @@ export class BudgetController {
 	}
 
 	static async createBudget(req: Request, res: Response, next: NextFunction) {
+		const { userId } = req.body
 		try {
+			const user = await Users.findOne({
+				where: { id: userId },
+				attributes: { exclude: ['pass', 'rol'] },
+			})
+			if (!user) throw new Error('User not found')
 			const newBudget = await Budget.create(req.body)
 			res.status(201).json(newBudget)
 		} catch (error) {
@@ -30,12 +44,26 @@ export class BudgetController {
 			throw new Error('Budget not found')
 		}
 		try {
-			const budgetToDestroy = await Budget.findByPk(id)
+			const budgetToDestroy = await Budget.findByPk(id, {
+				include: [
+					{
+						model: Users,
+						attributes: { exclude: ['pass', 'rol'] },
+					},
+				],
+			})
 			if (!budgetToDestroy) {
 				throw new Error('Budget not found')
 			}
 			await budgetToDestroy.destroy()
-			const remainingBudgets = await Budget.findAll()
+			const remainingBudgets = await Budget.findAll({
+				include: [
+					{
+						model: Users,
+						attributes: { exclude: ['pass', 'rol'] },
+					},
+				],
+			})
 			res.status(200).json(remainingBudgets)
 		} catch (error) {
 			next(error)
@@ -45,12 +73,17 @@ export class BudgetController {
 	static async findBudgetById(req: Request, res: Response, next: NextFunction) {
 		try {
 			const { id } = req.params
-			const budgetFind = await Budget.findByPk(id)
-			if (!budgetFind) {
+			const budgetToFind = await Budget.findByPk(id, {
+				include: [
+					{
+						model: Users,
+						attributes: { exclude: ['pass', 'rol'] },
+					},
+				],
+			})
+			if (!budgetToFind) {
 				throw new Error('Budget not found')
 			}
-			const budgetToFind = await Budget.findByPk(id)
-
 			res.status(200).json(budgetToFind)
 		} catch (error) {
 			next(error)

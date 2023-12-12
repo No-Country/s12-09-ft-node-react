@@ -47,12 +47,15 @@
 // }
 
 import {
-	DataType,
-	Model,
-	Column,
-	Table,
 	BeforeSave,
-} from 'sequelize-typescript'
+	BelongsTo,
+	Column,
+	DataType,
+	ForeignKey,
+	Model,
+	Table,
+} from 'sequelize-typescript';
+import { Users } from './Users';
 
 @Table({
 	timestamps: false,
@@ -97,6 +100,13 @@ export class Budget extends Model {
 		defaultValue: false, // Por defecto, el presupuesto no está aceptado
 	})
 	accepted!: boolean
+
+	@ForeignKey(() => Users)
+	@Column({ type: DataType.UUID })
+	userId!: string
+
+	@BelongsTo(() => Users)
+	user!: Users
 
 	@BeforeSave
 	static calculateCosts(budget: Budget) {

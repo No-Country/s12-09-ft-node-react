@@ -10,6 +10,7 @@ import {
 import { Vehicle } from './Vehicle'
 
 import * as bcrypt from 'bcrypt'
+import { Budget } from './Budget'
 
 @Table({
 	timestamps: false,
@@ -119,6 +120,9 @@ export class Users extends Model {
 
 	@HasMany(() => Vehicle)
 	vehicle!: Vehicle[]
+
+	@HasMany(() => Budget)
+	budgets!: Budget[]
 
 	public async comparePass(candidatePass: string): Promise<boolean> {
 		return bcrypt.compare(candidatePass, this.pass)
