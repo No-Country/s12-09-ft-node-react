@@ -2,9 +2,9 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Input } from '@/components/input';
-import type {Dispatch, SetStateAction} from 'react'
-import { useClient } from '@/hook/useClient';
 import { useModal } from '@/context';
+import { useVehicle } from '@/hook';
+import swal from 'sweetalert';
 
 const basicSchema = yup.object().shape({
   brand: yup.string().required('Required'),
@@ -13,6 +13,7 @@ const basicSchema = yup.object().shape({
   mileage: yup.number().positive().integer().required('Required'),
   color: yup.string().required('Required'),
   licensePlate: yup.string().required('Required'),
+  userId: yup.string()
 });
 
 const initialValues = {
@@ -22,27 +23,32 @@ const initialValues = {
   mileage: 0,
   color: '',
   licensePlate: '',
+  userId: ''
 };
 
-interface Props {
-  isOpen: boolean,
-  handleOpen: Dispatch<SetStateAction<boolean>>
-}
 
-const RegisterVehicle: React.FC<Props> = ({isOpen, handleOpen}) => {
-  const { clients } = useClient()
-  const { isModalOpen, closeModal } = useModal()
+const RegisterVehicle = () => {
+  const { isModalOpen, closeModal, getSharedData } = useModal()
+  const { createVehicle } = useVehicle()
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
       initialValues: {
         ...initialValues,
-        userId: clients.length > 0 ? clients[0].id : null
       },
       validationSchema: basicSchema,
-      onSubmit: values => {
-        console.log(values);
-        handleOpen(false)
+      onSubmit: async values => {
+        const createValues = {...values, userId: getSharedData()}
+        try {
+          const result = await createVehicle(createValues);
+          console.log('Vehicle created successfully:', result);
+          await swal('Vehiculo registrado', '', 'success');
+          closeModal('registerVehicle')
+        } catch (error) {
+          console.log('Error creating vehicle:', error);
+          await swal('No se pudo registrar el vehiculo', '', 'error');
+          closeModal('registerVehicle')
+        }
       },
     });
 
@@ -122,7 +128,7 @@ const RegisterVehicle: React.FC<Props> = ({isOpen, handleOpen}) => {
           <div className='flex gap-2 w-full'>
             <div className='w-full'>
               <Input
-                type='text'
+                type='number'
                 name='year'
                 placeholder='Año'
                 className={`bg-base-100 text-sm ${
@@ -138,7 +144,7 @@ const RegisterVehicle: React.FC<Props> = ({isOpen, handleOpen}) => {
 
             <div className='w-full'>
               <Input
-                type='text'
+                type='number'
                 name='mileage'
                 placeholder='Kilometraje'
                 className={`bg-base-100 text-sm ${

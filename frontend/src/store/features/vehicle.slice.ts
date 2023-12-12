@@ -1,4 +1,4 @@
-import type { Vehicle } from '@/@types';
+import type { NewVehicle, Vehicle } from '@/@types';
 import { vehicleService } from '@/services';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
@@ -22,9 +22,13 @@ export const getAllVehiclesAsync = createAsyncThunk(
 );
 export const createVehicleAsync = createAsyncThunk(
   'vehicle/create',
-  async (newVehicle: Vehicle) => {
-    const created = await vehicleService.create(newVehicle);
-    return created;
+  async (newVehicle: NewVehicle, { rejectWithValue }) => {
+    try {
+      const created = await vehicleService.create(newVehicle);
+      return created;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
   }
 );
 export const getOneVehicleByIdAsync = createAsyncThunk(

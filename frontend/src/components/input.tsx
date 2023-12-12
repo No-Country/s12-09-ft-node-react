@@ -36,7 +36,7 @@ export const Input = ({
         placeholder={placeholder}
         name={name}
         type={type === 'password' || type === 'pass' ? passwordType : type}
-        min={10000}
+        min={1000}
         max={99999999}
       />
       {/* {(errors.email && touched.email) && <p className='text-error text-xs mt-[-7px]'>{errors.email}</p> } */}

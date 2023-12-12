@@ -14,8 +14,6 @@ import { useModal } from '@/context';
 
 const VehiclePage = () => {
   const { vehicles, getAllVehicles } = useVehicle();
-  const [openClientModal, setOpenClientModal] = useState(false);
-  const [openVehicleModal, setOpenVehicleModal] = useState(false);
   const { openModal } = useModal()
 
   useEffect(() => {
@@ -111,8 +109,8 @@ const VehiclePage = () => {
         </div>
       </button>
 
-      <RegisterClient isOpen={openClientModal} handleOpen={setOpenClientModal} nextModal={setOpenVehicleModal}/>
-      <RegisterVehicle isOpen={openVehicleModal} handleOpen={setOpenVehicleModal}/>
+      <RegisterClient/>
+      <RegisterVehicle/>
     </div>
   );
 };

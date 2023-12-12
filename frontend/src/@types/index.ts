@@ -24,6 +24,16 @@ export interface Vehicle {
   repairLog: any[];
 }
 
+export interface NewVehicle {
+  brand: string;
+  model: string;
+  color: string;
+  year: number;
+  licensePlate: string;
+  mileage: number;
+  userId: string;
+}
+
 export interface User {
   id?: string;
   lastName: string;

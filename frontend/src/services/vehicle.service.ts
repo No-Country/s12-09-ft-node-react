@@ -1,4 +1,4 @@
-import type { Vehicle } from '@/@types';
+import type { NewVehicle, Vehicle } from '@/@types';
 import { handleRequest, httpClient } from '@/utils';
 
 const path = 'vehicle';
@@ -6,7 +6,7 @@ const path = 'vehicle';
 export async function getAll(): Promise<Vehicle[]> {
   return await handleRequest(httpClient.get(`${path}`));
 }
-export async function create(newVehicle: Vehicle): Promise<Vehicle> {
+export async function create(newVehicle: NewVehicle): Promise<NewVehicle> {
   return await handleRequest(httpClient.post(`${path}`, newVehicle));
 }
 export async function getOneById(id: string): Promise<Vehicle> {

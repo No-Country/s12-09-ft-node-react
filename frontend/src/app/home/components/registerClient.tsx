@@ -5,7 +5,6 @@ import { Input } from '@/components/input';
 import { useModal } from '@/context';
 import { useClient } from '@/hook/useClient';
 import { useFormik } from 'formik';
-import type {Dispatch, SetStateAction} from 'react'
 import { useEffect, useState } from 'react';
 import * as yup from 'yup';
 
@@ -38,15 +37,16 @@ const initialValues: User = {
   document: 0,
 };
 
-interface Props {
-  isOpen: boolean,
-  handleOpen: Dispatch<SetStateAction<boolean>>,
-  nextModal: Dispatch<SetStateAction<boolean>>
-}
+export const RegisterClient = () => {
+  const { createClient, clients, getAllClients } = useClient();
+  const { isModalOpen, closeModal, openModal } = useModal();
+  const [searchClient, setSearchClient] = useState('');
 
-export const RegisterClient: React.FC<Props> = ({isOpen, handleOpen, nextModal}) => {
-  const { createClient, clients } = useClient();
-  const { isModalOpen, closeModal, openModal } = useModal()
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const param = e.target.value;
+    console.log(e.target.value);
+    setSearchClient(param);
+  };
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
@@ -60,17 +60,12 @@ export const RegisterClient: React.FC<Props> = ({isOpen, handleOpen, nextModal})
   const [currentView, setCurrentView] = useState<'new' | 'existing'>('new');
 
   useEffect(() => {
+    getAllClients();
+  }, [getAllClients]);
 
-    const openNextModal = () => {
-      if(clients[0] !== undefined) {
-        handleOpen(false)
-        nextModal(true)
-      }
-    }
-
-    openNextModal()
-
-  }, [clients, handleOpen, nextModal])
+  const filteredClients = clients.filter(
+    client => parseInt(searchClient) === client.document
+  );
 
   return (
     <div
@@ -222,16 +217,55 @@ export const RegisterClient: React.FC<Props> = ({isOpen, handleOpen, nextModal})
             </div>
           </form>
         ) : (
-          // Placeholder, falta definir que ira en esta parte
-          <div className='min-h-[200px] flex justify-center items-center'>
-            Cliente existente
+          // Placeholder, falta definir qule ira en esta parte
+          <div className='min-h-[200px] flex flex-col w-full'>
+            <Input
+              type='text'
+              placeholder='Buscar por documento'
+              className='w-full text-center'
+              handleChange={handleInput}
+            />
+
+            <div>
+              {filteredClients?.map(client => (
+                <p key={client.id}>
+                  Nombre: {client.firstName + ' ' + client.lastName}
+                </p>
+              ))}
+            </div>
+
+            <div className='mt-auto flex justify-center'>
+              <button
+                onClick={() => {
+                  closeModal('registerClient');
+                  openModal('registerVehicle', filteredClients[0]?.id);
+                }}
+                className='btn text-lg font-medium btn-accent text-base-180 sm:w-full'
+                disabled={filteredClients[0] === undefined}
+              >
+                Siguiente
+              </button>
+            </div>
           </div>
         )}
       </main>
 
       <div className='flex flex-col gap-1 justify-center items-center pb-2'>
-        <button onClick={() => {closeModal('registerClient')  ; openModal('registerVehicle')}}>abrir siguiente modal</button>
-        <button onClick={() => {closeModal('registerClient')}}>cerrar modal</button>
+        <button
+          onClick={() => {
+            closeModal('registerClient');
+            openModal('registerVehicle');
+          }}
+        >
+          abrir siguiente modal
+        </button>
+        <button
+          onClick={() => {
+            closeModal('registerClient');
+          }}
+        >
+          cerrar modal
+        </button>
       </div>
     </div>
   );

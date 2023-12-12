@@ -9,9 +9,10 @@ interface ModalContextProps {
 }
 
 interface ModalContextState {
-  openModal: (modalType: ModalType) => void;
+  openModal: (modalType: ModalType, data?: any) => void;
   closeModal: (modalType: ModalType) => void;
   isModalOpen: (modalType: ModalType) => boolean;
+  getSharedData: () => any
 }
 
 const ModalContext = createContext<ModalContextState | undefined>(undefined);
@@ -21,8 +22,10 @@ export const ModalProvider: React.FC<ModalContextProps> = ({ children }) => {
     registerClient: false,
     registerVehicle: false,
   });
+  const [sharedData, setSharedData] = useState<{ userId?: string } | undefined>(undefined);
 
-  const openModal = (modalType: ModalType) => {
+  const openModal = (modalType: ModalType, data?: any) => {
+    setSharedData(data);
     setOpenModals((prev) => ({ ...prev, [modalType]: true }));
   };
 
@@ -32,10 +35,13 @@ export const ModalProvider: React.FC<ModalContextProps> = ({ children }) => {
 
   const isModalOpen = (modalType: ModalType) => openModals[modalType];
 
+  const getSharedData = () => sharedData;
+
   const contextValue: ModalContextState = {
     openModal,
     closeModal,
     isModalOpen,
+    getSharedData
   };
 
   return <ModalContext.Provider value={contextValue}>{children}</ModalContext.Provider>;
