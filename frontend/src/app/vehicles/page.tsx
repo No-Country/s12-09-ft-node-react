@@ -1,10 +1,8 @@
 'use client';
-import { useModal } from '@/hook';
 import { VehiclesGrid } from './components';
 import { Container } from '@/components';
 
 export default function VehiclesPage() {
-  const { openModal } = useModal();
   return (
     <section className='vehicle-page'>
       <Container>
@@ -21,7 +19,7 @@ export default function VehiclesPage() {
         </>
       </Container>
       <button
-        onClick={() => {openModal(<>Contenido</>, { title: 'Modal' })}}
+        onClick={() => {}}
         className='btn btn-sm btn-circle'
       >
         +
