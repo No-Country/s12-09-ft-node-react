@@ -15,7 +15,7 @@ export const Header = () => {
     },
     {
       name: 'Mechanic',
-      href: '/mechanic',
+      href: '/mechanicRegister',
       icon: '',
     },
     {
