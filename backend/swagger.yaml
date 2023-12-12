@@ -1,0 +1,1632 @@
+openapi: 3.0.0
+info:
+  title: Express API
+  version: 1.0.0
+
+tags:
+  - name: Auth
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: apiKey
+      in: header
+      name: session
+  schemas:
+    Users:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        lastName:
+          type: string
+        firstName:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        rol:
+          type: string
+          example: user
+        pass:
+          type: string
+          pattern: '^(?=.*[A-Z])(?=.*[a-z]).{5,8}$'
+          example: 'Password'
+        document:
+          type: integer
+    Workshop:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        address:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          pattern: '^(?=.*[A-Z])(?=.*[a-z]).{5,8}$'
+          example: 'Password'
+        phone:
+          type: string
+        role:
+          type: string
+          example: admin
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        brand:
+          type: string
+        model:
+          type: string
+        color:
+          type: string
+        year:
+          type: integer
+        licensePlate:
+          type: string
+        mileage:
+          type: integer
+        imageUrl:
+          type: string
+        userId:
+          type: string
+          format: uuid
+        user:
+          $ref: '#/components/schemas/Users'
+      required:
+        - brand
+        - model
+        - color
+        - year
+        - licensePlate
+        - mileage
+        - userId
+    Service:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        quantity:
+          type: integer
+        cost:
+          type: number
+          format: double
+    RepairLog:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        date:
+          type: string
+          format: date-time
+        description:
+          type: string
+        cost:
+          type: number
+          format: double
+        state:
+          type: string
+          enum:
+            - Cotizar
+            - Confirmar
+            - En reparacion
+            - Aviso al cliente
+        vehicleId:
+          type: string
+          format: uuid
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+        mechanicId:
+          type: string
+          format: uuid
+        mechanic:
+          $ref: '#/components/schemas/Mechanic'
+    Mechanic:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        document:
+          type: integer
+        phone:
+          type: string
+        role:
+          type: string
+          example: mechanic
+      required:
+        - firstName
+        - lastName
+        - email
+        - document
+    Appointments:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        date:
+          type: string
+          format: date
+        menssage:
+          type: string
+      required:
+        - date
+        - menssage
+
+security:
+  - BearerAuth: []
+
+paths:
+  /api/v1/user:
+    get:
+      summary: Get all users
+      tags:
+        - Users
+      responses:
+        '200':
+          description: User retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Users'
+        '401':
+          description: Unauthorized
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    post:
+      summary: Create a new user
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Users'
+            example:
+              firstName: 'user_first_name'
+              lastName: 'user_last_name'
+              email: 'user_email'
+              phone: 1234567890
+              pass: 'SergioR10'
+              document: 12345
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/v1/user/{id}:
+    get:
+      summary: Get user by ID
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    put:
+      summary: Update user by ID
+      tags:
+        - Users
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: ID of the user to update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Users'
+            example:
+              id: 'ID of the user to update'
+              lastName: 'example'
+              firstName: 'example'
+              email: 'example@gmail.com'
+              phone: 1122332212
+              rol: 'user'
+              pass: 'password update'
+      responses:
+        '200':
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+        '404':
+          description: Event not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected
+
+    delete:
+      summary: Delete a specific user
+      tags:
+        - Users
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID of the user to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Event not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /api/v1/workshop:
+    get:
+      summary: Get all workshops
+      tags:
+        - Workshops
+      responses:
+        '200':
+          description: Workshops retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Workshop'
+        '401':
+          description: Unauthorized
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    post:
+      summary: Create a new workshop
+      tags:
+        - Workshops
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workshop'
+            example:
+              name: 'Workshop_name'
+              address: 'Workshop_address'
+              email: 'example@gmail.com'
+              password: '123123'
+              phone: '112332233'
+      responses:
+        '201':
+          description: Workshop created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workshop'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /api/v1/workshop/{id}:
+    get:
+      summary: Get workshop by ID
+      tags:
+        - Workshops
+      parameters:
+        - name: id
+          in: path
+          description: workshop ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workshop'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Workshop not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    put:
+      summary: Update Workshops by ID
+      tags:
+        - Workshops
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: ID of the workshop to update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workshop'
+            example:
+              name: 'Workshop_name'
+              address: 'Workshop_address'
+              email: 'example@gmail.com'
+              password: '123123'
+              phone: '112332233'
+      responses:
+        '200':
+          description: Workshop updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workshop'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+        '404':
+          description: Workshop not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected
+    delete:
+      summary: Delete a specific Workshop
+      tags:
+        - Workshops
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID of the workshops to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Workshop deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workshop'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Workshop not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /api/v1/workshop/login:
+    post:
+      summary: Workshop login
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workshop'
+            example:
+              email: 'Workshop@example.com'
+              password: 'Password1'
+      responses:
+        '200':
+          description: Workshop signed in successfully
+          headers:
+            Set-Cookie:
+              description: Cookie containing the 'session' token
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workshop'
+        '401':
+          description: Unauthorized
+
+  /api/v1/vehicle:
+    get:
+      summary: Get all vehicles
+      tags:
+        - Vehicles
+      responses:
+        '200':
+          description: vehicles retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vehicle'
+        '401':
+          description: Unauthorized
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    post:
+      summary: Create a new Vehicle
+      tags:
+        - Vehicles
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vehicle'
+            example:
+              brand: 'Vehicle_brand'
+              model: 'Vehicle_model'
+              color: 'Vehicle_color'
+              year: 2018
+              licensePlate: 'ABC123'
+              mileage: 50000
+              userId: 'user123'
+      responses:
+        '201':
+          description: Vehicle created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /api/v1/vehicle/{id}:
+    get:
+      summary: Get Vehicle by ID
+      tags:
+        - Vehicles
+      parameters:
+        - name: id
+          in: path
+          description: Vehicle ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Vehicle not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    put:
+      summary: Update Vehicle by ID
+      tags:
+        - Vehicles
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: ID of the Vehicle to update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vehicle'
+            example:
+              brand: 'Vehicle_brand'
+              model: 'Vehicle_model'
+              color: 'Vehicle_color'
+              year: 2018
+              licensePlate: 'ABC123'
+              mileage: 50000
+              imageUrl: 'https:google.com'
+      responses:
+        '200':
+          description: Vehicle updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+        '404':
+          description: Vehicle not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected
+    delete:
+      summary: Delete a specific Vehicle
+      tags:
+        - Vehicles
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID of the Vehicle to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Vehicle deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Vehicle not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /api/v1/service:
+    get:
+      summary: Get all services
+      tags:
+        - Services
+      responses:
+        '200':
+          description: Services retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+        '401':
+          description: Unauthorized
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    post:
+      summary: Create a new Service
+      tags:
+        - Services
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Service'
+            example:
+              name: 'Servicio de Ejemplo'
+              description: 'Descripción del servicio de ejemplo'
+              quantity: 1
+              cost: 50.99
+      responses:
+        '201':
+          description: Service created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /api/v1/service/{id}:
+    get:
+      summary: Get service by ID
+      tags:
+        - Services
+      parameters:
+        - name: id
+          in: path
+          description: service ID
+          required: true
+          schema:
+            type: string
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Service'
+      '401':
+        description: Unauthorized
+      '404':
+        description: Service not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+      '500':
+        description: An unexpected error occurred
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+    put:
+      summary: Update Service by ID
+      tags:
+        - Services
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: ID of the Service to update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Service'
+            example:
+              name: 'Servicio de Ejemplo'
+              description: 'Descripción del servicio de ejemplo'
+              quantity: 1
+              cost: 50.99
+      responses:
+        '200':
+          description: Service updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+        '404':
+          description: Service not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected
+    delete:
+      summary: Delete a specific Service
+      tags:
+        - Services
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID of the Service to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Service deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Service not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /api/v1/repairlog:
+    get:
+      summary: Get all repairlogs
+      tags:
+        - RepairLogs
+      responses:
+        '200':
+          description: repairlogs retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RepairLog'
+        '401':
+          description: Unauthorized
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    post:
+      summary: Create a new RepairLog
+      tags:
+        - RepairLogs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RepairLog'
+            example:
+              vehicleId: 'id_of_vehicle'
+              mechanicId: 'id_of_mechanic'
+              description: 'Repair log description'
+              cost: 100.50
+              state: 'In repair'
+      responses:
+        '201':
+          description: RepairLog created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepairLog'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /api/v1/repairlog/{id}:
+    get:
+      summary: Get RepairLog by ID
+      tags:
+        - RepairLogs
+      parameters:
+        - name: id
+          in: path
+          description: RepairLog ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepairLog'
+        '401':
+          description: Unauthorized
+        '404':
+          description: RepairLog not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    put:
+      summary: Update RepairLog by ID
+      tags:
+        - RepairLogs
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: ID of the RepairLog to update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RepairLog'
+            example:
+              vehicleId: 'id_of_vehicle'
+              mechanicId: 'id_of_mechanic'
+              description: 'Repair log description'
+              cost: 100.50
+              state: 'In repair'
+      responses:
+        '200':
+          description: RepairLog updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepairLog'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+        '404':
+          description: RepairLog not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected
+    delete:
+      summary: Delete a specific RepairLog
+      tags:
+        - RepairLogs
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID of the RepairLog to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: RepairLog deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepairLog'
+        '401':
+          description: Unauthorized
+        '404':
+          description: RepairLog not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /api/v1/mechanic:
+    get:
+      summary: Get all mechanics
+      tags:
+        - Mechanics
+      responses:
+        '200':
+          description: mechanics retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mechanic'
+        '401':
+          description: Unauthorized
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    post:
+      summary: Create a new Mechanic
+      tags:
+        - Mechanics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mechanic'
+            example:
+              firstName: 'Mechanic_firstName'
+              lastName: 'Mechanic_lastName'
+              email: 'example@gmail.com'
+              document: '123123'
+              phone: '112332233'
+      responses:
+        '201':
+          description: Mechanic created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mechanic'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /api/v1/mechanic/{id}:
+    get:
+      summary: Get Mechanic by ID
+      tags:
+        - Mechanics
+      parameters:
+        - name: id
+          in: path
+          description: Mechanic ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mechanic'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Mechanic not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    put:
+      summary: Update Mechanic by ID
+      tags:
+        - Mechanics
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: ID of the Mechanic to update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mechanic'
+            example:
+              firstName: 'Mechanic_firstName'
+              lastName: 'Mechanic_lastName'
+              email: 'example@gmail.com'
+              document: '123123'
+              phone: '112332233'
+      responses:
+        '200':
+          description: Mechanic updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mechanic'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+        '404':
+          description: Mechanic not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected
+    delete:
+      summary: Delete a specific Mechanic
+      tags:
+        - Mechanics
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID of the Mechanic to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Mechanic deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mechanic'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Mechanic not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /api/v1/appointment:
+    get:
+      summary: Get all appointments
+      tags:
+        - Appointments
+      responses:
+        '200':
+          description: Appointments retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Appointments'
+        '401':
+          description: Unauthorized
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    post:
+      summary: Create a new Appointments
+      tags:
+        - Appointments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointments'
+            example:
+              date: '01/01/2024'
+              menssage: 'Visita tecnica'
+      responses:
+        '201':
+          description: Appointments created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointments'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /api/v1/appointment/{id}:
+    get:
+      summary: Get appointment by ID
+      tags:
+        - Appointments
+      parameters:
+        - name: id
+          in: path
+          description: Appointment ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointments'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Appointment not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    put:
+      summary: Update Appointment by ID
+      tags:
+        - Appointments
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          description: ID of the Appointment to update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointments'
+            example:
+              date: '01/01/2024'
+              menssage: 'Visita tecnica'
+      responses:
+        '200':
+          description: Appointment updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointments'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized
+        '404':
+          description: Appointment not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected
+    delete:
+      summary: Delete a specific Appointment
+      tags:
+        - Appointments
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID of the Appointment to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Appointment deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointments'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Appointment not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string

@@ -1,50 +1,54 @@
 {
-  "name": "create-express-sequelize",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node src/server",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js \"",
-    "build": "tsc"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt": "^5.1.1",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "helmet": "^6.0.1",
-    "jsonwebtoken": "^9.0.2",
-    "morgan": "^1.10.0",
-    "pg": "^8.9.0",
-    "pg-hstore": "^2.3.4",
-    "reflect-metadata": "^0.1.13",
-    "sequelize": "^6.35.1",
-    "sequelize-typescript": "^2.1.6",
-    "validator": "^13.11.0",
-    "zod": "^3.22.4"
-  },
-  "devDependencies": {
-    "@types/bcrypt": "^5.0.2",
-    "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.21",
-    "@types/jsonwebtoken": "^9.0.5",
-    "@types/morgan": "^1.9.9",
-    "@types/node": "^20.10.0",
-    "@types/validator": "^13.11.7",
-    "@typescript-eslint/eslint-plugin": "^6.13.0",
-    "@typescript-eslint/parser": "^6.13.0",
-    "concurrently": "^8.2.2",
-    "eslint": "^8.54.0",
-    "eslint-config-prettier": "^9.0.0",
-    "nodemon": "^2.0.22",
-    "prettier": "^3.1.0",
-    "typescript": "^5.3.2"
-  },
-  "overrides": {
-    "semver": "^7.5.3"
-  }
+	"name": "create-express-sequelize",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "node src/server",
+		"dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js \"",
+		"build": "tsc"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"bcrypt": "^5.1.1",
+		"cors": "^2.8.5",
+		"dotenv": "^16.0.3",
+		"express": "^4.18.2",
+		"helmet": "^6.0.1",
+		"jsonwebtoken": "^9.0.2",
+		"morgan": "^1.10.0",
+		"pg": "^8.9.0",
+		"pg-hstore": "^2.3.4",
+		"reflect-metadata": "^0.1.13",
+		"sequelize": "^6.35.1",
+		"sequelize-typescript": "^2.1.6",
+		"swagger-jsdoc": "^6.2.8",
+		"swagger-ui-express": "^5.0.0",
+		"validator": "^13.11.0",
+		"zod": "^3.22.4"
+	},
+	"devDependencies": {
+		"@types/bcrypt": "^5.0.2",
+		"@types/cors": "^2.8.17",
+		"@types/express": "^4.17.21",
+		"@types/jsonwebtoken": "^9.0.5",
+		"@types/morgan": "^1.9.9",
+		"@types/node": "^20.10.0",
+		"@types/swagger-jsdoc": "^6.0.4",
+		"@types/swagger-ui-express": "^4.1.6",
+		"@types/validator": "^13.11.7",
+		"@typescript-eslint/eslint-plugin": "^6.13.0",
+		"@typescript-eslint/parser": "^6.13.0",
+		"concurrently": "^8.2.2",
+		"eslint": "^8.54.0",
+		"eslint-config-prettier": "^9.0.0",
+		"nodemon": "^2.0.22",
+		"prettier": "^3.1.0",
+		"typescript": "^5.3.2"
+	},
+	"overrides": {
+		"semver": "^7.5.3"
+	}
 }
