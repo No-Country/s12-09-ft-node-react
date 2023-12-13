@@ -15,10 +15,6 @@ export default function WorkshopPage() {
       label: 'Clientes',
       content: <>Content cliente</>,
     },
-    {
-      label: 'otra cosa',
-      content: <>Content otra cosa <input /></>,
-    },
   ];
 
   useEffect(() => {

@@ -12,3 +12,4 @@ export * from './Title';
 export * from './TabsLayout';
 export * from './VehicleList';
 export * from './Preload';
+export * from './VehicleDetail';
