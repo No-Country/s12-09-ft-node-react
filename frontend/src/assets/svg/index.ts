@@ -9,3 +9,4 @@ export { default as MailIcon } from './mail-icon.svg';
 export { default as LockIcon } from './lock-icon.svg';
 export { default as OpenEyeIcon } from './open-eye-icon.svg';
 export { default as CloseEyeIcon } from './close-eye-icon.svg';
+export { default as BackArrowIcon } from './back-arrow-icon.svg';
