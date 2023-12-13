@@ -2,14 +2,17 @@ import type { Vehicle } from '@/@types';
 import { vehicleService } from '@/services';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
+type VehicleID = string;
 interface State {
   vehicles: Vehicle[];
-  isLoading: boolean;
+  isLoading?: boolean;
+  vehicle: Vehicle;
 }
 
 const initialState: State = {
   vehicles: [],
   isLoading: false,
+  vehicle: {},
 };
 
 // thunk functions
@@ -29,8 +32,9 @@ export const createVehicleAsync = createAsyncThunk(
 );
 export const getOneVehicleByIdAsync = createAsyncThunk(
   'vehicle/getOneById',
-  async (id: string) => {
+  async (id: VehicleID) => {
     const vehicle = await vehicleService.getOneById(id);
+    console.log(vehicle);
     return vehicle;
   }
 );
@@ -51,7 +55,13 @@ export const updateVehicleAsync = createAsyncThunk(
 const vehicleSlice = createSlice({
   name: 'vehicle',
   initialState,
-  reducers: {},
+  reducers: {
+    getOneVehicleByIdAsync: (state, action) => {
+      const id = action.payload;
+      const vehicle = state.vehicles.find(item => item.userId === id);
+      return { ...state, vehicle };
+    },
+  },
   extraReducers(builder) {
     // GETALL
     builder.addCase(getAllVehiclesAsync.pending, state => {
@@ -74,7 +84,8 @@ const vehicleSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(getOneVehicleByIdAsync.fulfilled, (state, action) => {
-      console.log('GETONE', action.payload);
+      state.vehicle = action.payload;
+      console.log(action.payload);
       state.isLoading = false;
     });
     //  UPDATE

@@ -8,24 +8,27 @@ import {
 } from '@/store/features';
 
 export function useVehicle() {
-  const displatch = useAppDispatch();
-  const { vehicles, isLoading } = useAppSelector(state => state.vehicles);
+  const dispatch = useAppDispatch();
+  const { vehicles, vehicle, isLoading } = useAppSelector(
+    state => state.vehicles
+  );
 
   function getAllVehicles() {
-    vehicles.length === 0 && displatch(getAllVehiclesAsync());
+    vehicles.length === 0 && dispatch(getAllVehiclesAsync());
   }
   function getOneVehicleById(id: string) {
-    displatch(getOneVehicleByIdAsync(id));
+    vehicles.length === 0 && dispatch(getOneVehicleByIdAsync(id));
   }
   function createVehicle(newVehicle: Vehicle) {
-    displatch(createVehicleAsync(newVehicle));
+    dispatch(createVehicleAsync(newVehicle));
   }
   function updateVehicle(modified: Vehicle) {
-    displatch(updateVehicleAsync(modified));
+    dispatch(updateVehicleAsync(modified));
   }
 
   return {
     vehicles,
+    vehicle,
     isLoading,
     getAllVehicles,
     getOneVehicleById,

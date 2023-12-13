@@ -1,28 +1,19 @@
-import Image from 'next/image';
-import logoBlue from '../../public/logoBlue.svg';
-import logoWhite from '../../public/logoWhite.svg';
+'use client';
+
+import { MainLogo } from '@/assets/svg';
 
 interface Props {
-  width?: number;
-  height?: number;
+  className?: string;
+  isWhite?: boolean;
 }
-
-export function LogoBlue({ width = 180, height = 295 }: Props) {
+export function Logo({ className = '', isWhite = false }: Props) {
   return (
-    <div className='flex-1'>
-      <a className='btn btn-ghost text-xl hover:bg-inherit'>
-        <Image src={logoBlue} alt='logo' width={width} height={height} />
-      </a>
-    </div>
-  );
-}
-
-export function LogoWhite({ width = 180, height = 295 }: Props) {
-  return (
-    <div className='flex-1'>
-      <a className='btn btn-ghost text-xl hover:bg-inherit'>
-        <Image src={logoWhite} alt='logo' width={width} height={height} />
-      </a>
+    <div className={`logo ${className}`}>
+      <MainLogo
+        className={`w-full h-auto mr-4 ${
+          isWhite ? '[&>path]:fill-white' : '[&>path]:fill-primary'
+        }`}
+      />
     </div>
   );
 }

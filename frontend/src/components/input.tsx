@@ -1,10 +1,8 @@
 'use client';
-
-import { CloseEyeIcon, OpenEyeIcon } from '@/assets/icons';
-import Image from 'next/image';
 import { useState, type ChangeEventHandler } from 'react';
+import { CloseEyeIcon, OpenEyeIcon } from '@/assets/icons';
 
-interface InputProps {
+interface Props {
   name?: string;
   placeholder?: string;
   type?: string;
@@ -12,61 +10,66 @@ interface InputProps {
   handleChange?: ChangeEventHandler;
   handleBlur?: ChangeEventHandler;
   value?: string | number;
+  error?: boolean;
+  errorMessage?: string;
 }
 
-export const Input = ({
-  name,
-  placeholder,
-  type,
-  className,
-  handleChange,
-  handleBlur,
-  value,
-}: InputProps) => {
+export const Input = (props: Props) => {
   const [passwordType, setPasswordType] = useState<string>('password');
+  const {
+    name,
+    placeholder,
+    type,
+    className,
+    value,
+    error = false,
+    errorMessage = '',
+    handleChange,
+    handleBlur,
+  } = props;
 
   return (
-    <div className='flex flex-row items-center justify-end'>
-      {/* <label htmlFor={label}>{label}</label> */}
-      <input
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={value}
-        className={`input input-bordered w-full rounded-[15px] bg-base-300 border-base-300 ${className}`}
-        placeholder={placeholder}
-        name={name}
-        type={type === 'password' || type === 'pass' ? passwordType : type}
-        min={10000}
-        max={99999999}
-      />
-      {/* {(errors.email && touched.email) && <p className='text-error text-xs mt-[-7px]'>{errors.email}</p> } */}
-      {(type === 'password' || type === 'pass') && (
-        <>
-          <label className='swap absolute mr-3'>
-            <input type='checkbox' />
-            <Image
-              onClick={() => {
-                setPasswordType('password');
-              }}
-              className='swap-off fill-current'
-              src={OpenEyeIcon}
-              alt='icon'
-              width={20}
-              height={20}
-            />
-            <Image
-              onClick={() => {
-                setPasswordType('text');
-              }}
-              className='swap-on fill-current'
-              src={CloseEyeIcon}
-              alt='icon'
-              width={18}
-              height={18}
-            />
-          </label>
-        </>
-      )}
+    <div className='relative'>
+      <div className='flex items-center justify-end'>
+        <input
+          className={`
+            input input-bordered w-full rounded-[15px] bg-base-300 border-base-300 outline-none        
+            ${error ? 'border-error border-2' : ''}
+            ${className}`}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={value}
+          placeholder={placeholder}
+          name={name}
+          type={type === 'password' ? passwordType : type}
+          min={10000}
+          max={99999999}
+        />
+
+        {type === 'password' && (
+          <>
+            <label className='swap absolute mr-3 flex items-center right-3'>
+              <input type='checkbox' />
+              <OpenEyeIcon
+                className='swap-off fill-current absolute'
+                onClick={() => {
+                  setPasswordType('password');
+                }}
+              />
+
+              <CloseEyeIcon
+                className='swap-on fill-current absolute'
+                onClick={() => {
+                  setPasswordType('text');
+                }}
+              />
+            </label>
+          </>
+        )}
+      </div>
+      <p className='text-xs text-error mt-[-10px] pt-3 pb-2 h-8 p-4'>
+        {error && errorMessage}
+      </p>
     </div>
   );
 };

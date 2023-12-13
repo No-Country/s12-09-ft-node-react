@@ -34,3 +34,7 @@ body {
 .modal-portal-component.show{
   display: block;
 }
+
+a{
+  display: inline-block;
+}

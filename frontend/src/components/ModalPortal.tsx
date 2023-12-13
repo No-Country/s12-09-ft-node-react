@@ -1,7 +1,6 @@
 'use client';
 
 import { createPortal } from 'react-dom';
-import { useEffect } from 'react';
 
 interface Props {
   title: string;
@@ -18,15 +17,6 @@ export function ModalPortal({
   handleClose,
   className,
 }: Props) {
-  const portalNode = document.createElement('div');
-
-  useEffect(() => {
-    document.body.appendChild(portalNode);
-    return () => {
-      portalNode.remove();
-    };
-  }, [portalNode]);
-
   return createPortal(
     <div
       className={`modal-portal-component ${show ? 'show' : ''} ${className}`}
@@ -42,6 +32,6 @@ export function ModalPortal({
         <div className='modal-portal-component-body'>{children}</div>
       </section>
     </div>,
-    portalNode
+    document.body
   );
 }
