@@ -11,7 +11,7 @@ export function VehiclesGrid() {
 
   return (
     <div className='vehicle-page-grid flex flex-wrap gap-4 justify-center'>
-      {isLoading
+      {isLoading === true
         ? 'Cargando...'
         : vehicles.length < 1
           ? 'No hay elementos para mostrar'

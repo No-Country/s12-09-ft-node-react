@@ -1,21 +1,20 @@
 import { useDispatch } from 'react-redux';
-import { getAllCarAsync } from '@/store/features/car/carSlice'
+import { getAllVehiclesAsync } from '@/store/features/vehicle.slice';
 import type { AppDispatch } from '@/store/store';
-import  { useAppSelector } from '@/store/store';
-
+import { useAppSelector } from '@/store/store';
 
 export const useCar = () => {
-    const { value: cars } = useAppSelector(state => state.cars)
-    const dispatch:AppDispatch = useDispatch();
+  const { vehicles: cars } = useAppSelector(state => state.vehicles);
+  const dispatch: AppDispatch = useDispatch();
 
-    function getAllCars() {
-        if (cars.length === 0) {
-            dispatch(getAllCarAsync());
-        }
+  function getAllCars() {
+    if (cars.length === 0) {
+      dispatch(getAllVehiclesAsync());
     }
+  }
 
-    return {
-        cars,
-        getAllCars,
-    }
-}
+  return {
+    cars,
+    getAllCars,
+  };
+};
