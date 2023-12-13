@@ -1,7 +1,9 @@
 'use client';
-import { Container /* , Button */ } from '@/components';
+
+import { Container, VehicleDetail } from '@/components';
 import { useVehicle } from '@/hook';
 import { useEffect } from 'react';
+
 interface Props {
   params: { id: string };
 }
@@ -18,8 +20,17 @@ export default function VehicleDetailsPage({ params }: Props) {
     <section>
       <Container>
         <>
-          <h1>VehicleDetailsPage {params.id}</h1>
-          {isLoading === true ? 'Cargando...' : JSON.stringify(vehicle)}
+          {isLoading === true
+            ? 'Cargando...'
+            : vehicle?.id && (
+                <VehicleDetail vehicle={vehicle}>
+                  <VehicleDetail.UserContent>
+                    <p className='bg-base-300 rounded-[2rem] p-4 my-4'>
+                      Problem
+                    </p>
+                  </VehicleDetail.UserContent>
+                </VehicleDetail>
+              )}
         </>
       </Container>
     </section>
