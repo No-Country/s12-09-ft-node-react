@@ -14,7 +14,7 @@ import { useModal } from '@/context';
 
 const VehiclePage = () => {
   const { vehicles, getAllVehicles } = useVehicle();
-  const { openModal } = useModal()
+  const { openModal } = useModal();
 
   useEffect(() => {
     getAllVehicles();
@@ -29,7 +29,7 @@ const VehiclePage = () => {
   const filteredData =
     currentView === 'taller'
       ? vehicleData
-      : vehicleData.filter(vehicle => vehicle.user.rol === 'user');
+      : vehicleData.filter(vehicle => vehicle.user?.rol === 'user');
 
   return (
     <div>
@@ -64,7 +64,9 @@ const VehiclePage = () => {
         <div className='md:flex md:flex-row md:flex-wrap gap-10 grid grid-cols-2 items-center justify-center w-full'>
           <div className='hidden md:block '>
             <button
-              onClick={() => {openModal('registerClient')}}
+              onClick={() => {
+                openModal('registerClient');
+              }}
               className=' flex flex-col justify-center items-center gap-5'
             >
               <section className='bg-base-300 rounded-3xl w-24 h-24 flex place-content-center'>
@@ -85,7 +87,7 @@ const VehiclePage = () => {
                   <section className='bg-base-300 hover:shadow-lg cursor-pointer rounded-3xl w-24 h-24 flex justify-center items-center'>
                     <Image
                       className='h-7 w-20'
-                      src={vehicle.imageUrl}
+                      src={vehicle.imageUrl ?? ''}
                       alt={`Imagen de ${vehicle.brand}`}
                       width={30}
                       height={30}
@@ -93,7 +95,9 @@ const VehiclePage = () => {
                   </section>
                 </Link>
                 <p className='text-base font-bold'>{vehicle.brand}</p>
-                <p className='text-base font-normal text-accent'>{`${vehicle.user.firstName} ${vehicle.user.lastName}`}</p>
+                <p className='text-base font-normal text-accent'>{`${
+                  vehicle.user?.firstName ?? ''
+                } ${vehicle.user?.lastName ?? ''}`}</p>
               </div>
             ))
           )}
@@ -101,7 +105,9 @@ const VehiclePage = () => {
       </section>
 
       <button
-        onClick={() => {openModal('registerClient')}}
+        onClick={() => {
+          openModal('registerClient');
+        }}
         className=' block md:hidden    fixed  bottom-[5%] left-[48%]'
       >
         <div className='flex justify-center '>
@@ -109,8 +115,8 @@ const VehiclePage = () => {
         </div>
       </button>
 
-      <RegisterClient/>
-      <RegisterVehicle/>
+      <RegisterClient />
+      <RegisterVehicle />
     </div>
   );
 };
