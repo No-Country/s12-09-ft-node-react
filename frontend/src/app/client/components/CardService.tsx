@@ -23,7 +23,7 @@ export const CardService = ({ vehicle }: Props) => {
       <div className='flex justify-between'>
         <div className='flex  flex-col'>
           <h4 className='text-xs'>
-            {vehicle.user.firstName} {vehicle.user.lastName}
+            {vehicle.user?.firstName ?? ''} {vehicle.user?.lastName ?? ''}
           </h4>
           <div className='flex flex-row gap-3'>
             <h2 className='text-base font-bold'>

@@ -22,7 +22,7 @@ function MechanicHome() {
   const filteredData =
     currentView === 'taller'
       ? vehicleData
-      : vehicleData.filter(vehicle => vehicle.user.rol === 'user');
+      : vehicleData.filter(vehicle => vehicle?.user?.rol === 'user');
 
   return (
     <div>
@@ -69,7 +69,7 @@ function MechanicHome() {
                   <section className='bg-base-300 hover:shadow-lg cursor-pointer rounded-3xl w-24 h-24 flex justify-center items-center'>
                     <Image
                       className='h-7 w-20'
-                      src={vehicle.imageUrl}
+                      src={vehicle.imageUrl ?? ''}
                       alt={`Imagen de ${vehicle.brand}`}
                       width={30}
                       height={30}
@@ -77,7 +77,9 @@ function MechanicHome() {
                   </section>
                 </Link>
                 <p className='text-base font-bold'>{vehicle.brand}</p>
-                <p className='text-base font-normal text-accent'>{`${vehicle.user.firstName} ${vehicle.user.lastName}`}</p>
+                <p className='text-base font-normal text-accent'>{`${
+                  vehicle.user?.firstName ?? ''
+                } ${vehicle.user?.lastName ?? ''}`}</p>
               </div>
             ))
           )}

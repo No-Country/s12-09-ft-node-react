@@ -10,7 +10,7 @@ export function VehicleItem({ vehicle }: Props) {
     <div className='vehicle-item text-center flex flex-col justify-center items-center flex-1 '>
       <div className='vehicle-item-box bg-black w-[96px] h-[96px] rounded-box overflow-hidden shadow-md'>
         <Image
-          src={vehicle.imageUrl}
+          src={vehicle.imageUrl ?? ''}
           alt='car detail'
           width={100}
           height={100}

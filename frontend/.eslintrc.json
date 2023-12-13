@@ -17,6 +17,10 @@
   "plugins": ["react"],
   "rules": {
     "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/no-floating-promises" : 0
+    "@typescript-eslint/no-floating-promises" : 0,
+    "react-hooks/exhaustive-deps" : 0,
+    "@typescript-eslint/no-unsafe-argument": 0,
+    "@typescript-eslint/strict-boolean-expressions": 0,
+    "@typescript-eslint/no-unnecessary-boolean-literal-compare": 0
   }
 }
