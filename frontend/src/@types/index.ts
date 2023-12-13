@@ -60,7 +60,7 @@ export interface MenuItem {
 }
 
 export interface LoginResult {
-  result?: Workshop;
+  result: Workshop;
   token?: string;
 }
 

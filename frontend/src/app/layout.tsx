@@ -23,8 +23,10 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang='en' data-theme='light'>
       <body className={inter.className}>
-        <HeaderHome />
-        <StoreProvider>{children}</StoreProvider>
+        <main>
+          <HeaderHome />
+          <StoreProvider>{children}</StoreProvider>
+        </main>
       </body>
     </html>
   );

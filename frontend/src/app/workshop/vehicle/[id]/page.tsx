@@ -6,19 +6,20 @@ interface Props {
   params: { id: string };
 }
 export default function VehicleDetailsPage({ params }: Props) {
-  const { vehicles, vehicle, getOneVehicleById } = useVehicle();
+  const { vehicle, isLoading, getOneVehicleById } = useVehicle();
 
   useEffect(() => {
     getOneVehicleById(params.id);
   }, []);
 
-  console.log(vehicles, vehicle);
+  console.log(vehicle);
 
   return (
     <section>
       <Container>
         <>
           <h1>VehicleDetailsPage {params.id}</h1>
+          {isLoading === true ? 'Cargando...' : JSON.stringify(vehicle)}
         </>
       </Container>
     </section>
