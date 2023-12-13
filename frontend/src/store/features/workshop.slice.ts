@@ -1,21 +1,16 @@
 'use client';
-
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { LoginResult, Workshop } from '@/@types';
 import { workShopService } from '@/services';
 
-export interface WorkShopState {
-  workShop: Workshop;
+export interface State {
+  workshop: Workshop;
   isLoading: boolean;
-  logged?: LoginResult | null;
+  logged?: LoginResult;
 }
 
-if (typeof window !== 'undefined') {
-  console.log(localStorage.getItem('logged'));
-}
-
-const initialState: WorkShopState = {
-  workShop: {},
+const initialState: State = {
+  workshop: {},
   isLoading: false,
   logged:
     typeof window !== 'undefined' && localStorage.getItem('logged') !== null
@@ -23,14 +18,14 @@ const initialState: WorkShopState = {
       : {},
 };
 
+// thunk functions
 export const createWorkShopAsync = createAsyncThunk(
   'workShop/register',
-  async (workShop: Workshop) => {
-    const newWorkShop = await workShopService.create(workShop);
+  async (workshop: Workshop) => {
+    const newWorkShop = await workShopService.create(workshop);
     return newWorkShop;
   }
 );
-
 export const getWorkShopAsync = createAsyncThunk(
   'workShop/getOne',
   async (id: string) => {
@@ -38,7 +33,6 @@ export const getWorkShopAsync = createAsyncThunk(
     return created;
   }
 );
-
 export const loginWorkShopAsync = createAsyncThunk(
   'workShop/login',
   async (loginObject: Workshop) => {
@@ -52,24 +46,28 @@ export const workShopSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
+    //  CREATE
     builder.addCase(createWorkShopAsync.pending, state => {
       state.isLoading = true;
     });
     builder.addCase(createWorkShopAsync.fulfilled, (state, action) => {
-      state.workShop = action.payload;
+      state.workshop = action.payload;
       state.isLoading = false;
     });
+    // GETBYID
     builder.addCase(getWorkShopAsync.pending, state => {
       state.isLoading = true;
     });
     builder.addCase(getWorkShopAsync.fulfilled, (state, action) => {
-      state.workShop = action.payload;
+      state.workshop = action.payload;
     });
+    // LOGIN
     builder.addCase(loginWorkShopAsync.pending, state => {
       state.isLoading = true;
     });
     builder.addCase(loginWorkShopAsync.fulfilled, (state, action) => {
       state.logged = action.payload;
+      state.workshop = action.payload.result;
       if (typeof window !== 'undefined') {
         localStorage.setItem('logged', JSON.stringify(action.payload));
       }

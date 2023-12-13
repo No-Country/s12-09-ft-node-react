@@ -1,12 +1,17 @@
 import type { Vehicle } from '@/@types';
 import { vehicleService } from '@/services';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createSlice,
+  type PayloadAction,
+} from '@reduxjs/toolkit';
 
 type VehicleID = string;
 interface State {
   vehicles: Vehicle[];
   isLoading?: boolean;
-  vehicle: Vehicle;
+  vehicle?: Vehicle;
+  created?: Vehicle;
 }
 
 const initialState: State = {
@@ -34,7 +39,6 @@ export const getOneVehicleByIdAsync = createAsyncThunk(
   'vehicle/getOneById',
   async (id: VehicleID) => {
     const vehicle = await vehicleService.getOneById(id);
-    console.log(vehicle);
     return vehicle;
   }
 );
@@ -45,20 +49,14 @@ export const updateVehicleAsync = createAsyncThunk(
     return updated;
   }
 );
-// export const deleteVehicleByIdAsync = createAsyncThunk(
-//   'vehicle/deleteById',
-//   async (id: string) => {
-//     await vehicleService.deleteById(id);
-//   }
-// );
 
 const vehicleSlice = createSlice({
   name: 'vehicle',
   initialState,
   reducers: {
-    getOneVehicleByIdAsync: (state, action) => {
+    getOneVehicleByIdSync: (state, action: PayloadAction<VehicleID>) => {
       const id = action.payload;
-      const vehicle = state.vehicles.find(item => item.userId === id);
+      const vehicle = state.vehicles.find(item => item.id === id);
       return { ...state, vehicle };
     },
   },
@@ -76,7 +74,9 @@ const vehicleSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(createVehicleAsync.fulfilled, (state, action) => {
-      console.log('CREATE', action.payload);
+      const newVehicle = action.payload;
+      state.vehicles.push(newVehicle);
+      state.created = newVehicle;
       state.isLoading = false;
     });
     // GETBYID
@@ -85,7 +85,6 @@ const vehicleSlice = createSlice({
     });
     builder.addCase(getOneVehicleByIdAsync.fulfilled, (state, action) => {
       state.vehicle = action.payload;
-      console.log(action.payload);
       state.isLoading = false;
     });
     //  UPDATE
@@ -93,11 +92,14 @@ const vehicleSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(updateVehicleAsync.fulfilled, (state, action) => {
-      console.log('UPDATE', action.payload);
+      const updated = action.payload;
+      const id = updated.id;
+      const index = state.vehicles.findIndex(item => item.id === id);
+      state.vehicles[index] = updated;
       state.isLoading = false;
     });
-    //  DELETE
   },
 });
 
+export const { getOneVehicleByIdSync } = vehicleSlice.actions;
 export const vehicleReducer = vehicleSlice.reducer;

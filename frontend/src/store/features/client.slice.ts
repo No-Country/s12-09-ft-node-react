@@ -1,11 +1,12 @@
 import type { User } from '@/@types';
 import { clientService } from '@/services';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import swal from 'sweetalert';
 
 interface State {
   clients: User[];
   isLoading: boolean;
+  client?: User;
+  created?: User;
 }
 
 const initialState: State = {
@@ -24,14 +25,8 @@ export const getAllClientsAsync = createAsyncThunk(
 export const createClientAsync = createAsyncThunk(
   'client/create',
   async (newClient: User) => {
-    try {
-      const created = await clientService.create(newClient);
-      await swal('Cliente registrado', '', 'success');
-      return created
-    } catch (error) {
-      await swal('No se pudo registrar el cliente', '', 'error');
-      return undefined
-    }
+    const created = await clientService.create(newClient);
+    return created;
   }
 );
 export const getOneClientByIdAsync = createAsyncThunk(
@@ -41,19 +36,6 @@ export const getOneClientByIdAsync = createAsyncThunk(
     return client;
   }
 );
-export const updateClientAsync = createAsyncThunk(
-  'client/update',
-  async (modified: User) => {
-    const updated = await clientService.update(modified);
-    return updated;
-  }
-);
-// export const deleteClientByIdAsync = createAsyncThunk(
-//   'client/delete',
-//   async (id: string) => {
-//     return;
-//   }
-// );
 
 const clientSlice = createSlice({
   name: 'client',
@@ -73,9 +55,8 @@ const clientSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(createClientAsync.fulfilled, (state, action) => {
-      console.log('CLIENT/CREATE', action.payload);
       const newClient = action.payload;
-      newClient !== undefined && state.clients.push(newClient);
+      state.clients.push(newClient);
       state.isLoading = false;
     });
     // GETBYID
@@ -83,18 +64,10 @@ const clientSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(getOneClientByIdAsync.fulfilled, (state, action) => {
-      console.log('CLIENT/GETONE', action.payload);
+      const client = action.payload;
+      state.client = client;
       state.isLoading = false;
     });
-    //  UPDATE
-    builder.addCase(updateClientAsync.pending, state => {
-      state.isLoading = true;
-    });
-    builder.addCase(updateClientAsync.fulfilled, (state, action) => {
-      console.log('CLIENT/UPDATE', action.payload);
-      state.isLoading = false;
-    });
-    //  DELETE
   },
 });
 
