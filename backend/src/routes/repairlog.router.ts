@@ -8,5 +8,6 @@ router.post('/', RepairLogController.create)
 router.delete('/:id', RepairLogController.delete)
 router.put('/:id', RepairLogController.update)
 router.get('/:id', RepairLogController.getOne)
+router.post('/notification/:id', RepairLogController.sendNotification)
 
 export { router }

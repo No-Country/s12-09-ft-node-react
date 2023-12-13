@@ -3,6 +3,8 @@ import { Mechanic } from '../models/Mechanic'
 import { repairLogSchema, stateSchema, uuidSchema } from '../utils/zodSchemas'
 import { RepairLog } from './../models/RepairLog'
 import { Vehicle } from './../models/Vehicle'
+import { Users } from '../models/Users'
+import { sendEmail } from '../utils/nodemailer'
 
 export class RepairLogController {
 	static async getAll(req: Request, res: Response, next: NextFunction) {
@@ -89,6 +91,39 @@ export class RepairLogController {
 				throw new Error('RepairLog not found')
 			}
 			res.status(200).json({ message: 'RepairLog deleted' })
+		} catch (error) {
+			next(error)
+		}
+	}
+
+	static async sendNotification(
+		req: Request,
+		res: Response,
+		next: NextFunction,
+	) {
+		const { id } = req.params
+		uuidSchema.parse(id)
+
+		try {
+			const repairLog = await RepairLog.findByPk(id, {
+				include: [
+					{
+						model: Vehicle,
+						as: 'vehicle',
+						include: [{ model: Users, as: 'user' }],
+					},
+				],
+			})
+
+			if (!repairLog) {
+				throw new Error('RepairLog not found')
+			}
+
+			// Envía el correo al dueño del auto
+			const owner = repairLog.vehicle.user
+			await sendEmail(owner)
+
+			res.status(200).json({ message: 'Notification sent to owner' })
 		} catch (error) {
 			next(error)
 		}
