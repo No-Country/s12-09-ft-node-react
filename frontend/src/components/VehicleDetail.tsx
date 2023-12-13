@@ -10,7 +10,7 @@ interface VehicleContextProps {
 const VehicleContext = createContext({} as VehicleContextProps);
 
 interface UserContentProps {
-  children?: JSX.Element;
+  children?: string;
 }
 
 function UserContent({ children }: UserContentProps) {
@@ -24,13 +24,15 @@ function UserContent({ children }: UserContentProps) {
       <div className='flex items-center justify-between text-accent'>
         <h3 className='flex items-center'>
           <UserIcon />
-          <span className='card-title'>
+          <span className='card-title ml-2'>
             {user?.firstName} {user?.firstName}
           </span>
         </h3>
         <span>{`${dia}/${mes}`}</span>
       </div>
-      {children}
+      {children && (
+        <p className='bg-base-300 rounded-[2rem] p-4 my-4'>{children}</p>
+      )}
     </div>
   );
 }
@@ -58,7 +60,9 @@ export function VehicleDetail({ children, vehicle }: Props) {
               <h3 className='card-title'>
                 {vehicle?.brand} - {vehicle?.model}
               </h3>
-              <h3 className='card-title'>{vehicle?.licensePlate}</h3>
+              <h3 className='card-title text-primary'>
+                {vehicle?.licensePlate}
+              </h3>
             </div>
             <div>Kilometraje: {vehicle?.mileage}</div>
           </div>
@@ -69,4 +73,4 @@ export function VehicleDetail({ children, vehicle }: Props) {
   );
 }
 
-VehicleDetail.UserContent = UserContent;
+VehicleDetail.Problem = UserContent;

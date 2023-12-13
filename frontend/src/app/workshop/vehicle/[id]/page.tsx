@@ -24,11 +24,7 @@ export default function VehicleDetailsPage({ params }: Props) {
             ? 'Cargando...'
             : vehicle?.id && (
                 <VehicleDetail vehicle={vehicle}>
-                  <VehicleDetail.UserContent>
-                    <p className='bg-base-300 rounded-[2rem] p-4 my-4'>
-                      Problem
-                    </p>
-                  </VehicleDetail.UserContent>
+                  <VehicleDetail.Problem>problem</VehicleDetail.Problem>
                 </VehicleDetail>
               )}
         </>
