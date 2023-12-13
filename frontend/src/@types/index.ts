@@ -5,6 +5,7 @@ export interface Mechanic {
   email?: string;
   document?: number;
   phone?: string;
+  password?: string;
   // role: Role;
 }
 
