@@ -3,6 +3,7 @@ import { Mechanic } from '../models/Mechanic'
 import { repairLogSchema, stateSchema, uuidSchema } from '../utils/zodSchemas'
 import { RepairLog } from './../models/RepairLog'
 import { Vehicle } from './../models/Vehicle'
+import { Budget } from './../models/Budget'
 
 export class RepairLogController {
 	static async getAll(req: Request, res: Response, next: NextFunction) {
@@ -19,11 +20,36 @@ export class RepairLogController {
 			next(error)
 		}
 	}
+	// static async create(req: Request, res: Response, next: NextFunction) {
+	// 	const date = new Date()
+	// 	const formattedDate = date.toLocaleDateString()
+	// 	repairLogSchema.parse(req.body)
+	// 	const { vehicleId, mechanicId } = req.body
+
+	// 	try {
+	// 		const vehicle = await Vehicle.findByPk(vehicleId)
+	// 		if (!vehicle) {
+	// 			throw new Error('Vehicle not found')
+	// 		}
+	// 		const mechanic = await Mechanic.findByPk(mechanicId)
+	// 		if (!mechanic) {
+	// 			throw new Error('Mechanic not found')
+	// 		}
+	// 		const result = await RepairLog.create({
+	// 			...req.body,
+	// 			date: formattedDate,
+	// 		})
+	// 		res.status(201).json(result)
+	// 	} catch (error) {
+	// 		next(error)
+	// 	}
+	// }
+	/////////////////////////////////////////////////////////////////////////////
 	static async create(req: Request, res: Response, next: NextFunction) {
 		const date = new Date()
 		const formattedDate = date.toLocaleDateString()
 		repairLogSchema.parse(req.body)
-		const { vehicleId, mechanicId } = req.body
+		const { vehicleId, mechanicId, budgetId } = req.body
 
 		try {
 			const vehicle = await Vehicle.findByPk(vehicleId)
@@ -34,15 +60,37 @@ export class RepairLogController {
 			if (!mechanic) {
 				throw new Error('Mechanic not found')
 			}
-			const result = await RepairLog.create({
-				...req.body,
-				date: formattedDate,
-			})
-			res.status(201).json(result)
+
+			const budget = await Budget.findByPk(budgetId)
+			if (!budget) {
+				throw new Error('Budget not found')
+			}
+
+			// Verificar si el presupuesto está aceptado
+			if (budget.accepted) {
+				// Crear el RepairLog con los datos del presupuesto
+				const repairLog = await RepairLog.create({
+					date: formattedDate,
+					description: 'Reparaciones y Mantenimientos',
+					cost: budget.costs,
+					state: 'En reparacion',
+					vehicleId: budget.vehicleId,
+					mechanicId: budget.mechanicId,
+					reparacion: budget.repair,
+					mantenimiento: budget.maintenance,
+				})
+
+				// Responder con el RepairLog creado
+				res.status(201).json(repairLog)
+			} else {
+				// Si el presupuesto no está aceptado, responder con un mensaje de error
+				throw new Error('Budget not accepted')
+			}
 		} catch (error) {
 			next(error)
 		}
 	}
+	//////////////////////////////////////////////////////////////////////////////
 	static async getOne(req: Request, res: Response, next: NextFunction) {
 		try {
 			const { id } = req.params
