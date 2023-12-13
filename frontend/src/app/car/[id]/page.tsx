@@ -5,7 +5,6 @@ import { useCarDetail } from '@/hook/DetailCar';
 import Select from '@/components/Select';
 
 export default function CarDetailPage({ params }: { params: { id: string } }) {
-  
   const { carData, mechanics } = useCarDetail(params.id);
   const fechaActual = new Date();
   const mes = fechaActual.getMonth() + 1;
@@ -13,7 +12,7 @@ export default function CarDetailPage({ params }: { params: { id: string } }) {
 
   return (
     <div>
-      <Select/>
+      <Select />
       {carData !== null ? (
         <section className='md:grid md:grid-cols-2 md:px-[10%] px-[5%] md:gap-20 justify-center items-center min-h-screen'>
           <div className=''>
@@ -34,7 +33,7 @@ export default function CarDetailPage({ params }: { params: { id: string } }) {
 
             <div className='flex place-content-center'>
               <Image
-                src={carData.imageUrl}
+                src={carData.imageUrl ?? ''}
                 alt='car detail'
                 width={100}
                 height={100}
