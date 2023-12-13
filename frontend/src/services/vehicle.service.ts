@@ -13,8 +13,7 @@ export async function getOneById(id: string): Promise<Vehicle> {
   return await handleRequest(httpClient.get(`${path}/${id}`));
 }
 export async function update(modified: Vehicle): Promise<Vehicle> {
-  return await handleRequest(httpClient.put(`${path}/${modified.id}`, modified));
+  return await handleRequest(
+    httpClient.put(`${path}/${modified.id}`, modified)
+  );
 }
-// export function deleteById(id: string): Promise<boolean> {
-//   return handleRequest(httpClient.delete(`${path}/${id}`));
-// }
