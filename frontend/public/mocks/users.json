@@ -1,0 +1,377 @@
+[
+    {
+        "id": "4d00e8d1-1609-4799-a8df-304e9dd44d8a",
+        "lastName": "Perez",
+        "firstName": "Juan",
+        "email": "juanperez1@hotmail.com",
+        "phone": "1122332211",
+        "rol": "user",
+        "document": 12312311,
+        "vehicle": [
+            {
+                "id": "79096f70-4a00-459f-a0e3-67112199eaba",
+                "brand": "Tesla",
+                "model": "Model S",
+                "color": "red",
+                "year": 2019,
+                "licensePlate": "hdksaj1",
+                "mileage": 2333,
+                "imageUrl": "https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg",
+                "userId": "4d00e8d1-1609-4799-a8df-304e9dd44d8a",
+                "createdAt": "2023-12-06T15:27:44.329Z",
+                "updatedAt": "2023-12-06T15:27:44.329Z"
+            },
+            {
+                "id": "e6e3f04f-32ef-4571-ba04-a553a890ea78",
+                "brand": "Toyota",
+                "model": "Corolla",
+                "color": "blue",
+                "year": 2015,
+                "licensePlate": "BDD-198",
+                "mileage": 87900,
+                "imageUrl": "https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg",
+                "userId": "4d00e8d1-1609-4799-a8df-304e9dd44d8a",
+                "createdAt": "2023-12-12T00:52:58.807Z",
+                "updatedAt": "2023-12-12T00:52:58.807Z"
+            },
+            {
+                "id": "8649b1d5-2913-4c16-94b9-99ee497ef694",
+                "brand": "Subaru",
+                "model": "XV",
+                "color": "black",
+                "year": 2019,
+                "licensePlate": "BDD-200",
+                "mileage": 90761,
+                "imageUrl": "https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg",
+                "userId": "4d00e8d1-1609-4799-a8df-304e9dd44d8a",
+                "createdAt": "2023-12-12T01:22:31.379Z",
+                "updatedAt": "2023-12-12T01:22:31.379Z"
+            }
+        ]
+    },
+    {
+        "id": "5445d6cc-0bdf-4751-ae21-f3c16b49ff50",
+        "lastName": "Ramirez",
+        "firstName": "Sergio",
+        "email": "sergioramirez10@hotmail.com",
+        "phone": "1122332220",
+        "rol": "user",
+        "document": 12312320,
+        "vehicle": [
+            {
+                "id": "8077096e-351a-4ac0-a87f-ae3a1d94b47c",
+                "brand": "Tesla",
+                "model": "Model 3",
+                "color": "blue",
+                "year": 2018,
+                "licensePlate": "hdksal2",
+                "mileage": 2434,
+                "imageUrl": "https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg",
+                "userId": "5445d6cc-0bdf-4751-ae21-f3c16b49ff50",
+                "createdAt": "2023-12-06T15:27:54.515Z",
+                "updatedAt": "2023-12-06T15:27:54.515Z"
+            }
+        ]
+    },
+    {
+        "id": "227fb2e4-a6e4-492d-a608-52ff17a21066",
+        "lastName": "Torres",
+        "firstName": "Francisco",
+        "email": "franciscotorres9@hotmail.com",
+        "phone": "1122332219",
+        "rol": "user",
+        "document": 12312319,
+        "vehicle": [
+            {
+                "id": "32a90b2e-8cad-4f79-8f56-5c07de0f324a",
+                "brand": "Tesla",
+                "model": "Model X",
+                "color": "white",
+                "year": 2017,
+                "licensePlate": "hdksam3",
+                "mileage": 2535,
+                "imageUrl": "https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg",
+                "userId": "227fb2e4-a6e4-492d-a608-52ff17a21066",
+                "createdAt": "2023-12-06T15:28:04.514Z",
+                "updatedAt": "2023-12-06T15:28:04.514Z"
+            }
+        ]
+    },
+    {
+        "id": "6827b16f-4096-4de3-987a-e36112921932",
+        "lastName": "Lopez",
+        "firstName": "Antonio",
+        "email": "antoniolopez7@hotmail.com",
+        "phone": "1122332217",
+        "rol": "user",
+        "document": 12312317,
+        "vehicle": [
+            {
+                "id": "62cf1ef1-80fa-40af-9227-8e6cabcef4d5",
+                "brand": "Tesla",
+                "model": "Model Y",
+                "color": "black",
+                "year": 2016,
+                "licensePlate": "hdksan4",
+                "mileage": 2636,
+                "imageUrl": "https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg",
+                "userId": "6827b16f-4096-4de3-987a-e36112921932",
+                "createdAt": "2023-12-06T15:28:12.087Z",
+                "updatedAt": "2023-12-06T15:28:12.087Z"
+            }
+        ]
+    },
+    {
+        "id": "9d597b16-4472-4e29-a3a0-149880b8b528",
+        "lastName": "Gomez",
+        "firstName": "Pedro",
+        "email": "pedrogomez2@hotmail.com",
+        "phone": "1122332212",
+        "rol": "user",
+        "document": 12312312,
+        "vehicle": [
+            {
+                "id": "089795ce-7fef-4f6b-a4fc-aed8331fd7eb",
+                "brand": "Tesla",
+                "model": "Cybertruck",
+                "color": "silver",
+                "year": 2015,
+                "licensePlate": "hdksao5",
+                "mileage": 2737,
+                "imageUrl": "https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg",
+                "userId": "9d597b16-4472-4e29-a3a0-149880b8b528",
+                "createdAt": "2023-12-06T15:28:19.856Z",
+                "updatedAt": "2023-12-06T15:28:19.856Z"
+            }
+        ]
+    },
+    {
+        "id": "43c5a993-fe61-47a8-901d-69922160400f",
+        "lastName": "Martinez",
+        "firstName": "Luis",
+        "email": "luismartinez4@hotmail.com",
+        "phone": "1122332214",
+        "rol": "user",
+        "document": 12312314,
+        "vehicle": [
+            {
+                "id": "a55b4ece-5255-4df9-b531-2b564c1e8c5a",
+                "brand": "BMW",
+                "model": "i8",
+                "color": "red",
+                "year": 2014,
+                "licensePlate": "hdksap6",
+                "mileage": 2838,
+                "imageUrl": "https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg",
+                "userId": "43c5a993-fe61-47a8-901d-69922160400f",
+                "createdAt": "2023-12-06T15:28:28.079Z",
+                "updatedAt": "2023-12-06T15:28:28.079Z"
+            }
+        ]
+    },
+    {
+        "id": "2602bc97-33a9-44ca-8f28-2c659faa7c15",
+        "lastName": "Gonzalez",
+        "firstName": "Miguel",
+        "email": "miguelgonzalez6@hotmail.com",
+        "phone": "1122332216",
+        "rol": "user",
+        "document": 12312316,
+        "vehicle": [
+            {
+                "id": "1051928b-69a9-448f-8d00-63d258e94540",
+                "brand": "Mercedes",
+                "model": "AMG GT",
+                "color": "white",
+                "year": 2012,
+                "licensePlate": "hdksar8",
+                "mileage": 3040,
+                "imageUrl": "https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg",
+                "userId": "2602bc97-33a9-44ca-8f28-2c659faa7c15",
+                "createdAt": "2023-12-06T15:28:52.628Z",
+                "updatedAt": "2023-12-06T15:28:52.628Z"
+            }
+        ]
+    },
+    {
+        "id": "d9a81d15-84ce-43dd-a79f-0ddb8d6d6174",
+        "lastName": "Fernandez",
+        "firstName": "Jose",
+        "email": "josefernandez5@hotmail.com",
+        "phone": "1122332215",
+        "rol": "user",
+        "document": 12312315,
+        "vehicle": [
+            {
+                "id": "abcf22c5-5f20-4df0-bb0f-0b0bca1dfa39",
+                "brand": "Porsche",
+                "model": "Taycan",
+                "color": "black",
+                "year": 2011,
+                "licensePlate": "hdksas9",
+                "mileage": 3141,
+                "imageUrl": "https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg",
+                "userId": "d9a81d15-84ce-43dd-a79f-0ddb8d6d6174",
+                "createdAt": "2023-12-06T15:29:00.579Z",
+                "updatedAt": "2023-12-06T15:29:00.579Z"
+            }
+        ]
+    },
+    {
+        "id": "dc51a34a-9aca-4439-8ff8-15279abe58a3",
+        "lastName": "Rodriguez",
+        "firstName": "Carlos",
+        "email": "carlosrodriguez3@hotmail.com",
+        "phone": "1122332213",
+        "rol": "user",
+        "document": 12312313,
+        "vehicle": [
+            {
+                "id": "5a6a3668-986b-43c2-a975-165cd11693c6",
+                "brand": "Lamborghini",
+                "model": "Huracan",
+                "color": "silver",
+                "year": 2010,
+                "licensePlate": "hdksat0",
+                "mileage": 3242,
+                "imageUrl": "https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg",
+                "userId": "dc51a34a-9aca-4439-8ff8-15279abe58a3",
+                "createdAt": "2023-12-06T15:29:08.030Z",
+                "updatedAt": "2023-12-06T15:29:08.030Z"
+            },
+            {
+                "id": "c93237ca-f961-46ac-b7a8-401c3bd5e811",
+                "brand": "Ford",
+                "model": "Falcon",
+                "color": "negro",
+                "year": 1979,
+                "licensePlate": "ppp888",
+                "mileage": 100000000,
+                "imageUrl": "https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg",
+                "userId": "dc51a34a-9aca-4439-8ff8-15279abe58a3",
+                "createdAt": "2023-12-12T19:18:09.671Z",
+                "updatedAt": "2023-12-12T19:18:09.671Z"
+            }
+        ]
+    },
+    {
+        "id": "44d75f6b-cb59-4190-a450-ac7ebd091424",
+        "lastName": "Messi Cutticini",
+        "firstName": "Leo",
+        "email": "leomessi123@gmail.com",
+        "phone": "1988089123",
+        "rol": "user",
+        "document": 12321411,
+        "vehicle": []
+    },
+    {
+        "id": "631d144a-006a-4ab6-bfb2-23d18250cd81",
+        "lastName": "Araya",
+        "firstName": "Alejo",
+        "email": "aaaaaa@aaaaaaaaa.com",
+        "phone": "3430975",
+        "rol": "user",
+        "document": 98752365,
+        "vehicle": []
+    },
+    {
+        "id": "58830f88-7b09-4c44-9b2d-058239eb1562",
+        "lastName": "Rodriguez Aguilar",
+        "firstName": "Alvaro",
+        "email": "alvaro123@gmail.com",
+        "phone": "888888877",
+        "rol": "user",
+        "document": 75757575,
+        "vehicle": []
+    },
+    {
+        "id": "b2d7dda4-c80d-4689-a2ed-9958e4ad246f",
+        "lastName": "Messi",
+        "firstName": "Leo",
+        "email": "leomessi@gmail.com",
+        "phone": "912319991",
+        "rol": "user",
+        "document": 10101019,
+        "vehicle": []
+    },
+    {
+        "id": "4253a1bb-3e2f-4b5a-a411-062bd39561eb",
+        "lastName": "Mendoa",
+        "firstName": "Robert",
+        "email": "hla@tuki.com.ar",
+        "phone": "AAAAAAA",
+        "rol": "user",
+        "document": 2269943,
+        "vehicle": []
+    },
+    {
+        "id": "d37a8af2-6f69-4c22-91e0-3bbc98f63689",
+        "lastName": "Mendoza",
+        "firstName": "Roberta",
+        "email": "hola@tuki.com.ar",
+        "phone": "1139404145",
+        "rol": "user",
+        "document": 22669944,
+        "vehicle": []
+    },
+    {
+        "id": "b434d740-e1a5-4f25-80c6-6e7ba0ee9def",
+        "lastName": "Diaz",
+        "firstName": "Manuel",
+        "email": "manueldiaz8@hotmail.com",
+        "phone": "1122332218",
+        "rol": "user",
+        "document": 12312318,
+        "vehicle": []
+    },
+    {
+        "id": "6ac1cd31-124a-4a1e-885b-e22183e05141",
+        "lastName": "Hazard",
+        "firstName": "Eden",
+        "email": "eden@gmail.com",
+        "phone": "13212319",
+        "rol": "user",
+        "document": 10312319,
+        "vehicle": []
+    },
+    {
+        "id": "3b50e9c1-c3e2-4979-876d-fdf5be3dfc73",
+        "lastName": "Rodriguez",
+        "firstName": "Alvaro",
+        "email": "alvarorodria@gmail.com",
+        "phone": "510321911",
+        "rol": "user",
+        "document": 12345699,
+        "vehicle": []
+    },
+    {
+        "id": "8e1cac5d-0e4d-472f-bf12-f86f5475f599",
+        "lastName": "asdasd",
+        "firstName": "fsfafsa",
+        "email": "alvar12345@gmail.com",
+        "phone": "2312321",
+        "rol": "user",
+        "document": 2312321,
+        "vehicle": []
+    },
+    {
+        "id": "8adea027-076d-490d-ac44-c698f1de359f",
+        "lastName": "Acosta",
+        "firstName": "Joaquin",
+        "email": "correoprueba@gmail.com",
+        "phone": "323232424",
+        "rol": "user",
+        "document": 4023892,
+        "vehicle": []
+    },
+    {
+        "id": "f5a390d5-9d10-4dac-937a-4cdb06e5c75e",
+        "lastName": "Ramirez",
+        "firstName": "Sergio",
+        "email": "sergioramirez0@hotmail.com",
+        "phone": "110",
+        "rol": "user",
+        "document": 11220,
+        "vehicle": []
+    }
+]

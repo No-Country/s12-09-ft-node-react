@@ -1,6 +1,6 @@
 'use client';
+import { CloseEyeIcon, OpenEyeIcon } from '@/assets/svg';
 import { useState, type ChangeEventHandler } from 'react';
-import { CloseEyeIcon, OpenEyeIcon } from '@/assets/icons';
 
 interface Props {
   name?: string;

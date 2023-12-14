@@ -1,6 +1,6 @@
 export * from './Header';
 export * from './HeaderHome';
-export * from './HeaderAdmin';
+export * from './HeaderWorkshop';
 export * from './HeaderClient';
 export * from './HeaderMechanic';
 export * from './Logo';

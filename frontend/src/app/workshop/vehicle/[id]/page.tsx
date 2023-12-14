@@ -14,8 +14,6 @@ export default function VehicleDetailsPage({ params }: Props) {
     getOneVehicleById(params.id);
   }, []);
 
-  console.log(vehicle);
-
   return (
     <section>
       <Container>

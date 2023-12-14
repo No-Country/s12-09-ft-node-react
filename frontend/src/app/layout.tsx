@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { HeaderHome } from '@/components';
 import { StoreProvider } from '@/store';
 import './globals.css';
 // import { ModalProvider } from '@/context';
@@ -24,7 +23,6 @@ export default function RootLayout({ children }: Props) {
     <html lang='en' data-theme='light'>
       <body className={inter.className}>
         <main>
-          <HeaderHome />
           <StoreProvider>{children}</StoreProvider>
         </main>
       </body>
