@@ -7,12 +7,16 @@ import { useRouter } from 'next/navigation';
 import swal from 'sweetalert';
 import * as yup from 'yup';
 
-const initialValues = {
+interface initialValuesProps {
+  code: string;
+}
+
+const initialValues: initialValuesProps = {
   code: '',
 };
 
 const basicSchema = yup.object().shape({
-  code: yup.number().positive().integer().required('Required'),
+  code: yup.string().required('Required'),
 });
 
 export default function LoginMechanicPage() {
@@ -21,16 +25,13 @@ export default function LoginMechanicPage() {
     useFormik({
       initialValues,
       validationSchema: basicSchema,
-      onSubmit: async (values, { resetForm }) => {
-        resetForm();
-
-        await swal(
-          'Taller registrado',
-          '( simulacion no tiene endpoint )',
-          'success'
-        ).then(() => {});
-
-        router.push('/login');
+      onSubmit: (values: initialValuesProps) => {
+        swal('Es solo un template, no tiene funcionalidad', ' ', 'info', {
+          buttons: [false],
+          timer: 3000,
+        }).then(() => {
+          router.push('home', { scroll: false });
+        });
       },
     });
   return (
@@ -52,8 +53,8 @@ export default function LoginMechanicPage() {
               <LockIcon />
               <Input
                 name='code'
-                placeholder='Contraseña'
-                type='number'
+                placeholder='Codigo'
+                type='password'
                 value={values.code}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
