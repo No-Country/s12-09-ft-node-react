@@ -1,14 +1,26 @@
-import { Container } from '@/components';
-import React from 'react';
+import type { Tabs } from '@/@types';
+import { Container, TabsLayout } from '@/components';
+import QuoteRepairs from '@/components/Quote';
 
-const Repairs = () => {
+export default function QuotePage() {
+  const tabs: Tabs[] = [
+    {
+      label: 'Componentes',
+      content: <QuoteRepairs />,
+    },
+    {
+      label: 'Costo',
+      content: <>Content cost</>,
+    },
+  ];
+
   return (
     <section>
       <Container>
-        <p>Lista de componenetes</p>
+        <div>
+          <TabsLayout tabs={tabs} />
+        </div>
       </Container>
     </section>
   );
-};
-
-export default Repairs;
+}

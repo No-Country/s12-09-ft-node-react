@@ -10,3 +10,15 @@ export { default as LockIcon } from './lock-icon.svg';
 export { default as OpenEyeIcon } from './open-eye-icon.svg';
 export { default as CloseEyeIcon } from './close-eye-icon.svg';
 export { default as BackArrowIcon } from './back-arrow-icon.svg';
+
+export { default as AirIcon } from './air.svg';
+// export { default as BrakeIcon } from './frenos.png';
+export { default as MotorIcon } from './motor.svg';
+export { default as ElectricIcon } from './electric.svg';
+export { default as FrontTab } from './fronttab.svg';
+// export { default as WheelsIcon } from './wheel.png';
+export { default as BateryIcon } from './batery.svg';
+export { default as FyfIcon } from './fyf.svg';
+export { default as FaciteIcon } from './facite.svg';
+export { default as FireIcon } from './fire.svg';
+export { default as ArrowButtonIcon } from './arrow-button.svg';
