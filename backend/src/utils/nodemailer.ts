@@ -13,9 +13,9 @@ export const sendEmail = async (user: Users) => {
 	})
 
 	const mailOptions = {
-		from: MY_EMAIL,
+		from: "RepairLogTeam",
 		to: user.email,
-		subject: 'Reset ThinderPet Password',
+		subject: 'Hey! Your Car is Ready!',
 		html: `
         <!DOCTYPE html>
         <html lang="en">
@@ -60,7 +60,7 @@ export const sendEmail = async (user: Users) => {
               <tr>
                 <td style="padding: 20px">
                   <h1 style="font-size: 18px; color: #333333; margin-top: 0">
-                    Hi ${user.firstName},
+                    Hi! ${user.firstName},
                   </h1>
                   <p style="font-size: 16px; color: #666666">
                     Your vehicle is ready for pickup at MechanicAlert.

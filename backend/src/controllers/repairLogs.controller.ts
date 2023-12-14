@@ -1,12 +1,11 @@
 import { NextFunction, Request, Response } from 'express'
 import { Mechanic } from '../models/Mechanic'
 import { Users } from '../models/Users'
+import { sendEmail } from '../utils/nodemailer'
 import { repairLogSchema, stateSchema, uuidSchema } from '../utils/zodSchemas'
 import { Budget } from './../models/Budget'
 import { RepairLog } from './../models/RepairLog'
 import { Vehicle } from './../models/Vehicle'
-import { Users } from '../models/Users'
-import { sendEmail } from '../utils/nodemailer'
 
 export class RepairLogController {
 	static async getAll(req: Request, res: Response, next: NextFunction) {
@@ -27,30 +26,6 @@ export class RepairLogController {
 			next(error)
 		}
 	}
-	// static async create(req: Request, res: Response, next: NextFunction) {
-	// 	const date = new Date()
-	// 	const formattedDate = date.toLocaleDateString()
-	// 	repairLogSchema.parse(req.body)
-	// 	const { vehicleId, mechanicId } = req.body
-
-	// 	try {
-	// 		const vehicle = await Vehicle.findByPk(vehicleId)
-	// 		if (!vehicle) {
-	// 			throw new Error('Vehicle not found')
-	// 		}
-	// 		const mechanic = await Mechanic.findByPk(mechanicId)
-	// 		if (!mechanic) {
-	// 			throw new Error('Mechanic not found')
-	// 		}
-	// 		const result = await RepairLog.create({
-	// 			...req.body,
-	// 			date: formattedDate,
-	// 		})
-	// 		res.status(201).json(result)
-	// 	} catch (error) {
-	// 		next(error)
-	// 	}
-	// }
 	/////////////////////////////////////////////////////////////////////////////
 	static async create(req: Request, res: Response, next: NextFunction) {
 		const date = new Date()
@@ -83,8 +58,8 @@ export class RepairLogController {
 					state: 'En reparacion',
 					vehicleId: budget.vehicleId,
 					mechanicId: budget.mechanicId,
-					reparacion: budget.repair,
-					mantenimiento: budget.maintenance,
+					repair: budget.repair,
+					maintenance: budget.maintenance,
 				})
 
 				// Responder con el RepairLog creado
@@ -184,6 +159,7 @@ export class RepairLogController {
 
 			// Envía el correo al dueño del auto
 			const owner = repairLog.vehicle.user
+			console.log(owner.email)
 			await sendEmail(owner)
 
 			res.status(200).json({ message: 'Notification sent to owner' })
