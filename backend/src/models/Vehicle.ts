@@ -52,8 +52,6 @@ export class Vehicle extends Model {
 
 	@Column({
 		type: DataType.STRING,
-		defaultValue:
-			'https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg',
 	})
 	imageUrl!: string
 

@@ -42,6 +42,9 @@ export class VehicleController {
 		try {
 			// Validar los datos del cuerpo de la solicitud
 			const data = vehicleSchema.parse(req.body)
+			const defaultImg =
+				'https://jamaicaautoauctions.com/wp-content/uploads/2019/11/default-car.jpg'
+			const img = req.body.imageUrl ? req.body.imageUrl : defaultImg
 
 			// Verificar si el usuario existe
 			const user = await Users.findByPk(data.userId)
@@ -50,7 +53,7 @@ export class VehicleController {
 			}
 
 			// Crear el nuevo vehículo
-			const newVehicle = await Vehicle.create(data)
+			const newVehicle = await Vehicle.create({ ...data, imageUrl: img })
 			res.status(201).json(newVehicle)
 		} catch (error) {
 			next(error)

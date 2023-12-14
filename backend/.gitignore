@@ -5,3 +5,4 @@
 .env.production
 package-lock.json
 postgres
+fakeData.js
