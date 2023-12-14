@@ -9,5 +9,6 @@ router.delete('/:id', BudgetController.deleteBudgetById)
 router.put('/:id', BudgetController.updateBudgetById)
 router.get('/:id', BudgetController.findBudgetById)
 router.post('/info', BudgetController.budgetInfo)
+router.put('/accept/:id', BudgetController.acceptBudget)
 
 export { router }

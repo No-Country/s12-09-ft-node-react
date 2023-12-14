@@ -29,7 +29,9 @@ export const mechanicSchema = z.object({
 		.number()
 		.min(6)
 		.int()
-		.positive({ message: 'Document must be a positive integer and be 6-15 characters' }),
+		.positive({
+			message: 'Document must be a positive integer and be 6-15 characters',
+		}),
 	phone: z.string().optional(),
 	role: z.string().default('mechanic'),
 })
@@ -41,7 +43,9 @@ export const userSchema = z.object({
 		.number()
 		.min(6)
 		.int()
-		.positive({ message: 'Document must be a positive integer and be 6-15 characters' }),
+		.positive({
+			message: 'Document must be a positive integer and be 6-15 characters',
+		}),
 	phone: z.string().optional(),
 	role: z.string().default('user'),
 })
@@ -88,3 +92,27 @@ export const stateSchema = z.enum([
 	'En reparacion',
 	'Aviso al cliente',
 ])
+
+export const budgetSchema = z.object({
+	repair: z.array(
+		z.object({
+			name: z.string(),
+			description: z.string(),
+			cost: z.number().int().positive(),
+		}),
+	),
+	maintenance: z.array(
+		z.object({
+			task: z.string(),
+			description: z.string(),
+			cost: z.number().int().positive(),
+		}),
+	),
+	costs: z.number().int().positive().optional(),
+	labor: z.number().int().positive(),
+	accepted: z.boolean(),
+	isActive: z.boolean().optional(),
+	userId: z.string().uuid(),
+	vehicleId: z.string().uuid(),
+	mechanicId: z.string().uuid(),
+})

@@ -3,6 +3,7 @@ import { Budget } from '../models/Budget'
 import { Mechanic } from '../models/Mechanic'
 import { Users } from '../models/Users'
 import { Vehicle } from '../models/Vehicle'
+import { budgetSchema, uuidSchema } from '../utils/zodSchemas'
 
 export class BudgetController {
 	static async getAllBudget(req: Request, res: Response, next: NextFunction) {
@@ -31,24 +32,25 @@ export class BudgetController {
 	}
 
 	static async createBudget(req: Request, res: Response, next: NextFunction) {
-		const { userId, vehicleId, mechanicId } = req.body
 		try {
-			const vehicle = await Vehicle.findByPk(vehicleId)
-			if (!vehicle) throw new Error('Vehicle not found')
-			const findMechanic = await Mechanic.findByPk(mechanicId)
-			if (!findMechanic) throw new Error('Mechanic not found')
-			const user = await Users.findByPk(userId)
+			// Validar todos los datos del presupuesto con Zod
+			const validatedData = budgetSchema.parse(req.body)
+
+			const { userId } = validatedData
+			const user = await Users.findOne({
+				where: { id: userId },
+				attributes: { exclude: ['pass', 'rol'] },
+			})
 			if (!user) throw new Error('User not found')
 
-			const newBudget = await Budget.create({
-				...req.body,
-				mechanic: mechanicId,
-			})
+			const newBudget = await Budget.create(validatedData)
+
 			res.status(201).json(newBudget)
 		} catch (error) {
 			next(error)
 		}
 	}
+
 	static async budgetInfo(req: Request, res: Response, next: NextFunction) {
 		const { userId } = req.body
 		try {
@@ -56,7 +58,9 @@ export class BudgetController {
 			if (!user) throw new Error('User not found')
 
 			const newBudget = await Budget.findOne({
-				where: { userId, isActive: true }, include:[Vehicle,Mechanic],attributes:{exclude:['mechanic','vehicleId','mechanicId']}
+				where: { userId, isActive: true },
+				include: [Vehicle, Mechanic],
+				attributes: { exclude: ['mechanic', 'vehicleId', 'mechanicId'] },
 			})
 
 			if (!newBudget) throw new Error('No available budget')
@@ -72,9 +76,8 @@ export class BudgetController {
 		next: NextFunction,
 	) {
 		const { id } = req.params
-		if (!id) {
-			throw new Error('Budget not found')
-		}
+		uuidSchema.parse(id)
+
 		try {
 			const budgetToDestroy = await Budget.findByPk(id, {
 				include: [
@@ -105,6 +108,8 @@ export class BudgetController {
 	static async findBudgetById(req: Request, res: Response, next: NextFunction) {
 		try {
 			const { id } = req.params
+			uuidSchema.parse(id)
+
 			const budgetToFind = await Budget.findByPk(id, {
 				include: [
 					{
@@ -137,15 +142,41 @@ export class BudgetController {
 		next: NextFunction,
 	) {
 		const { id } = req.params
+		uuidSchema.parse(id)
 
 		try {
 			const budget = await Budget.findByPk(id)
 			if (budget) {
-				await budget.update(req.body)
+				// Validar todos los datos del presupuesto con Zod
+				const validatedData = budgetSchema.parse(req.body)
+
+				await budget.update(validatedData)
 				res.json(budget)
 			} else {
 				throw new Error('Budget not found')
 			}
+		} catch (error) {
+			next(error)
+		}
+	}
+
+	static async acceptBudget(req: Request, res: Response, next: NextFunction) {
+		const { id } = req.params
+		uuidSchema.parse(id)
+
+		try {
+			// Busca el presupuesto por ID
+			const budget = await Budget.findByPk(id)
+
+			if (!budget) {
+				throw new Error('Budget not found')
+			}
+			console.log('Data received for acceptance:', budget)
+			// Actualiza el campo 'accepted' a true
+			await budget.update({ accepted: true, isActive: false })
+
+			// Responde con el presupuesto actualizado
+			res.status(200).json(budget)
 		} catch (error) {
 			next(error)
 		}
