@@ -1,3 +1,5 @@
+'use client';
+
 import { Button, Container } from '@/components';
 import QuotesChooseCategory from './QuotesChooseCategory';
 
@@ -57,6 +59,9 @@ const optionsMaintenance = [
 ];
 
 const QuoteRepairs = () => {
+  const handleRedirect = () => {
+    console.log('rediirigir a presupuesto');
+  };
   return (
     <Container>
       <section
@@ -73,7 +78,7 @@ const QuoteRepairs = () => {
           options={optionsMaintenance}
         />
         <div className='flex justify-end mr-2 my-10 '>
-          <Button>Flechita</Button>
+          <Button onClick={handleRedirect}>{'->'}</Button>
           {/* <Image
           className='hover:scale-105 hover:cursor-pointer'
           src={arrowButtonIcon}
