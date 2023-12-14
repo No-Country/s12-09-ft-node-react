@@ -23,14 +23,14 @@ export const getAllMechanicsAsync = createAsyncThunk(
 );
 export const createMechanicAsync = createAsyncThunk(
   'mechanic/create',
-  async (newMechanic: Mechanic) => {
+  async (newMechanic: Mechanic, { rejectWithValue }) => {
     try {
       const created = await mechanicService.create(newMechanic);
       await swal('Mecanico registrado', '', 'success');
       return created;
-    } catch (error) {
+    } catch (error: any) {
       await swal('No se pudo registrar el mecanico', '', 'error');
-      return undefined;
+      return rejectWithValue(error.response.data);
     }
   }
 );

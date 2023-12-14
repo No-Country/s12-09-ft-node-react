@@ -1,7 +1,7 @@
 'use client';
 
 import { Input } from '@/components';
-import { PlusIcon, UserIcon } from '@/assets/icons';
+import { UserIcon } from '@/assets/icons';
 import Image from 'next/image';
 
 import { useFormik } from 'formik';
@@ -12,6 +12,7 @@ import { useMechanic } from '@/hook';
 import type { Mechanic } from '@/@types';
 import { Welcome } from './components/Welcome';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const basicSchema = yup.object().shape({
   email: yup.string().email('Plesase enter a valid email').required('Required'),
@@ -59,18 +60,18 @@ export default function MechanicPage() {
           cancel: true,
           confirm: true,
         },
-      }).then(response => {
+      }).then(async response => {
         if (response) {
-          createMechanic(values);
-
-          swal('Quieres crear un nuevo mecanico', '', 'info', {
-            buttons: {
-              cancel: true,
-              confirm: true,
-            },
-          }).then(res => {
-            res ? resetForm() : route.push('/home');
-          });
+          const value = await createMechanic(values);
+          value &&
+            swal('Quieres crear un nuevo mecanico', '', 'info', {
+              buttons: {
+                cancel: true,
+                confirm: true,
+              },
+            }).then(res => {
+              res ? resetForm() : route.push('/home');
+            });
         }
       });
     },
@@ -191,13 +192,17 @@ export default function MechanicPage() {
             )}
           </div>
         </div>
-        <div className='flex justify-center mt-6'>
+        <div className='flex justify-between items-center mt-6'>
+          <div></div>
           <button
             type='submit'
             className='btn w-20 text-lg font-bold btn-primary text-secondary'
           >
             Listo
           </button>
+          <Link className='text-xs text-accent' href={'/home'}>
+            Omitir
+          </Link>
         </div>
       </div>
     </form>
