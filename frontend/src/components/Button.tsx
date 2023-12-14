@@ -1,11 +1,17 @@
 interface Props {
   children: string;
   isOutline?: boolean;
-  type?: string;
+  type?: 'button' | 'submit' | 'reset' | undefined;
   className?: string;
+  onClick: () => void;
 }
 export function Button(props: Props) {
-  const { children, className = '', isOutline = false, ...otherProps } = props;
+  const {
+    children = '',
+    className = '',
+    isOutline = false,
+    ...otherProps
+  } = props;
   return (
     <button
       className={`

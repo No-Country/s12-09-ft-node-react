@@ -1,5 +1,4 @@
 'use client';
-
 import { Button, Container, VehicleDetail } from '@/components';
 import { useVehicle } from '@/hook';
 import { useRouter } from 'next/navigation';
@@ -28,16 +27,20 @@ export default function VehicleDetailsPage({ params }: VehicleDetailProps) {
           {isLoading === true
             ? 'Cargando...'
             : vehicle?.id && (
-                <VehicleDetail vehicle={vehicle}>
-                  <div className='mx-auto'>
-                    <VehicleDetail.Problem>
-                      Problema detallado
-                    </VehicleDetail.Problem>
+                <>
+                  <VehicleDetail vehicle={vehicle}>
+                    <div className='mx-auto'>
+                      <VehicleDetail.Problem>
+                        Problema detallado
+                      </VehicleDetail.Problem>
+                    </div>
+                  </VehicleDetail>
+                  <div className='flex justify-center mt-8'>
                     <Button onClick={handleCotiseichon}>
                       Enviar cotizacion
                     </Button>
                   </div>
-                </VehicleDetail>
+                </>
               )}
         </>
       </Container>
