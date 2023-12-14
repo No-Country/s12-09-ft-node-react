@@ -29,11 +29,9 @@ export default function VehicleDetailsPage({ params }: VehicleDetailProps) {
             : vehicle?.id && (
                 <>
                   <VehicleDetail vehicle={vehicle}>
-                    <div className='mx-auto'>
-                      <VehicleDetail.Problem>
-                        Problema detallado
-                      </VehicleDetail.Problem>
-                    </div>
+                    <VehicleDetail.Problem>
+                      Problema detallado
+                    </VehicleDetail.Problem>
                   </VehicleDetail>
                   <div className='flex justify-center mt-8'>
                     <Button onClick={handleCotiseichon}>

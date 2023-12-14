@@ -14,7 +14,13 @@ export default function MechanicPage() {
   const tabs: Tabs[] = [
     {
       label: 'Vehículos',
-      content: <VehicleList data={vehicles} loading={isLoading} />,
+      content: (
+        <VehicleList
+          data={vehicles}
+          loading={isLoading}
+          uri='/mechanic/vehicle'
+        />
+      ),
     },
     {
       label: 'Clientes',
