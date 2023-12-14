@@ -1,7 +1,8 @@
 'use client';
 
-import { Container, VehicleDetail } from '@/components';
+import { Button, Container, VehicleDetail } from '@/components';
 import { useVehicle } from '@/hook';
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 interface VehicleDetailProps {
@@ -10,10 +11,15 @@ interface VehicleDetailProps {
 
 export default function VehicleDetailsPage({ params }: VehicleDetailProps) {
   const { vehicle, isLoading, getOneVehicleById } = useVehicle();
+  const router = useRouter();
 
   useEffect(() => {
     getOneVehicleById(params.id);
   }, []);
+
+  const handleCotiseichon = () => {
+    router.push('repairs');
+  };
 
   return (
     <section>
@@ -23,7 +29,14 @@ export default function VehicleDetailsPage({ params }: VehicleDetailProps) {
             ? 'Cargando...'
             : vehicle?.id && (
                 <VehicleDetail vehicle={vehicle}>
-                  <VehicleDetail.Problem>problem</VehicleDetail.Problem>
+                  <div className='mx-auto'>
+                    <VehicleDetail.Problem>
+                      Problema detallado
+                    </VehicleDetail.Problem>
+                    <Button onClick={handleCotiseichon}>
+                      Enviar cotizacion
+                    </Button>
+                  </div>
                 </VehicleDetail>
               )}
         </>
