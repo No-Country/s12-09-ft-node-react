@@ -79,6 +79,7 @@ export const vehicleSchema = z.object({
 	licensePlate: z.string(),
 	mileage: z.number(),
 	userId: z.string().uuid(),
+	imageUrl: z.string().optional(),
 })
 
 export const stateSchema = z.enum([
