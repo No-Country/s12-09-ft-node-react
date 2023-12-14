@@ -3,7 +3,7 @@ interface Props {
   isOutline?: boolean;
   type?: 'button' | 'submit' | 'reset' | undefined;
   className?: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 export function Button(props: Props) {
   const {

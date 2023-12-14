@@ -5,9 +5,36 @@ interface props {
   title: string;
   subtitle: string;
   options: Array<{ title: string }>;
+  items: any[];
+  setItemsForQuote: any;
 }
 
-const QuotesChooseCategory = ({ title, subtitle, options }: props) => {
+const QuotesChooseCategory = ({
+  title,
+  subtitle,
+  options,
+  items,
+  setItemsForQuote,
+}: props) => {
+  const handleRadioChange = (event, item): any => {
+    const { checked } = event.target;
+
+    // Agrega la opción seleccionada al array
+    if (checked) {
+      const selectedOptions = [
+        ...items,
+        { ...item, description: '', price: '' },
+      ];
+      setItemsForQuote(selectedOptions);
+    }
+
+    // Elimina la opción seleccionada del array
+    else {
+      const selectedOptions = items.filter(option => option !== item);
+      setItemsForQuote(selectedOptions);
+    }
+  };
+
   return (
     <article className='flex justify-center gap-3 items-center flex-col py-3'>
       <div className='pr-20 md:pr-0 '>
@@ -19,8 +46,12 @@ const QuotesChooseCategory = ({ title, subtitle, options }: props) => {
         </h3>
       </div>
       <div className='flex justify-center gap-8 flex-wrap'>
-        {options.map((opt, i) => (
-          <RepairOption key={i} title={opt.title} />
+        {options.map((item, i) => (
+          <RepairOption
+            key={i}
+            item={item}
+            handleRadioChange={handleRadioChange}
+          />
         ))}
       </div>
     </article>
