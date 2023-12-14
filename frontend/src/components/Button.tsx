@@ -1,5 +1,5 @@
 interface Props {
-  children: string;
+  children: string | JSX.Element;
   isOutline?: boolean;
   type?: 'button' | 'submit' | 'reset' | undefined;
   className?: string;
