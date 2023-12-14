@@ -48,7 +48,11 @@ interface Maintenance {
 interface RepairLog {
   repairs: Repair[];
   maintenance: Maintenance[];
-  labor: string;
+  labor: number;
+  accepted: false;
+  userId: string;
+  vehicleId: string;
+  mechanicId: string
 }
 
 
@@ -62,7 +66,11 @@ export default function CostPage() {
   const initialValues: RepairLog = {
     repairs: data.repairs.map(name => ({ name, description: '', cost: 0 })),
     maintenance: data.maintenance.map(task => ({ task, description: '', cost: 0 })),
-    labor: '',
+    labor: 0,
+    accepted: false,
+    userId: '4d00e8d1-1609-4799-a8df-304e9dd44d8a',
+    vehicleId: 'e6e3f04f-32ef-4571-ba04-a553a890ea78',
+    mechanicId: 'bad33934-8945-4502-b12f-22fc522670aa'
   };
 
   const { values, handleChange, handleBlur, handleSubmit } =
