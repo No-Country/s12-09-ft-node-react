@@ -33,7 +33,8 @@ const errorHandler = (
 		error.message === 'Appointment not found' ||
 		error.message === 'Vehicle not found' ||
 		error.message === 'User not found' ||
-		error.message === 'Budget not found'
+		error.message === 'Budget not found' ||
+		error.message === 'No available budget'
 	) {
 		return res.status(404).json({ message: error.message })
 	}

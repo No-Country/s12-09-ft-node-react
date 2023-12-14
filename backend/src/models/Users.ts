@@ -109,12 +109,6 @@ export class Users extends Model {
 		type: DataType.INTEGER,
 		allowNull: false,
 		unique: true,
-		validate: {
-			len: {
-				args: [5, 8],
-				msg: 'The document must have 5 - 8 characters',
-			},
-		},
 	})
 	document!: number
 

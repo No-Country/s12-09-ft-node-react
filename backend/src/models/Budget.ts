@@ -7,10 +7,10 @@ import {
 	Model,
 	Table,
 } from 'sequelize-typescript'
-import { Users } from './Users'
-import { Vehicle } from './Vehicle'
 import { Mechanic } from './Mechanic'
 import { RepairLog } from './RepairLog'
+import { Users } from './Users'
+import { Vehicle } from './Vehicle'
 
 @Table({
 	timestamps: false,
@@ -80,15 +80,19 @@ export class Budget extends Model {
 	@BelongsTo(() => Vehicle, { as: 'vehicleAssociation' })
 	vehicle!: Vehicle
 
+	@ForeignKey(() => Mechanic)
+	@BelongsTo(() => Mechanic, { as: 'mechanicAssociation' })
 	@Column({
 		type: DataType.UUID,
 		allowNull: false,
 	})
-	mechanicId!: string
+	mechanicId!: Mechanic
 
-	@ForeignKey(() => Mechanic)
-	@BelongsTo(() => Mechanic, { as: 'mechanicAssociation' })
-	mechanic!: Mechanic
+	@Column({
+		type: DataType.UUID,
+		// allowNull: false,
+	})
+	mechanic!: string
 
 	@BeforeSave
 	static calculateCosts(budget: Budget) {
@@ -110,6 +114,7 @@ export class Budget extends Model {
 		budget.costs = reparacionCosts + mantenimientoCosts + laborCosts
 		// Si el presupuesto se acepta, crea un RepairLog
 		if (budget.changed('accepted') && budget.accepted) {
+			budget.isActive = false
 			return RepairLog.create({
 				date: new Date(),
 				description: 'Reparaciones y Mantenimientos',
@@ -117,8 +122,8 @@ export class Budget extends Model {
 				state: 'En reparacion',
 				vehicleId: budget.vehicleId,
 				mechanicId: budget.mechanicId,
-				reparacion: budget.repair,
-				mantenimiento: budget.maintenance,
+				repair: budget.repair,
+				maintenance: budget.maintenance,
 			})
 		}
 	}

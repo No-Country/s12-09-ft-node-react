@@ -36,7 +36,7 @@ export class RepairLog extends Model {
 	description!: string
 
 	@Column({
-		type: DataType.INTEGER,
+		type: DataType.DECIMAL(10, 2),
 		allowNull: false,
 	})
 	cost!: number
@@ -48,6 +48,16 @@ export class RepairLog extends Model {
 		defaultValue: 'Cotizar',
 	})
 	state!: string
+
+	@Column({
+		type: DataType.JSONB,
+	})
+	repair!: object[]
+
+	@Column({
+		type: DataType.JSONB,
+	})
+	maintenance!: object[]
 
 	@AllowNull(false)
 	@ForeignKey(() => Vehicle)

@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 import { Budget } from '../models/Budget'
+import { Mechanic } from '../models/Mechanic'
 import { Users } from '../models/Users'
+import { Vehicle } from '../models/Vehicle'
 
 export class BudgetController {
 	static async getAllBudget(req: Request, res: Response, next: NextFunction) {
@@ -11,7 +13,16 @@ export class BudgetController {
 						model: Users,
 						attributes: { exclude: ['pass', 'rol'] },
 					},
+					{
+						model: Vehicle,
+					},
+					{
+						model: Mechanic,
+					},
 				],
+				attributes: {
+					exclude: ['userId', 'vehicleId', 'mechanicId', 'mechanic'],
+				},
 			})
 			return res.status(200).json(budgets)
 		} catch (error) {
@@ -20,14 +31,35 @@ export class BudgetController {
 	}
 
 	static async createBudget(req: Request, res: Response, next: NextFunction) {
+		const { userId, vehicleId, mechanicId } = req.body
+		try {
+			const vehicle = await Vehicle.findByPk(vehicleId)
+			if (!vehicle) throw new Error('Vehicle not found')
+			const findMechanic = await Mechanic.findByPk(mechanicId)
+			if (!findMechanic) throw new Error('Mechanic not found')
+			const user = await Users.findByPk(userId)
+			if (!user) throw new Error('User not found')
+
+			const newBudget = await Budget.create({
+				...req.body,
+				mechanic: mechanicId,
+			})
+			res.status(201).json(newBudget)
+		} catch (error) {
+			next(error)
+		}
+	}
+	static async budgetInfo(req: Request, res: Response, next: NextFunction) {
 		const { userId } = req.body
 		try {
-			const user = await Users.findOne({
-				where: { id: userId },
-				attributes: { exclude: ['pass', 'rol'] },
-			})
+			const user = await Users.findByPk(userId)
 			if (!user) throw new Error('User not found')
-			const newBudget = await Budget.create(req.body)
+
+			const newBudget = await Budget.findOne({
+				where: { userId, isActive: true }, include:[Vehicle,Mechanic],attributes:{exclude:['mechanic','vehicleId','mechanicId']}
+			})
+
+			if (!newBudget) throw new Error('No available budget')
 			res.status(201).json(newBudget)
 		} catch (error) {
 			next(error)
@@ -79,7 +111,16 @@ export class BudgetController {
 						model: Users,
 						attributes: { exclude: ['pass', 'rol'] },
 					},
+					{
+						model: Vehicle,
+					},
+					{
+						model: Mechanic,
+					},
 				],
+				attributes: {
+					exclude: ['userId', 'vehicleId', 'mechanicId', 'mechanic'],
+				},
 			})
 			if (!budgetToFind) {
 				throw new Error('Budget not found')

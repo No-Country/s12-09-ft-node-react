@@ -8,5 +8,6 @@ router.post('/', mechanicController.create)
 router.delete('/:id', mechanicController.delete)
 router.put('/:id', mechanicController.update)
 router.get('/:id', mechanicController.getOne)
+router.post('/login', mechanicController.login)
 
 export {router}

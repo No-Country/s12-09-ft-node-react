@@ -1,17 +1,22 @@
 import { NextFunction, Request, Response } from 'express'
 import { Mechanic } from '../models/Mechanic'
+import { Users } from '../models/Users'
 import { repairLogSchema, stateSchema, uuidSchema } from '../utils/zodSchemas'
+import { Budget } from './../models/Budget'
 import { RepairLog } from './../models/RepairLog'
 import { Vehicle } from './../models/Vehicle'
-import { Budget } from './../models/Budget'
 
 export class RepairLogController {
 	static async getAll(req: Request, res: Response, next: NextFunction) {
 		try {
 			const results = await RepairLog.findAll({
-				attributes: { exclude: ['MechanicId'] },
+				attributes: { exclude: ['mechanicId', 'vehicleId'] },
 				include: [
-					{ model: Vehicle, as: 'vehicle' },
+					{
+						model: Vehicle,
+						as: 'vehicle',
+						include: [{ model: Users, as: 'user' }],
+					},
 					{ model: Mechanic, as: 'mechanic' },
 				],
 			})
@@ -98,7 +103,17 @@ export class RepairLogController {
 			const result = await RepairLog.findByPk(id, {
 				attributes: { exclude: ['MechanicId'] },
 				include: [
-					{ model: Vehicle, as: 'vehicle' },
+					{
+						model: Vehicle,
+						as: 'vehicle',
+						include: [
+							{
+								model: Vehicle,
+								as: 'vehicle',
+								include: [{ model: Users, as: 'user' }],
+							},
+						],
+					},
 					{ model: Mechanic, as: 'mechanic' },
 				],
 			})

@@ -1,11 +1,16 @@
 import { NextFunction, Request, Response } from 'express'
+import jwt from 'jsonwebtoken'
 import { Mechanic } from '../models/Mechanic'
-import { mechanicSchema, uuidSchema } from '../utils/zodSchemas'
+import { RepairLog } from '../models/RepairLog'
+import { Vehicle } from '../models/Vehicle'
+import { codePassSchema, mechanicSchema, uuidSchema } from '../utils/zodSchemas'
 
 export class mechanicController {
 	static async getAll(req: Request, res: Response, next: NextFunction) {
 		try {
-			const results = await Mechanic.findAll()
+			const results = await Mechanic.findAll({
+				include: { model: RepairLog, as: 'repairlogs', include: [Vehicle] },
+			})
 			res.status(200).json(results)
 		} catch (error) {
 			next(error)
@@ -26,7 +31,9 @@ export class mechanicController {
 		try {
 			const { id } = req.params
 			uuidSchema.parse(id)
-			const result = await Mechanic.findByPk(id)
+			const result = await Mechanic.findByPk(id, {
+				include: { model: RepairLog, as: 'repairlogs', include: [Vehicle] },
+			})
 			if (!result) {
 				throw new Error('Mechanic not found')
 			}
@@ -62,6 +69,26 @@ export class mechanicController {
 				throw new Error('Mechanic not found')
 			}
 			res.status(200).json({ message: 'Mechanic deleted' })
+		} catch (error) {
+			next(error)
+		}
+	}
+	static async login(req: Request, res: Response, next: NextFunction) {
+		try {
+			const { codePass } = req.body
+			codePassSchema.parse(codePass)
+
+			const result = await Mechanic.findOne({
+				where: { document: codePass },
+				include: [{ model: RepairLog, as: 'repairlogs',include:[Vehicle] }],
+			})
+			if (!result) {
+				throw new Error('Invalid credentials')
+			}
+			const token = jwt.sign({ result }, process.env.TOKEN_SECRET as string, {
+				expiresIn: '1day',
+			})
+			res.status(200).json({ result, token })
 		} catch (error) {
 			next(error)
 		}

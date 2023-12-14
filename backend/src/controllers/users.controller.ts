@@ -1,7 +1,9 @@
 import { NextFunction, Request, Response } from 'express'
+import jwt from 'jsonwebtoken'
+import { RepairLog } from '../models/RepairLog'
 import { Users } from '../models/Users'
 import { Vehicle } from '../models/Vehicle'
-import { userSchema, uuidSchema } from '../utils/zodSchemas'
+import { codePassSchema, userSchema, uuidSchema } from '../utils/zodSchemas'
 
 export class UserController {
 	static async createUser(req: Request, res: Response, next: NextFunction) {
@@ -29,7 +31,7 @@ export class UserController {
 	static async getAllUsers(req: Request, res: Response, next: NextFunction) {
 		try {
 			const users = await Users.findAll({
-				include: [{ model: Vehicle, as: 'vehicle' }],
+				include: [{ model: Vehicle, as: 'vehicle', include: [RepairLog] }],
 			})
 			return res.status(200).json(users)
 		} catch (error) {
@@ -86,9 +88,35 @@ export class UserController {
 			const { id } = req.params
 			uuidSchema.parse(id)
 			const findUser = await Users.findByPk(id, {
-				include: [{ model: Vehicle, as: 'vehicle' }],
+				include: [{ model: Vehicle, as: 'vehicle', include: [RepairLog] }],
 			})
 			return res.status(200).json(findUser)
+		} catch (error) {
+			next(error)
+		}
+	}
+	static async login(req: Request, res: Response, next: NextFunction) {
+		try {
+			const { codePass } = req.body
+			codePassSchema.parse(codePass)
+
+			const result = await Users.findOne({
+				where: { document: codePass },
+				include: [
+					{
+						model: Vehicle,
+						as: 'vehicle',
+						include: [{ model: RepairLog, as: 'repairLog' }],
+					},
+				],
+			})
+			if (!result) {
+				throw new Error('Invalid credentials')
+			}
+			const token = jwt.sign({ result }, process.env.TOKEN_SECRET as string, {
+				expiresIn: '1day',
+			})
+			res.status(200).json({ result, token })
 		} catch (error) {
 			next(error)
 		}
