@@ -1,7 +1,13 @@
 'use client';
 import { useEffect } from 'react';
 import { useVehicle, useModal } from '@/hook';
-import { Button, Container, TabsLayout, VehicleList } from '@/components';
+import {
+  Button,
+  Container,
+  TabsCliente,
+  TabsLayout,
+  VehicleList,
+} from '@/components';
 import type { Tabs } from '@/@types';
 import { PlusIcon } from '@/assets/svg';
 
@@ -38,7 +44,7 @@ export default function WorkshopPage() {
           <div className='fixed z-index-10 bottom-[2rem] right-0 left-0 flex justify-center'>
             <Button
               onClick={() => {
-                openModal(<>Elemento</>);
+                openModal(<TabsCliente />);
               }}
               className='rounded-[50%]'
             >

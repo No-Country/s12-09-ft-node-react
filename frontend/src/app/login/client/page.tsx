@@ -1,4 +1,4 @@
-import { LockIcon } from '@/assets/icons';
+import { LockIcon } from '@/assets/svg';
 import { Button, Container, Title, Input } from '@/components';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/navigation';

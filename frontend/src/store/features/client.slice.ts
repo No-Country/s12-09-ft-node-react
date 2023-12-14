@@ -36,6 +36,13 @@ export const getOneClientByIdAsync = createAsyncThunk(
     return client;
   }
 );
+export const updateClientAsync = createAsyncThunk(
+  'client/update',
+  async (modified: User) => {
+    const updated = await clientService.update(modified);
+    return updated;
+  }
+);
 
 const clientSlice = createSlice({
   name: 'client',
@@ -57,6 +64,7 @@ const clientSlice = createSlice({
     builder.addCase(createClientAsync.fulfilled, (state, action) => {
       const newClient = action.payload;
       state.clients.push(newClient);
+      state.created = newClient;
       state.isLoading = false;
     });
     // GETBYID
@@ -66,6 +74,17 @@ const clientSlice = createSlice({
     builder.addCase(getOneClientByIdAsync.fulfilled, (state, action) => {
       const client = action.payload;
       state.client = client;
+      state.isLoading = false;
+    });
+    // UPDATE
+    builder.addCase(updateClientAsync.pending, state => {
+      state.isLoading = true;
+    });
+    builder.addCase(updateClientAsync.fulfilled, (state, action) => {
+      const updated = action.payload;
+      const id = updated.id;
+      const index = state.clients.findIndex(item => item.id === id);
+      state.clients[index] = updated;
       state.isLoading = false;
     });
   },

@@ -9,7 +9,9 @@ import {
 
 export function useClient() {
   const displatch = useAppDispatch();
-  const { clients, isLoading } = useAppSelector(state => state.clients);
+  const { clients, isLoading, created } = useAppSelector(
+    state => state.clients
+  );
 
   function getAllClients() {
     clients.length === 0 && displatch(getAllClientsAsync());
@@ -27,6 +29,7 @@ export function useClient() {
   return {
     clients,
     isLoading,
+    created,
     getAllClients,
     getOneClientById,
     createClient,

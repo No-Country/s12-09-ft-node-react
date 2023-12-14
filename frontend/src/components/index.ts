@@ -14,3 +14,5 @@ export * from './VehicleList';
 export * from './Preload';
 export * from './VehicleDetail';
 export * from './ClientRegister';
+export * from './TabsCliente';
+export * from './VehicleRegister';

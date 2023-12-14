@@ -27,7 +27,7 @@ export function Modal({
       
       `}
     >
-      <section className='max-w-[400px] w-full bg-base-300 flex-1 rounded-t-[1rem] absolute z-50 md:rounded-[1rem]'>
+      <section className='max-w-[400px] w-full bg-[white] shadow-xl flex-1 rounded-t-[1rem] absolute z-50 md:rounded-[1rem]'>
         {title && <h3 className='p-4'>{title}</h3>}
         <button
           className='btn btn-sm btn-circle btn-ghost absolute right-2 top-2'
@@ -38,7 +38,7 @@ export function Modal({
         <div className='p-4'>{children}</div>
       </section>
       <span
-        className='backdrop-blur-sm w-full h-full'
+        className='backdrop-blur-sm w-full h-full bg-accent/50'
         onClick={handleClose}
       ></span>
     </div>

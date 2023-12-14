@@ -1,9 +1,10 @@
+'use client';
 interface Props {
   children: string | JSX.Element;
   isOutline?: boolean;
   type?: 'button' | 'submit' | 'reset' | undefined;
   className?: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 export function Button(props: Props) {
   const {
