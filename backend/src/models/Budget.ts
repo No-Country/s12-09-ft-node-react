@@ -94,17 +94,18 @@ export class Budget extends Model {
 	static calculateCosts(budget: Budget) {
 		// Calcular la suma de los costos de reparaciones
 		const reparacionCosts = budget.repair.reduce(
-			(total, reparacion) => total + reparacion.cost,
+			(total, reparacion) => total + parseFloat(reparacion.cost.toString()),
 			0,
 		)
 
 		// Calcular la suma de los costos de mantenimientos
 		const mantenimientoCosts = budget.maintenance.reduce(
-			(total, mantenimiento) => total + mantenimiento.cost,
+			(total, mantenimiento) =>
+				total + parseFloat(mantenimiento.cost.toString()),
 			0,
 		)
 
-		const laborCosts = budget.labor
+		const laborCosts = parseFloat(budget.labor.toString())
 
 		// Actualizar la columna costos con la suma total
 		budget.costs = reparacionCosts + mantenimientoCosts + laborCosts

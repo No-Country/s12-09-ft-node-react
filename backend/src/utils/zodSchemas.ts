@@ -80,3 +80,27 @@ export const stateSchema = z.enum([
 	'En reparacion',
 	'Aviso al cliente',
 ])
+
+export const budgetSchema = z.object({
+	repair: z.array(
+		z.object({
+			name: z.string(),
+			description: z.string(),
+			cost: z.number().int().positive(),
+		}),
+	),
+	maintenance: z.array(
+		z.object({
+			task: z.string(),
+			description: z.string(),
+			cost: z.number().int().positive(),
+		}),
+	),
+	costs: z.number().int().positive().default(0),
+	labor: z.number().int().positive(),
+	accepted: z.boolean(),
+	isActive: z.boolean(),
+	userId: z.string().uuid(),
+	vehicleId: z.string().uuid(),
+	mechanicId: z.string().uuid(),
+})
