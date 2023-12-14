@@ -1,4 +1,5 @@
 'use client';
+
 import { Input } from '@/components';
 import { PlusIcon, UserIcon } from '@/assets/icons';
 import Image from 'next/image';
@@ -10,6 +11,7 @@ import swal from 'sweetalert';
 import { useMechanic } from '@/hook';
 import type { Mechanic } from '@/@types';
 import { Welcome } from './components/Welcome';
+import { useRouter } from 'next/navigation';
 
 const basicSchema = yup.object().shape({
   email: yup.string().email('Plesase enter a valid email').required('Required'),
@@ -38,15 +40,41 @@ const initialValues: Mechanic = {
 };
 export default function MechanicPage() {
   const { createMechanic } = useMechanic();
+  const route = useRouter();
 
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
-    useFormik({
-      initialValues,
-      validationSchema: basicSchema,
-      onSubmit: (values: Mechanic) => {
-        createMechanic(values);
-      },
-    });
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    resetForm,
+  } = useFormik({
+    initialValues,
+    validationSchema: basicSchema,
+    onSubmit: (values: Mechanic) => {
+      swal('Seguro que quiere crear al mecanico', '', 'warning', {
+        buttons: {
+          cancel: true,
+          confirm: true,
+        },
+      }).then(response => {
+        if (response) {
+          createMechanic(values);
+
+          swal('Quieres crear un nuevo mecanico', '', 'info', {
+            buttons: {
+              cancel: true,
+              confirm: true,
+            },
+          }).then(res => {
+            res ? resetForm() : route.push('/home');
+          });
+        }
+      });
+    },
+  });
 
   return (
     <form
@@ -60,7 +88,7 @@ export default function MechanicPage() {
           <button type='button' className='btn btn-sm btn-circle bg-base-300'>
             <Image src={UserIcon} alt='user icon' />
           </button>
-          <button
+          {/* <button
             type='button'
             className='btn btn-sm btn-circle btn-ghost'
             onClick={() => {
@@ -72,7 +100,7 @@ export default function MechanicPage() {
             }}
           >
             <Image src={PlusIcon} alt='plus icon' />
-          </button>
+          </button> */}
         </div>
         <Input
           className={
