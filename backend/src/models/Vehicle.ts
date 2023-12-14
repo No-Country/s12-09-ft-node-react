@@ -9,6 +9,7 @@ import {
 	Table,
 	Unique,
 } from 'sequelize-typescript'
+import { Mechanic } from './Mechanic'
 import { RepairLog } from './RepairLog'
 import { Users } from './Users'
 
@@ -65,4 +66,11 @@ export class Vehicle extends Model {
 
 	@HasMany(() => RepairLog)
 	repairLog!: RepairLog[]
+
+	@ForeignKey(() => Mechanic)
+	@Column({ type: DataType.UUID })
+	mechanicId!: string
+
+	@BelongsTo(() => Mechanic)
+	mechanic!: Mechanic
 }

@@ -1,5 +1,6 @@
 import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript'
 import { RepairLog } from './RepairLog'
+import { Vehicle } from './Vehicle'
 
 @Table({
 	timestamps: false,
@@ -53,6 +54,9 @@ export class Mechanic extends Model {
 
 	@HasMany(() => RepairLog, { as: 'repairlogs' })
 	repairLogs!: RepairLog[];
+
+	@HasMany(() => Vehicle)
+	vehicles!: Vehicle[]
 }
 
 Mechanic.prototype.toJSON = function () {

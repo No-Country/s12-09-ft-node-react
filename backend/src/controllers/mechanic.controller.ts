@@ -9,7 +9,10 @@ export class mechanicController {
 	static async getAll(req: Request, res: Response, next: NextFunction) {
 		try {
 			const results = await Mechanic.findAll({
-				include: { model: RepairLog, as: 'repairlogs', include: [Vehicle] },
+				include: [
+					{ model: RepairLog, as: 'repairlogs', include: [Vehicle] },
+					{ model: Vehicle },
+				],
 			})
 			res.status(200).json(results)
 		} catch (error) {
@@ -32,7 +35,10 @@ export class mechanicController {
 			const { id } = req.params
 			uuidSchema.parse(id)
 			const result = await Mechanic.findByPk(id, {
-				include: { model: RepairLog, as: 'repairlogs', include: [Vehicle] },
+				include: [
+					{ model: RepairLog, as: 'repairlogs', include: [Vehicle] },
+					{ model: Vehicle },
+				],
 			})
 			if (!result) {
 				throw new Error('Mechanic not found')
@@ -80,7 +86,10 @@ export class mechanicController {
 
 			const result = await Mechanic.findOne({
 				where: { document: codePass },
-				include: [{ model: RepairLog, as: 'repairlogs',include:[Vehicle] }],
+				include: [
+					{ model: RepairLog, as: 'repairlogs', include: [Vehicle] },
+					{ model: Vehicle },
+				],
 			})
 			if (!result) {
 				throw new Error('Invalid credentials')

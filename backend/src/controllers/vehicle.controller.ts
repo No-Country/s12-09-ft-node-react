@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
+import { Mechanic } from '../models/Mechanic'
 import { RepairLog } from '../models/RepairLog'
 import { Users } from '../models/Users'
 import { Vehicle } from '../models/Vehicle'
@@ -11,6 +12,7 @@ export class VehicleController {
 				include: [
 					{ model: Users, as: 'user' },
 					{ model: RepairLog, as: 'repairLog' },
+					{ model: Mechanic },
 				],
 			})
 			res.json(vehicles)
@@ -27,6 +29,7 @@ export class VehicleController {
 				include: [
 					{ model: Users, as: 'user' },
 					{ model: RepairLog, as: 'repairLog' },
+					{ model: Mechanic },
 				],
 			})
 			if (!vehicle) {
@@ -62,28 +65,16 @@ export class VehicleController {
 
 	static async updateVehicle(req: Request, res: Response, next: NextFunction) {
 		const { id } = req.params
-		const { brand, model, color, year, licensePlate, mileage, userId } =
-			req.body
+
 		try {
 			// Validar el ID
 			uuidSchema.parse(id)
-
-			// Validar los datos del cuerpo de la solicitud
-			const data = vehicleSchema.parse({
-				brand,
-				model,
-				color,
-				year,
-				licensePlate,
-				mileage,
-				userId,
-			})
 
 			const existingVehicle = await Vehicle.findByPk(id)
 			if (!existingVehicle) {
 				throw new Error('Vehicle not found')
 			}
-			await existingVehicle.update(data)
+			await existingVehicle.update(req.body)
 			res.json(existingVehicle)
 		} catch (error) {
 			next(error)
