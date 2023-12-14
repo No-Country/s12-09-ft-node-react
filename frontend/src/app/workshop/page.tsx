@@ -9,7 +9,13 @@ export default function WorkshopPage() {
   const tabs: Tabs[] = [
     {
       label: 'Vehículos',
-      content: <VehicleList data={vehicles} loading={isLoading} />,
+      content: (
+        <VehicleList
+          data={vehicles}
+          loading={isLoading}
+          uri='/workshop/vehicle'
+        />
+      ),
     },
     {
       label: 'Clientes',
