@@ -83,8 +83,10 @@ export default function QuotePage() {
       label: 'Costo',
       content: (
         <CostPage
-          itemsForQuoteRepair={itemsForQuoteRepair}
-          itemsForQuoteMainteance={itemsForQuoteMainteance}
+        itemsForQuoteRepair={itemsForQuoteRepair}
+        setItemsForQuoteRepair={setItemsForQuoteRepair}
+        itemsForQuoteMainteance={itemsForQuoteMainteance}
+        setItemsForQuoteMainteance={setItemsForQuoteMainteance}
         />
       ),
     },

@@ -56,7 +56,9 @@ interface RepairLog {
 
 export default function CostPage({
   itemsForQuoteRepair,
+  setItemsForQuoteRepair,
   itemsForQuoteMainteance,
+  setItemsForQuoteMainteance
 }: any) {
   const initialValues: RepairLog = {
     repairs: itemsForQuoteRepair?.map(name => ({
@@ -95,6 +97,7 @@ export default function CostPage({
             <CostBlock
               title='Reparacion'
               data={itemsForQuoteRepair}
+              setData={setItemsForQuoteRepair}
               handleBlur={handleBlur}
               handleChange={handleChange}
               values={values}
@@ -102,6 +105,7 @@ export default function CostPage({
             <CostBlock
               title='Mantenimiento'
               data={itemsForQuoteMainteance}
+              setData={setItemsForQuoteMainteance}
               handleBlur={handleBlur}
               handleChange={handleChange}
               values={values}
