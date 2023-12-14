@@ -3,22 +3,23 @@
 import type { MenuItem } from '@/@types';
 import Link from 'next/link';
 import { Logo, Container } from '.';
-import { MenuIcon } from '@/assets/svg';
+import { LogoutIcon, MenuIcon } from '@/assets/svg';
 
 interface Props {
   links: MenuItem[];
   children?: JSX.Element;
+  hasLogout?: boolean;
 }
 
-export function Header({ children, links = [] }: Props) {
+export function Header({ children, links = [], hasLogout=false }: Props) {
   return (
-    <div className='bg-primary'>
+    <header className='navbar bg-primary '>
       <Container>
-        <header className='navbar bg-primary '>
+        <>
           <Link href='/'>
             <Logo isWhite />
           </Link>
-          {children}
+
           <div className='drawer justify-end '>
             <input id='my-drawer' type='checkbox' className='drawer-toggle' />
             <div className='drawer-content'>
@@ -35,25 +36,36 @@ export function Header({ children, links = [] }: Props) {
                 aria-label='close sidebar'
                 className='drawer-overlay'
               ></label>
-              <div className='menu p-4 w-[260px] min-h-full bg-base-200 text-base-content'>
-                <Link href='/'>
-                  <Logo className='pb-4' />
-                </Link>
-                <ul>
-                  {links.map((item, i) => (
-                    <li key={i}>
-                      <Link href={item.href}>
-                        {item.icon}
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+              <div className='menu p-4 w-[260px] min-h-full bg-base-200 text-base-content flex flex-col justify-between'>
+                <div>
+                  <Link href='/'>
+                    <Logo className='pb-4' />
+                  </Link>
+                  {children}
+                  <ul>
+                    {links.map((item, i) => (
+                      <li key={i}>
+                        <Link href={item.href}>
+                          {item.icon}
+                          {item.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                {hasLogout && <ul>
+                  <li>
+                    <Link href='/logout'>
+                      <LogoutIcon /> Cerrar session
+                    </Link>
+                  </li>
+                </ul>}
+                
               </div>
             </nav>
           </div>
-        </header>
+        </>
       </Container>
-    </div>
+    </header>
   );
 }
