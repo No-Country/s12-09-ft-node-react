@@ -62,7 +62,7 @@ export class Vehicle extends Model {
 	@Column({ type: DataType.UUID })
 	userId!: string
 
-	@BelongsTo(() => Users)
+	@BelongsTo(() => Users, 'userId')
 	user!: Users
 
 	@HasMany(() => RepairLog)
