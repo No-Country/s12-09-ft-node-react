@@ -1,7 +1,7 @@
 'use client';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { LoginResult, Workshop } from '@/@types';
-import { workShopService } from '@/services';
+import { workshopService } from '@/services';
 
 export interface State {
   workshop: Workshop;
@@ -12,62 +12,63 @@ export interface State {
 const initialState: State = {
   workshop: {},
   isLoading: false,
-  logged:
-    typeof window !== 'undefined' && localStorage.getItem('logged') !== null
+  logged: typeof window !== 'undefined' && localStorage.getItem('logged') !== null
       ? JSON.parse(localStorage.getItem('logged') ?? '')
       : {},
 };
 
 // thunk functions
-export const createWorkShopAsync = createAsyncThunk(
-  'workShop/register',
+export const createWorkshopAsync = createAsyncThunk(
+  'workshop/register',
   async (workshop: Workshop) => {
-    const newWorkShop = await workShopService.create(workshop);
-    return newWorkShop;
+    const newWorkshop = await workshopService.create(workshop);
+    return newWorkshop;
   }
 );
-export const getWorkShopAsync = createAsyncThunk(
-  'workShop/getOne',
+export const getWorkshopAsync = createAsyncThunk(
+  'workshop/getOne',
   async (id: string) => {
-    const created = await workShopService.getOneById(id);
+    const created = await workshopService.getOneById(id);
     return created;
   }
 );
-export const loginWorkShopAsync = createAsyncThunk(
-  'workShop/login',
+export const loginWorkshopAsync = createAsyncThunk(
+  'workshop/login',
   async (loginObject: Workshop) => {
-    const logged = await workShopService.login(loginObject);
+    const logged = await workshopService.login(loginObject);
     return logged;
   }
 );
 
-export const workShopSlice = createSlice({
-  name: 'workShop',
+export const workshopSlice = createSlice({
+  name: 'workshop',
   initialState,
   reducers: {},
   extraReducers: builder => {
     //  CREATE
-    builder.addCase(createWorkShopAsync.pending, state => {
+    builder.addCase(createWorkshopAsync.pending, state => {
       state.isLoading = true;
     });
-    builder.addCase(createWorkShopAsync.fulfilled, (state, action) => {
+    builder.addCase(createWorkshopAsync.fulfilled, (state, action) => {
       state.workshop = action.payload;
       state.isLoading = false;
     });
     // GETBYID
-    builder.addCase(getWorkShopAsync.pending, state => {
+    builder.addCase(getWorkshopAsync.pending, state => {
       state.isLoading = true;
     });
-    builder.addCase(getWorkShopAsync.fulfilled, (state, action) => {
+    builder.addCase(getWorkshopAsync.fulfilled, (state, action) => {
       state.workshop = action.payload;
     });
     // LOGIN
-    builder.addCase(loginWorkShopAsync.pending, state => {
+    builder.addCase(loginWorkshopAsync.pending, state => {
       state.isLoading = true;
     });
-    builder.addCase(loginWorkShopAsync.fulfilled, (state, action) => {
+    builder.addCase(loginWorkshopAsync.fulfilled, (state, action) => {
       state.logged = action.payload;
       state.workshop = action.payload.result;
+      state.isLoading = false;
+      // save in localStorage
       if (typeof window !== 'undefined') {
         localStorage.setItem('logged', JSON.stringify(action.payload));
       }
@@ -75,4 +76,4 @@ export const workShopSlice = createSlice({
   },
 });
 
-export const workShopReducer = workShopSlice.reducer;
+export const workshopReducer = workshopSlice.reducer;

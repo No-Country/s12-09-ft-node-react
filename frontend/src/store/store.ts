@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { TypedUseSelectorHook } from 'react-redux';
 
 import {
-  workShopReducer,
+  workshopReducer,
   mechanicReducer,
   vehicleReducer,
   clientReducer,
@@ -11,7 +11,7 @@ import {
 
 export const store = configureStore({
   reducer: {
-    workShop: workShopReducer,
+    workshop: workshopReducer,
     mechanics: mechanicReducer,
     vehicles: vehicleReducer,
     clients: clientReducer,

@@ -19,14 +19,14 @@ const basicSchema = yup.object().shape({
 });
 
 export default function HomeLoginPage() {
-  const { loginWorkShop } = useWorkshop();
+  const { loginWorkshop } = useWorkshop();
   const router = useRouter();
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
       initialValues,
       validationSchema: basicSchema,
       onSubmit: async (values: Workshop, { resetForm }) => {
-        loginWorkShop(values);
+        loginWorkshop(values);
         resetForm();
 
         await swal(

@@ -1,31 +1,35 @@
 import { type Workshop } from '@/@types';
 import {
-  getWorkShopAsync,
-  loginWorkShopAsync,
-  createWorkShopAsync,
+  getWorkshopAsync,
+  loginWorkshopAsync,
+  createWorkshopAsync,
 } from '@/store/features/workshop.slice';
 import { useAppSelector, useAppDispatch } from '@/store/store';
 
 export const useWorkshop = () => {
-  const { workShop } = useAppSelector(state => state.workShop);
+  const { workshop, logged, isLoading } = useAppSelector(
+    state => state.workshop
+  );
   const dispatch = useAppDispatch();
 
-  function getWorkShop(id: string) {
-    if (workShop.id === '') {
-      dispatch(getWorkShopAsync(id));
+  function getWorkshop(id: string) {
+    if (workshop.id === '') {
+      dispatch(getWorkshopAsync(id));
     }
   }
   function createWorkshop(newWorkshop: Workshop) {
-    dispatch(createWorkShopAsync(newWorkshop));
+    dispatch(createWorkshopAsync(newWorkshop));
   }
-  function loginWorkShop(loginObject: Workshop) {
-    dispatch(loginWorkShopAsync(loginObject));
+  function loginWorkshop(loginObject: Workshop) {
+    dispatch(loginWorkshopAsync(loginObject));
   }
 
   return {
-    workShop,
-    getWorkShop,
+    workshop,
+    logged,
+    isLoading,
+    getWorkshop,
     createWorkshop,
-    loginWorkShop,
+    loginWorkshop,
   };
 };
