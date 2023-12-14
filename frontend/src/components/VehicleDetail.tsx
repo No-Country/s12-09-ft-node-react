@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { UserIcon } from '@/assets/svg';
 import type { User, Vehicle } from '@/@types';
 import { createContext, useContext } from 'react';
+import { config } from '@/config';
 
 interface VehicleContextProps {
   user: User;
@@ -50,7 +51,7 @@ export function VehicleDetail({ children, vehicle }: Props) {
           <div className='[&>img]:w-[100%]'>
             {vehicle?.imageUrl && (
               <Image
-                src={vehicle?.imageUrl ?? ''}
+                src={vehicle?.imageUrl ?? config.default.vehicleImage}
                 width='100'
                 height='100'
                 alt={vehicle?.brand ?? 'image'}
