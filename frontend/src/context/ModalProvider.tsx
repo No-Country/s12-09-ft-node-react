@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/consistent-type-assertions */
 'use client';
+// /* eslint-disable @typescript-eslint/consistent-type-assertions */
 
 import { createContext, useMemo, useState } from 'react';
-import { ModalPortal } from '@/components/';
+import { Modal } from '@/components/';
 
 interface Props {
   children: JSX.Element;
@@ -20,11 +20,11 @@ const initialState: InitialModalState = {
   className: '',
 };
 interface Options {
-  title: string;
+  title?: string;
   className?: string;
 }
 interface ModalContextValue {
-  openModal: (element: JSX.Element, options: Options) => void;
+  openModal: (element: JSX.Element, options?: Options) => void;
   closeModal: () => void;
 }
 
@@ -33,7 +33,7 @@ export const ModalContext = createContext({} as ModalContextValue);
 export function ModalProvider({ children }: Props) {
   const [modal, setModal] = useState<InitialModalState>(initialState);
 
-  const openModal = (element: JSX.Element, options: Options) => {
+  const openModal = (element: JSX.Element, options: Options = {}) => {
     setModal({
       open: true,
       element,
@@ -58,14 +58,14 @@ export function ModalProvider({ children }: Props) {
     <>
       <ModalContext.Provider value={valueMemo}>
         {children}
-        <ModalPortal
+        <Modal
           show={modal.open}
           title={modal.title}
           handleClose={closeModal}
           className={modal.className}
         >
           {modal.element}
-        </ModalPortal>
+        </Modal>
       </ModalContext.Provider>
     </>
   );

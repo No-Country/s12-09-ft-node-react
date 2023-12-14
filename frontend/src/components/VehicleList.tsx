@@ -41,7 +41,7 @@ export function VehicleList({ loading = false, data = [], uri }: Props) {
     <div className='flex flex-wrap justify-center items-center gap-y-4'>
       {loading
         ? 'cargando...'
-        : data.length < 0
+        : data.length <= 0
           ? 'No hay elementos para mostrar'
           : data.map(item => (
               <VehicleListItem key={item.id} item={item} uri={uri} />

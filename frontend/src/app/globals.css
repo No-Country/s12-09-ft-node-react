@@ -28,13 +28,6 @@ body {
     rgb(var(--background-start-rgb));
 } */
 
-.modal-portal-component{
-  display: none;
-}
-.modal-portal-component.show{
-  display: block;
-}
-
 a{
   display: inline-block;
 }

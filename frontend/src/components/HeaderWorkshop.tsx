@@ -3,14 +3,19 @@
 import type { MenuItem } from '@/@types';
 import { Header } from '.';
 import { Avatar } from './Avatar';
-import { HomeIcon } from '@/assets/svg';
+import { HomeIcon, AddUserIcon } from '@/assets/svg';
 import { useWorkshop } from '@/hook';
 
 const links: MenuItem[] = [
   {
-    name: 'Home',
+    name: 'Inicio',
     href: '/workshop',
     icon: <HomeIcon />,
+  },
+  {
+    name: 'Registrar Mecánico',
+    href: '/workshop/mechanic/register',
+    icon: <AddUserIcon />,
   },
 ];
 

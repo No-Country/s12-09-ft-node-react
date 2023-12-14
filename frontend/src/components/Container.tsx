@@ -1,3 +1,4 @@
+'use client';
 interface Props {
   children: JSX.Element;
   className?: string;

@@ -23,3 +23,5 @@ export { default as FaciteIcon } from './facite.svg';
 export { default as FireIcon } from './fire.svg';
 export { default as ArrowButtonIcon } from './arrow-button.svg';
 export { default as LogoutIcon } from './logout-icon.svg';
+export { default as PlusIcon } from './plus-icon.svg';
+export { default as AddUserIcon } from './add-user-icon.svg';
