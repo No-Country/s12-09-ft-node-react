@@ -11,7 +11,7 @@ interface Props {
   hasLogout?: boolean;
 }
 
-export function Header({ children, links = [], hasLogout=false }: Props) {
+export function Header({ children, links = [], hasLogout = false }: Props) {
   return (
     <header className='navbar bg-primary '>
       <Container>
@@ -53,14 +53,15 @@ export function Header({ children, links = [], hasLogout=false }: Props) {
                     ))}
                   </ul>
                 </div>
-                {hasLogout && <ul>
-                  <li>
-                    <Link href='/logout'>
-                      <LogoutIcon /> Cerrar session
-                    </Link>
-                  </li>
-                </ul>}
-                
+                {hasLogout && (
+                  <ul>
+                    <li>
+                      <Link href='/logout'>
+                        <LogoutIcon /> Cerrar session
+                      </Link>
+                    </li>
+                  </ul>
+                )}
               </div>
             </nav>
           </div>

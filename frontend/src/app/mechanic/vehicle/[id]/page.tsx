@@ -17,7 +17,7 @@ export default function VehicleDetailsPage({ params }: VehicleDetailProps) {
   }, []);
 
   const handleCotiseichon = () => {
-    router.push(`/vehicle/${params.id}/budget`);
+    router.push(`${params.id}/budget`);
   };
 
   return (
