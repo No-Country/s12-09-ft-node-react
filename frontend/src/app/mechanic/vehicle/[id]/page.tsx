@@ -17,14 +17,14 @@ export default function VehicleDetailsPage({ params }: VehicleDetailProps) {
   }, []);
 
   const handleCotiseichon = () => {
-    router.push('repairs');
+    router.push(`/vehicle/${params.id}/budget`);
   };
 
   return (
     <section>
       <Container>
         <>
-          {isLoading === true
+          {isLoading
             ? 'Cargando...'
             : vehicle?.id && (
                 <>
