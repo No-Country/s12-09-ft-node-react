@@ -6,7 +6,7 @@ import { Header } from '.';
 const links: MenuItem[] = [
   {
     name: 'Home',
-    href: '/client',
+    href: '/',
     icon: <></>,
   },
 ];

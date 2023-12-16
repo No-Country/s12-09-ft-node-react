@@ -42,7 +42,7 @@ export const Input = (props: Props) => {
           placeholder={placeholder}
           name={name}
           type={type === 'password' ? passwordType : type}
-          min={10000}
+          min={1000}
           max={99999999}
         />
 

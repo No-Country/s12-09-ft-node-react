@@ -2,7 +2,7 @@
 
 import type { MenuItem } from '@/@types';
 import Link from 'next/link';
-import { Logo, Container } from '.';
+import { Logo } from '.';
 import { LogoutIcon, MenuIcon } from '@/assets/svg';
 
 interface Props {
@@ -14,9 +14,9 @@ interface Props {
 export function Header({ children, links = [], hasLogout = false }: Props) {
   return (
     <header className='navbar bg-primary '>
-      <Container>
+      <div className='max-w-[420px] sm:max-w-7xl mx-auto w-full'>
         <>
-          <Link href='/'>
+          <Link href='/login'>
             <Logo isWhite />
           </Link>
 
@@ -66,7 +66,7 @@ export function Header({ children, links = [], hasLogout = false }: Props) {
             </nav>
           </div>
         </>
-      </Container>
+      </div>
     </header>
   );
 }

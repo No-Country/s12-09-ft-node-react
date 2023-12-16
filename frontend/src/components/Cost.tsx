@@ -103,7 +103,7 @@ export default function CostPage() {
 
   return (
     <div>
-      <section className='flex flex-col bg-base-300 sm:bg-transparent mx-4 rounded-2xl p-3'>
+      <section className='flex flex-col bg-base-300 sm:bg-transparent mx-4 rounded-2xl px-4 py-3'>
         <form onSubmit={handleSubmit}>
           <div className='flex flex-col sm:flex-row sm:gap-4 sm:border-b-2 sm:border-base-200 sm:pb-3 md:gap-20'>
             <div className='flex flex-col pb-2 w-full'>
@@ -238,14 +238,14 @@ export default function CostPage() {
             </div>
           </div>
 
-          <div className='mx-4 flex justify-evenly pt-5'>
-            <button className='px-4 py-2 border-2 border-primary rounded-xl text-secondary font-bold text-lg'>
+          <div className='mx-4 flex justify-evenly pt-5 gap-2'>
+            <button className='px-4 py-2 border-2 border-primary rounded-xl text-secondary font-bold'>
               Cancelar
             </button>
 
             <button
               type='submit'
-              className='px-4 py-2 bg-primary rounded-xl text-secondary font-bold text-lg'
+              className='px-4 py-2 bg-primary rounded-xl text-secondary font-bold '
             >
               Enviar Cotizacion
             </button>

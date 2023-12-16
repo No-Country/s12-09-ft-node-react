@@ -10,7 +10,7 @@ const initialValues: User = {
   firstName: '',
   lastName: '',
   email: '',
-  phone: 0,
+  phone: '',
   document: 0,
   pass: '',
 };
@@ -38,7 +38,6 @@ export function ClientRegister() {
 
         await swal(
           'Cliente registrado',
-          '( simulacion no tiene endpoint )',
           'success'
         ).then(() => {});
 

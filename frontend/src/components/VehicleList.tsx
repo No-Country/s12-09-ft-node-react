@@ -11,7 +11,7 @@ interface VehicleItemProps {
 
 function VehicleListItem({ item, uri }: VehicleItemProps) {
   return (
-    <div className=' flex flex-col justify-center items-center w-[50%]'>
+    <div className='flex flex-col justify-center items-center '>
       <section className='bg-base-300 hover:shadow-lg cursor-pointer rounded-3xl w-24 h-24 flex justify-center items-center [&>a]:w-full [&>a]:h-full shadow-lg overflow-hidden'>
         <Link href={`${uri}/${item.id}`}>
           <Image
@@ -38,7 +38,7 @@ interface Props {
 export function VehicleList({ loading = false, data = [], uri }: Props) {
   console.log('vehicles length', data.length);
   return (
-    <div className='flex flex-wrap justify-center items-center gap-y-4'>
+    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-4'>
       {loading
         ? 'cargando...'
         : data.length <= 0

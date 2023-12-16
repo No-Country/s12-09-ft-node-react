@@ -1,6 +1,7 @@
 import type { Mechanic } from '@/@types';
 import { mechanicService } from '@/services';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import swal from 'sweetalert';
 
 interface State {
   mechanics: Mechanic[];
@@ -22,9 +23,15 @@ export const getAllMechanicsAsync = createAsyncThunk(
 );
 export const createMechanicAsync = createAsyncThunk(
   'mechanic/create',
-  async (newMechanic: Mechanic) => {
-    const created = await mechanicService.create(newMechanic);
-    return created;
+  async (newMechanic: Mechanic, { rejectWithValue }) => {
+    try {
+      const created = await mechanicService.create(newMechanic);
+      await swal('Mecanico registrado', '', 'success');
+      return created;
+    } catch (error: any) {
+      await swal('No se pudo registrar el mecanico', '', 'error');
+      return rejectWithValue(error.response.data);
+    }
   }
 );
 export const getOneMechanicByIdAsync = createAsyncThunk(
@@ -34,6 +41,19 @@ export const getOneMechanicByIdAsync = createAsyncThunk(
     return mechanic;
   }
 );
+export const updateMechanicAsync = createAsyncThunk(
+  'mechanic/update',
+  async (modified: Mechanic) => {
+    const updated = await mechanicService.update(modified);
+    return updated;
+  }
+);
+// export const deleteMechanicByIdAsync = createAsyncThunk(
+//   'mechanic/deleteById',
+//   async (id: string) => {
+//     await mechanicService.deleteById(id);
+//   }
+// );
 
 const mechanicSlice = createSlice({
   name: 'mechanic',
@@ -64,6 +84,15 @@ const mechanicSlice = createSlice({
       console.log('GETONE', action.payload);
       state.isLoading = false;
     });
+    //  UPDATE
+    builder.addCase(updateMechanicAsync.pending, state => {
+      state.isLoading = true;
+    });
+    builder.addCase(updateMechanicAsync.fulfilled, (state, action) => {
+      console.log('UPDATE', action.payload);
+      state.isLoading = false;
+    });
+    //  DELETE
   },
 });
 
