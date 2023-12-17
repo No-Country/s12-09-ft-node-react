@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  console.log('URL: ', request.url);
-  console.log('URL NEXT: ', request.nextUrl.pathname);
+  // console.log('URL: ', request.url);
+  // console.log('URL NEXT: ', request.nextUrl.pathname);
 
   // if (request.nextUrl.pathname.startsWith('/client')) {
   //   // allow

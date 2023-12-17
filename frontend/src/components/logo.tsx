@@ -1,5 +1,3 @@
-'use client';
-
 import { MainLogo } from '@/assets/svg';
 
 interface Props {
@@ -8,12 +6,14 @@ interface Props {
 }
 export function Logo({ className = '', isWhite = false }: Props) {
   return (
-    <div className={`logo ${className}`}>
+    <>
       <MainLogo
-        className={`w-full h-auto mr-4 ${
-          isWhite ? '[&>path]:fill-white' : '[&>path]:fill-primary'
-        }`}
+        className={`
+        w-[200px] h-[50px] mr-4 
+        ${isWhite ? '[&>path]:fill-white' : '[&>path]:fill-primary'}
+        ${className}
+        `}
       />
-    </div>
+    </>
   );
 }

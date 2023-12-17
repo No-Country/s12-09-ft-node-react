@@ -1,3 +1,4 @@
+'use client';
 import type { User } from '@/@types';
 import { useAppSelector, useAppDispatch } from '@/store';
 import {
@@ -5,6 +6,7 @@ import {
   getOneClientByIdAsync,
   createClientAsync,
   updateClientAsync,
+  setClientSync,
 } from '@/store/features';
 
 export function useClient() {
@@ -25,6 +27,9 @@ export function useClient() {
   function updateClient(modified: User) {
     displatch(updateClientAsync(modified));
   }
+  function setClient(client: User) {
+    displatch(setClientSync(client));
+  }
 
   return {
     clients,
@@ -34,5 +39,6 @@ export function useClient() {
     getOneClientById,
     createClient,
     updateClient,
+    setClient,
   };
 }

@@ -1,3 +1,4 @@
+'use client';
 import { useDispatch } from 'react-redux';
 import { createMechanicAsync } from '@/store/features/mechanic.slice';
 import { useAppSelector } from '@/store/store';

@@ -1,6 +1,10 @@
 import type { User } from '@/@types';
 import { clientService } from '@/services';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  type PayloadAction,
+  createAsyncThunk,
+  createSlice,
+} from '@reduxjs/toolkit';
 
 interface State {
   clients: User[];
@@ -25,8 +29,13 @@ export const getAllClientsAsync = createAsyncThunk(
 export const createClientAsync = createAsyncThunk(
   'client/create',
   async (newClient: User) => {
-    const created = await clientService.create(newClient);
-    return created;
+    try {
+      const created = await clientService.create(newClient);
+      console.log('created user', created);
+      return created;
+    } catch (error) {
+      console.log(error);
+    }
   }
 );
 export const getOneClientByIdAsync = createAsyncThunk(
@@ -47,7 +56,11 @@ export const updateClientAsync = createAsyncThunk(
 const clientSlice = createSlice({
   name: 'client',
   initialState,
-  reducers: {},
+  reducers: {
+    setClientSync: (state, action: PayloadAction<User>) => {
+      return { ...state, client: action.payload };
+    },
+  },
   extraReducers(builder) {
     // GETALL
     builder.addCase(getAllClientsAsync.pending, state => {
@@ -90,4 +103,5 @@ const clientSlice = createSlice({
   },
 });
 
+export const { setClientSync } = clientSlice.actions;
 export const clientReducer = clientSlice.reducer;

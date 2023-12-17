@@ -1,5 +1,4 @@
 'use client';
-import { CloseEyeIcon, OpenEyeIcon } from '@/assets/svg';
 import { useState, type ChangeEventHandler } from 'react';
 
 interface Props {
@@ -12,10 +11,11 @@ interface Props {
   value?: string | number;
   error?: boolean;
   errorMessage?: string;
+  list?: string;
 }
 
 export const Input = (props: Props) => {
-  const [passwordType, setPasswordType] = useState<string>('password');
+  const [passwordType /* , setPasswordType */] = useState<string>('password');
   const {
     name,
     placeholder,
@@ -26,6 +26,7 @@ export const Input = (props: Props) => {
     errorMessage = '',
     handleChange,
     handleBlur,
+    list = '',
   } = props;
 
   return (
@@ -44,25 +45,26 @@ export const Input = (props: Props) => {
           type={type === 'password' ? passwordType : type}
           min={10000}
           max={99999999}
+          list={list}
         />
 
         {type === 'password' && (
           <>
             <label className='swap absolute mr-3 flex items-center right-3'>
               <input type='checkbox' />
-              <OpenEyeIcon
+              {/* <OpenEyeIcon
                 className='swap-off fill-current absolute'
                 onClick={() => {
                   setPasswordType('password');
                 }}
-              />
+              /> */}
 
-              <CloseEyeIcon
+              {/* <CloseEyeIcon
                 className='swap-on fill-current absolute'
                 onClick={() => {
                   setPasswordType('text');
                 }}
-              />
+              /> */}
             </label>
           </>
         )}

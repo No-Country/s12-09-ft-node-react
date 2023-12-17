@@ -1,3 +1,4 @@
+'use client';
 import type { Vehicle } from '@/@types';
 import { useAppSelector, useAppDispatch } from '@/store';
 import {
@@ -10,7 +11,7 @@ import {
 
 export function useVehicle() {
   const dispatch = useAppDispatch();
-  const { vehicles, vehicle, isLoading } = useAppSelector(
+  const { vehicles, vehicle, isLoading, created } = useAppSelector(
     state => state.vehicles
   );
 
@@ -32,6 +33,7 @@ export function useVehicle() {
     vehicles,
     vehicle,
     isLoading,
+    created,
     getAllVehicles,
     getOneVehicleById,
     createVehicle,

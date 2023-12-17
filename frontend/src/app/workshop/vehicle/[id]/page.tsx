@@ -1,32 +1,18 @@
-'use client';
-
-import { Container, VehicleDetail } from '@/components';
-import { useVehicle } from '@/hook';
-import { useEffect } from 'react';
+import { VehicleDetail, Problem } from '@/components/vehicle';
+import { vehicleService } from '@/services';
 
 interface Props {
   params: { id: string };
 }
-export default function VehicleDetailsPage({ params }: Props) {
-  const { vehicle, isLoading, getOneVehicleById } = useVehicle();
-
-  useEffect(() => {
-    getOneVehicleById(params.id);
-  }, []);
+export default async function VehicleDetailsPage({ params }: Props) {
+  const { id } = params;
+  const vehicle = await vehicleService.getOneById(id);
 
   return (
     <section>
-      <Container>
-        <>
-          {isLoading === true
-            ? 'Cargando...'
-            : vehicle?.id && (
-                <VehicleDetail vehicle={vehicle}>
-                  <VehicleDetail.Problem>problem</VehicleDetail.Problem>
-                </VehicleDetail>
-              )}
-        </>
-      </Container>
+      <VehicleDetail vehicle={vehicle}>
+        <Problem>problem</Problem>
+      </VehicleDetail>
     </section>
   );
 }

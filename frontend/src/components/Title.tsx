@@ -1,5 +1,3 @@
-'use client';
-
 function Subtitle({ children }: { children: string }) {
   return <small className='block text-xl text-accent'>{children}</small>;
 }

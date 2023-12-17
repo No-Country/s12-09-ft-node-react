@@ -69,3 +69,9 @@ export interface Tabs {
   label?: string;
   content?: JSX.Element;
 }
+
+export interface ApiResult {
+  status: number;
+  result: any | null;
+  error?: string;
+}
