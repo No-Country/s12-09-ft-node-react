@@ -7,8 +7,9 @@ interface Props {
 }
 
 export function Logo({ className, isWhite = false }: Props) {
+
   return (
-    <div className={`logo w-36 ${className}`}>
+    <div className={`logo  ${className}`}>
       <MainLogo
         className={`w-full h-auto mr-4 ${
           isWhite ? '[&>path]:fill-white' : '[&>path]:fill-primary'

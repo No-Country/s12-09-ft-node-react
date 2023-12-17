@@ -66,7 +66,7 @@ export const Input = (props: Props) => {
           </>
         )}
       </div>
-      <p className='text-xs text-error mt-[-10px] pt-3 pb-2 h-8 p-4'>
+      <p className={`text-xs text-error mt-[-10px] pt-3 pb-2 h-8 p-4 ${!error ? 'hidden' : ''}`}>
         {error && errorMessage}
       </p>
     </div>

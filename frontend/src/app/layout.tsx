@@ -22,11 +22,11 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang='en' data-theme='light'>
       <body className={inter.className}>
-        <main>
           <StoreProvider>
-            <ModalProvider>{children}</ModalProvider>
+            <ModalProvider>
+              <main>{children}</main>
+            </ModalProvider>
           </StoreProvider>
-        </main>
       </body>
     </html>
   );

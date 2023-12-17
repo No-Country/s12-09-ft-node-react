@@ -53,7 +53,7 @@ const listVehicles: Vehicle[] = [
       repairLog: [],
     },
     {
-      id: 'a55b4ece-5255-4df9-b531-2b564c1e8c5a',
+      id: 'a55b4ece-5255-4df9-b531-2b564c1e7c5a',
       brand: 'BMW',
       model: 'i8',
       color: 'red',
@@ -66,7 +66,7 @@ const listVehicles: Vehicle[] = [
       createdAt: '2023-12-06T15:28:28.079Z',
       updatedAt: '2023-12-06T15:28:28.079Z',
       user: {
-        id: '43c5a993-fe61-47a8-901d-69922160400f',
+        id: '43c5a993-fe61-47a8-901d-69922160409f',
         lastName: 'Martinez',
         firstName: 'Luis',
         email: 'luismartinez4@hotmail.com',

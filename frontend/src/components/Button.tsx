@@ -4,6 +4,7 @@ interface Props {
   isOutline?: boolean;
   type?: 'button' | 'submit' | 'reset' | undefined;
   className?: string;
+  disabled?: boolean;
   onClick?: () => void;
 }
 export function Button(props: Props) {

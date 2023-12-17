@@ -70,6 +70,7 @@ const options = {
 export default function QuotePage() {
   const [itemsForQuoteRepair, setItemsForQuoteRepair] = useState<ItemsRepair[]>([]);
   const [itemsForQuoteMainteance, setItemsForQuoteMainteance] = useState<ItemsRepair[]>([]);
+  const [currentTab, setCurrentTab] = useState<string | undefined>('Componentes');
 
   const tabs: Tabs[] = [
     {
@@ -81,6 +82,7 @@ export default function QuotePage() {
           itemsForQuoteMainteance={itemsForQuoteMainteance}
           setItemsForQuoteRepair={setItemsForQuoteRepair}
           setItemsForQuoteMaiteance={setItemsForQuoteMainteance}
+          setView={setCurrentTab}
         />
       ),
     },
@@ -90,6 +92,7 @@ export default function QuotePage() {
         <CostPage
           itemsForQuoteRepair={itemsForQuoteRepair}
           itemsForQuoteMainteance={itemsForQuoteMainteance}
+          setView={setCurrentTab}
         />
       ),
     },
@@ -98,7 +101,7 @@ export default function QuotePage() {
   return (
     <section>
         <Container>
-          <TabsLayout tabs={tabs} />
+          <TabsLayout tabs={tabs} viewOutside={currentTab} setViewOutside={setCurrentTab} />
         </Container>
     </section>
   );

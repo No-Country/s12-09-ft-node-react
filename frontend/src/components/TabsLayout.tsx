@@ -1,13 +1,23 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Tabs } from '@/@types';
 
-interface Props {
+interface TabsLayoutProps {
   tabs: Tabs[];
+  viewOutside?: string | undefined;
+  setViewOutside?: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
-export function TabsLayout({ tabs }: Props) {
+export function TabsLayout({ tabs, viewOutside, setViewOutside }: TabsLayoutProps) {
   const [view, setView] = useState(tabs[0].label);
+
+  console.log('viewOutside', viewOutside)
+
+  useEffect(() => {
+    if(viewOutside === undefined) return
+    setView(viewOutside);
+  }, [viewOutside, setViewOutside]);
+
   return (
     <div>
       <div className='flex justify-center items-center mb-4'>
@@ -16,6 +26,7 @@ export function TabsLayout({ tabs }: Props) {
             key={i + 'tab'}
             onClick={() => {
               setView(tab.label);
+              if(setViewOutside) setViewOutside(tab.label)
             }}
             className={`
                  flex-1 p-2 gap-2 border-b-2

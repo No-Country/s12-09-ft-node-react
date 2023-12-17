@@ -1,5 +1,4 @@
 'use client';
-// /* eslint-disable @typescript-eslint/consistent-type-assertions */
 
 import { createContext, useMemo, useState } from 'react';
 import { Modal } from '@/components/';

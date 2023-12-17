@@ -32,11 +32,13 @@ const validationSchema = yup.object().shape({
 interface Props {
   itemsForQuoteRepair: ItemsRepair[];
   itemsForQuoteMainteance: ItemsRepair[];
+  setView?: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 const CostPage: React.FC<Props> = ({
   itemsForQuoteRepair,
   itemsForQuoteMainteance,
+  setView
 }) => {
   const params = useParams();
   const vehicleId = Array.isArray(params.id) ? params.id[0] : params.id;
@@ -93,13 +95,6 @@ const CostPage: React.FC<Props> = ({
               </h3>
 
               {itemsForQuoteRepair.map((data, index) => {
-                if (data.title === null) {
-                  return (
-                    <div key={index}>
-                      No se ha selecciona ninguna reparacion
-                    </div>
-                  );
-                } else {
                   return (
                     <div
                       key={index}
@@ -141,7 +136,6 @@ const CostPage: React.FC<Props> = ({
                       </div>
                     </div>
                   );
-                }
               })}
             </div>
 
@@ -233,7 +227,7 @@ const CostPage: React.FC<Props> = ({
           </div>
 
           <div className='mx-4 flex justify-evenly pt-5 gap-2'>
-            <button className='px-4 py-2 border-2 border-primary rounded-xl text-secondary font-bold'>
+            <button onClick={() => {if(setView) setView('Componentes')}} className='px-4 py-2 border-2 border-primary rounded-xl text-secondary font-bold'>
               Cancelar
             </button>
 

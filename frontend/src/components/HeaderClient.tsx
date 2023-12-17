@@ -13,8 +13,6 @@ const links: MenuItem[] = [
 
 export function HeaderClient() {
   return (
-    <Header links={links}>
-      <>Admin Client</>
-    </Header>
+    <Header links={links}/>
   );
 }
