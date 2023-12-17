@@ -27,20 +27,21 @@ export default function VehicleDetailsPage({ params }: VehicleDetailProps) {
           {isLoading
             ? 'Cargando...'
             : vehicle?.id && (
-                <>
                   <VehicleDetail vehicle={vehicle}>
                     <VehicleDetail.Problem>
-                      <p className='bg-base-300 rounded-[2rem] p-4 my-4'>
-                        Problema Detallado
-                      </p>
+                      <>
+                        <p className='bg-base-300 rounded-[2rem] p-4 my-4'>
+                          Problema Detallado
+                        </p>
+
+                        <div className='flex justify-center mt-8'>
+                          <Button onClick={handleCotiseichon}>
+                            Empezar cotizacion
+                          </Button>
+                        </div>
+                      </>
                     </VehicleDetail.Problem>
                   </VehicleDetail>
-                  <div className='flex justify-center mt-8'>
-                    <Button onClick={handleCotiseichon}>
-                      Enviar cotizacion
-                    </Button>
-                  </div>
-                </>
               )}
         </>
       </Container>

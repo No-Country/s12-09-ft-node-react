@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 export interface ItemsRepair {
     title: string,
-    icon: null
+    icon: null | JSX.Element
 }
 
 const options = {
@@ -68,8 +68,8 @@ const options = {
 };
 
 export default function QuotePage() {
-  const [itemsForQuoteRepair, setItemsForQuoteRepair] = useState([]);
-  const [itemsForQuoteMainteance, setItemsForQuoteMainteance] = useState([]);
+  const [itemsForQuoteRepair, setItemsForQuoteRepair] = useState<ItemsRepair[]>([]);
+  const [itemsForQuoteMainteance, setItemsForQuoteMainteance] = useState<ItemsRepair[]>([]);
 
   const tabs: Tabs[] = [
     {
@@ -79,6 +79,8 @@ export default function QuotePage() {
           options={options}
           itemsForQuoteRepair={itemsForQuoteRepair}
           itemsForQuoteMainteance={itemsForQuoteMainteance}
+          setItemsForQuoteRepair={setItemsForQuoteRepair}
+          setItemsForQuoteMaiteance={setItemsForQuoteMainteance}
         />
       ),
     },
@@ -86,6 +88,8 @@ export default function QuotePage() {
       label: 'Costo',
       content: (
         <CostPage
+          itemsForQuoteRepair={itemsForQuoteRepair}
+          itemsForQuoteMainteance={itemsForQuoteMainteance}
         />
       ),
     },

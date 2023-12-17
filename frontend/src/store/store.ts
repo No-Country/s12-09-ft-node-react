@@ -7,6 +7,7 @@ import {
   mechanicReducer,
   vehicleReducer,
   clientReducer,
+  budgetReducer,
 } from './features';
 
 export const store = configureStore({
@@ -15,6 +16,7 @@ export const store = configureStore({
     mechanics: mechanicReducer,
     vehicles: vehicleReducer,
     clients: clientReducer,
+    budgets: budgetReducer
   },
 });
 

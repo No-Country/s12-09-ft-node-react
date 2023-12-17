@@ -70,3 +70,31 @@ export interface Tabs {
   label?: string;
   content?: JSX.Element;
 }
+
+export interface Repair {
+  name: string;
+  description: string;
+  cost: number | string;
+}
+
+interface Maintenance {
+  task: string;
+  description: string;
+  cost: number | string;
+}
+
+export interface Budget {
+  id?: string;
+  repair: Repair[];
+  maintenance: Maintenance[];
+  costs?: number;
+  labor: number;
+  accepted: boolean;
+  isActive?: boolean;
+  user?: User;
+  vehicleAssociation?: Vehicle;
+  mechanicAssociation?: Mechanic;
+  userId?: string;
+  vehicleId?: string;
+  mechanicId?: string
+}

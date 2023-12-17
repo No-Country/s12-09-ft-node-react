@@ -1,105 +1,86 @@
 'use client';
 
-import { Input } from '@/components';
+import type { ItemsRepair } from '@/app/mechanic/vehicle/[id]/budget/page';
+import type { Budget } from '@/@types';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
+import { useEffect } from 'react';
+import { useParams } from 'next/navigation';
+import { useBudget, useVehicle } from '@/hook';
 import { CabinAirIcon } from './Icons';
+import { Input } from '@/components';
+import swal from 'sweetalert';
 
 const validationSchema = yup.object().shape({
-  repairs: yup.array().of(
+  repair: yup.array().of(
     yup.object().shape({
       name: yup.string(),
       description: yup.string().required('La descripción es obligatoria'),
-      cost: yup
-        .number()
-        .required('El costo es obligatorio')
-        .positive('El costo debe ser positivo'),
+      cost: yup.number().required('El costo es obligatorio'),
     })
   ),
   maintenance: yup.array().of(
     yup.object().shape({
       task: yup.string(),
       description: yup.string().required('La descripción es obligatoria'),
-      cost: yup
-        .number()
-        .required('El costo es obligatorio')
-        .positive('El costo debe ser positivo'),
+      cost: yup.number().required('El costo es obligatorio'),
     })
   ),
-  labor: yup
-    .number()
-    .required('La mano de obra es obligatoria')
-    .positive('La mano de obra debe ser positiva'),
+  labor: yup.number().required('La mano de obra es obligatoria'),
 });
 
-interface Repair {
-  name: string;
-  description: string;
-  cost: number;
+interface Props {
+  itemsForQuoteRepair: ItemsRepair[];
+  itemsForQuoteMainteance: ItemsRepair[];
 }
 
-interface Maintenance {
-  task: string;
-  description: string;
-  cost: number;
-}
+const CostPage: React.FC<Props> = ({
+  itemsForQuoteRepair,
+  itemsForQuoteMainteance,
+}) => {
+  const params = useParams();
+  const vehicleId = Array.isArray(params.id) ? params.id[0] : params.id;
 
-interface RepairLog {
-  repairs: Repair[];
-  maintenance: Maintenance[];
-  labor: number;
-  accepted: false;
-  userId: string;
-  vehicleId: string;
-  mechanicId: string;
-}
+  const { createBudget, created, budgets } = useBudget();
+  const { getOneVehicleById, vehicle } = useVehicle();
 
-export default function CostPage() {
-  const itemsForQuoteRepair = [
-    {
-      title: 'Aire de Cabina',
-      icon: null,
-    },
-    {
-      title: 'Tren Delantero',
-      icon: null,
-    },
-  ];
-  const itemsForQuoteMainteance = [
-    {
-      title: 'Neumaticos',
-      icon: null,
-    },
-  ];
+  useEffect(() => {
+    getOneVehicleById(vehicleId);
 
-  const initialValues: RepairLog = {
-    repairs: itemsForQuoteRepair?.map(({ title }) => ({
-      name: title,
+    console.log('vehicle:', vehicle?.id);
+  }, [params]);
+
+  const initialValues: Budget = {
+    repair: itemsForQuoteRepair.map(repairItem => ({
+      name: repairItem.title,
       description: '',
-      cost: 0,
+      cost: '',
     })),
-    maintenance: itemsForQuoteMainteance?.map(({ title }) => ({
-      task: title,
+    maintenance: itemsForQuoteMainteance.map(maintenanceItem => ({
+      task: maintenanceItem.title,
       description: '',
-      cost: 0,
+      cost: '',
     })),
     labor: 0,
     accepted: false,
-    userId: '4d00e8d1-1609-4799-a8df-304e9dd44d8a',
-    vehicleId: 'e6e3f04f-32ef-4571-ba04-a553a890ea78',
-    mechanicId: 'bad33934-8945-4502-b12f-22fc522670aa',
+    userId: vehicle?.userId,
+    vehicleId: vehicle?.id,
+    mechanicId: vehicle?.mechanicId,
   };
 
   const { values, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues,
     validationSchema,
+    enableReinitialize: true,
     onSubmit: values => {
-      console.log(values);
+      createBudget(values);
+      console.log('se creo un nuevo budget', created);
+      console.log('se creo', budgets);
+      if (created) {
+        swal('Cotizacion registrada', '', 'success');
+      }
     },
   });
-
-  console.log(itemsForQuoteRepair);
-  console.log(itemsForQuoteMainteance);
 
   return (
     <div>
@@ -111,46 +92,57 @@ export default function CostPage() {
                 Reparación
               </h3>
 
-              {itemsForQuoteRepair.map((data, index) => (
-                <div
-                  key={index}
-                  className='flex border-b-2 border-base-200 sm:border-none gap-1 py-3 sm:gap-4'
-                >
-                  <div className=''>
-                    <div className='p-1 bg-white sm:bg-base-300 flex justify-center items-center h-7 w-7 sm:h-12 sm:w-12 rounded-full'>
-                      <CabinAirIcon />
+              {itemsForQuoteRepair.map((data, index) => {
+                if (data.title === null) {
+                  return (
+                    <div key={index}>
+                      No se ha selecciona ninguna reparacion
                     </div>
-                  </div>
+                  );
+                } else {
+                  return (
+                    <div
+                      key={index}
+                      className='flex border-b-2 border-base-200 sm:border-none gap-1 py-3 sm:gap-4'
+                    >
+                      <div className=''>
+                        <div className='p-1 bg-white sm:bg-base-300 flex justify-center items-center h-7 w-7 sm:h-12 sm:w-12 rounded-full'>
+                          <CabinAirIcon />
+                        </div>
+                      </div>
 
-                  <div className='flex flex-col gap-1 w-full'>
-                    <span className='text-sm text-base-accent pl-1 sm:text-base md:text-lg'>
-                      {data.title}
-                    </span>
-                    <Input
-                      name={`repairs[${index}].description`}
-                      placeholder='Objeto a reparar'
-                      className={`bg-white sm:bg-base-300 h-8 md:h-10 w-44 `}
-                      value={values.repairs[index]?.description}
-                      handleBlur={handleBlur}
-                      handleChange={handleChange}
-                    />
-                  </div>
+                      <div className='flex flex-col gap-1 w-full'>
+                        <span className='text-sm text-base-accent pl-1 sm:text-base md:text-lg'>
+                          {data.title}
+                        </span>
+                        <Input
+                          name={`repair[${index}].description`}
+                          placeholder='Objeto a reparar'
+                          className={`bg-white sm:bg-base-300 h-8 md:h-10 w-44 `}
+                          value={values.repair[index]?.description}
+                          handleBlur={handleBlur}
+                          handleChange={handleChange}
+                        />
+                      </div>
 
-                  <div className='flex items-end max-w-[98px] md:max-w-[112px] md:ml-3'>
-                    <div className='flex items-center gap-1'>
-                      <span>$</span>
-                      <Input
-                        name={`repairs[${index}].cost`}
-                        placeholder='Costo'
-                        className={'bg-white sm:bg-base-300 h-8 md:h-10'}
-                        value={values.repairs[index]?.cost}
-                        handleBlur={handleBlur}
-                        handleChange={handleChange}
-                      />
+                      <div className='flex items-end max-w-[98px] md:max-w-[112px] md:ml-3'>
+                        <div className='flex items-center gap-1'>
+                          <span>$</span>
+                          <Input
+                            type='number'
+                            name={`repair[${index}].cost`}
+                            placeholder='Costo'
+                            className={'bg-white sm:bg-base-300 h-8 md:h-10'}
+                            value={values.repair[index]?.cost}
+                            handleBlur={handleBlur}
+                            handleChange={handleChange}
+                          />
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              ))}
+                  );
+                }
+              })}
             </div>
 
             <div className='flex flex-col pb-2 w-full'>
@@ -190,6 +182,7 @@ export default function CostPage() {
                         name={`maintenance[${index}].cost`}
                         placeholder='Costo'
                         className={'bg-white sm:bg-base-300 h-8 md:h-10'}
+                        type='number'
                         value={values.maintenance[index]?.cost}
                         handleBlur={handleBlur}
                         handleChange={handleChange}
@@ -211,6 +204,7 @@ export default function CostPage() {
                 <span>$</span>
                 <Input
                   name='labor'
+                  type='number'
                   placeholder='Costo'
                   className={'bg-white sm:bg-base-300 h-8 md:h-10 w-20'}
                   value={values.labor}
@@ -254,4 +248,6 @@ export default function CostPage() {
       </section>
     </div>
   );
-}
+};
+
+export default CostPage;
