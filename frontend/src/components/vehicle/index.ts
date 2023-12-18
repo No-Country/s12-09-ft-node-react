@@ -1,4 +1,5 @@
-export * from './VehicleDetail';
 export * from './VehicleList';
-export * from './VehicleListItem';
+export * from './VehicleDetail';
 export * from './VehicleRegister';
+export * from './VehicleRegister.validator';
+

@@ -12,3 +12,11 @@ export async function create(newMechanic: Mechanic): Promise<Mechanic> {
 export async function getOneById(id: string): Promise<Mechanic> {
   return await handleRequest(httpClient.get(`${path}/${id}`));
 }
+export async function update(modified: Mechanic): Promise<Mechanic> {
+  return await handleRequest(
+    httpClient.put(`${path}/${modified.id}`, modified)
+  );
+}
+// export function deleteById(id: string): Promise<boolean> {
+//   return handleRequest(httpClient.delete(`${path}/${id}`));
+// }

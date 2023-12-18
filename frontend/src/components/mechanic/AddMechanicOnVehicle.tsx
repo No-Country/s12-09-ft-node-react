@@ -2,7 +2,13 @@
 import type { Mechanic, Vehicle } from '@/@types';
 import { Button, Input } from '@/components';
 import { useVehicle } from '@/hook';
+<<<<<<< HEAD
 import { useState } from 'react';
+=======
+// import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+// import swal from 'sweetalert';
+>>>>>>> fix-merge
 
 interface Props {
   vehicle: Vehicle;
@@ -30,6 +36,7 @@ export function AddMechanicOnVehicle({ vehicle, mechanics }: Props) {
     updateObj.mechanicId = selected?.id;
     updateVehicle(updateObj);
   };
+<<<<<<< HEAD
   console.log(vehicle);
 
   return (
@@ -48,6 +55,35 @@ export function AddMechanicOnVehicle({ vehicle, mechanics }: Props) {
           Asignar
         </Button>
       )}
+=======
+
+  return (
+    <>
+      {vehicle?.mechanic?.id ? (
+        <>
+          <b>Mecánico asignado:</b>
+          <h3>{`${vehicle.mechanic.firstName} ${vehicle.mechanic.lastName}`}</h3>
+        </>
+      ) : (
+        <>
+          <b>Asignado mecánico</b>
+          <Input
+            placeholder='Buscar mecánico'
+            datalist={mechanics.map(
+              element =>
+                `${element.firstName} ${element.lastName}-${element.document}`
+            )}
+            handleChange={selectMechanic}
+          />
+          {selected && (
+            <Button className='block w-full' onClick={handleClick}>
+              Asignar
+            </Button>
+          )}
+        </>
+      )}
+      {}
+>>>>>>> fix-merge
     </>
   );
 }

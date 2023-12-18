@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { StoreProvider } from '@/store';
-import { ModalProvider } from '@/modal';
+import { ModalProvider } from '@/modal/context';
 
 import './globals.css';
 
@@ -19,11 +19,9 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang='en' data-theme='light'>
       <body className={inter.className}>
-        <main>
-          <StoreProvider>
-            <ModalProvider>{children}</ModalProvider>
-          </StoreProvider>
-        </main>
+        <StoreProvider>
+          <ModalProvider>{children}</ModalProvider>
+        </StoreProvider>
       </body>
     </html>
   );

@@ -18,3 +18,5 @@ export { default as SuccessIcon } from './success-icon.svg';
 export { default as WarningIcon } from './warning-icon.svg';
 export { default as InfoIcon } from './info-icon.svg';
 export { default as ImageIcon } from './image-icon.svg';
+export { default as CabinAir } from './cabin-air.svg';
+export { default as Tires } from './tires.svg';

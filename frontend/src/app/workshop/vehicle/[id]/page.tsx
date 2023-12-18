@@ -1,16 +1,19 @@
 import { AddMechanicOnVehicle } from '@/components/mechanic';
 import { VehicleDetail, Problem } from '@/components/vehicle';
-import { mechanicService, vehicleService } from '@/services';
+import { config } from '@/config';
+import { mechanicService } from '@/services';
 
 interface Props {
   params: { id: string };
 }
 export default async function VehicleDetailsPage({ params }: Props) {
   const { id } = params;
-  const vehicle = await vehicleService.getOneById(id);
-  const mechanics = await mechanicService.getAll();
 
-  console.log(vehicle);
+  // ! change for a service (vehicleService)
+  const response = await fetch(`${config.api.base}vehicle/${id}`);
+  const vehicle = await response.json();
+
+  const mechanics = await mechanicService.getAll();
 
   return (
     <section>
