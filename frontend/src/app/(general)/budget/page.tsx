@@ -12,15 +12,15 @@ const BudgetPage = () => {
     getAllBudget();
   }, []);
 
-  const acceptBudget = async () => {
+  const acceptBudget = () => {
     const originalObject = budgets[0];
 
     const transformedObject = {
       id: originalObject.id,
       repair: originalObject.repair,
       maintenance: originalObject.maintenance,
-      costs: parseFloat(originalObject.costs),
-      labor: parseFloat(originalObject.labor),
+      costs: originalObject.costs,
+      labor: originalObject.labor,
       accepted: false,
       isActive: originalObject.isActive,
       userId: originalObject?.user?.id,
@@ -28,12 +28,12 @@ const BudgetPage = () => {
       mechanicId: originalObject?.mechanicAssociation?.id,
     };
 
-    console.log(originalObject)
+    console.log(originalObject);
     updateBudget(transformedObject);
 
-    if(updated) {
-        await swal('Se acepto la cotizacion')
-        console.log('Updated', updated)
+    if (updated) {
+      swal('Se acepto la cotizacion');
+      console.log('Updated', updated);
     }
   };
 

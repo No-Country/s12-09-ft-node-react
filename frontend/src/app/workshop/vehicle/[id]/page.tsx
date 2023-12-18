@@ -18,7 +18,9 @@ export default async function VehicleDetailsPage({ params }: Props) {
   return (
     <section>
       <VehicleDetail vehicle={vehicle}>
-        <Problem>problem</Problem>
+        <Problem>
+          <>problem</>
+        </Problem>
       </VehicleDetail>
       <AddMechanicOnVehicle vehicle={vehicle} mechanics={mechanics} />
     </section>

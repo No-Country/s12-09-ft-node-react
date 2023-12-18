@@ -4,6 +4,7 @@ import { StoreProvider } from '@/store';
 import { ModalProvider } from '@/modal/context';
 
 import './globals.css';
+import { HeaderHome } from '@/components/layout';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: Props) {
     <html lang='en' data-theme='light'>
       <body className={inter.className}>
         <StoreProvider>
+          <HeaderHome />
           <ModalProvider>{children}</ModalProvider>
         </StoreProvider>
       </body>

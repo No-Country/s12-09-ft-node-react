@@ -1,14 +1,14 @@
-import { HeaderMechanic } from '@/components/layout';
+import { HeaderClient } from '@/components/layout';
 import { ModalProvider } from '@/modal';
 import { StoreProvider } from '@/store';
 
 interface Props {
   children: JSX.Element;
 }
-export default function MechanicLayout({ children }: Props) {
+export default function ClientLayout({ children }: Props) {
   return (
     <>
-      <HeaderMechanic />
+      <HeaderClient />
       <StoreProvider>
         <ModalProvider>{children}</ModalProvider>
       </StoreProvider>

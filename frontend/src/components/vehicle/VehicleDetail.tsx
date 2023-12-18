@@ -11,7 +11,7 @@ interface VehicleContextProps {
 const VehicleContext = createContext({} as VehicleContextProps);
 
 interface UserContentProps {
-  children?: string;
+  children?: JSX.Element;
 }
 
 export function Problem({ children }: UserContentProps) {
@@ -31,7 +31,7 @@ export function Problem({ children }: UserContentProps) {
         </h3>
         <span>{`${dia}/${mes}`}</span>
       </div>
-      {children && (
+      {!!children && (
         <p className='bg-base-300 rounded-[2rem] p-4 my-4'>{children}</p>
       )}
     </div>
