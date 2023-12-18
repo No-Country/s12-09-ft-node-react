@@ -1,15 +1,17 @@
 'use client';
 
 import type { Tabs } from '@/@types';
-import { CabinAir, Tires } from '@/assets/svg';
+import { CabinAir, Tires, MotorIcon } from '@/assets/svg';
 import { Container, TabsLayout } from '@/components';
 import CostPage from '@/components/Cost';
 import QuoteRepairs from '@/components/Quote';
 import { useState } from 'react';
 
 export interface ItemsRepair {
-    title: string,
-    icon: null | JSX.Element
+  title: string;
+  icon: null | JSX.Element;
+  description?: string;
+  cost?: number;
 }
 
 const options = {
@@ -17,15 +19,15 @@ const options = {
   optionsRepair: [
     {
       title: 'Aire de cabina',
-      icon: <CabinAir/>,
+      icon: <CabinAir size={40} />,
     },
     {
       title: 'Frenos',
-      icon: <Tires/>,
+      icon: <Tires size={40} />,
     },
     {
       title: 'Motor',
-      icon: null,
+      icon: <MotorIcon size={40} />,
     },
     {
       title: 'Electricidad',
@@ -69,9 +71,15 @@ const options = {
 };
 
 export default function QuotePage() {
-  const [itemsForQuoteRepair, setItemsForQuoteRepair] = useState<ItemsRepair[]>([]);
-  const [itemsForQuoteMainteance, setItemsForQuoteMainteance] = useState<ItemsRepair[]>([]);
-  const [currentTab, setCurrentTab] = useState<string | undefined>('Componentes');
+  const [itemsForQuoteRepair, setItemsForQuoteRepair] = useState<ItemsRepair[]>(
+    []
+  );
+  const [itemsForQuoteMainteance, setItemsForQuoteMainteance] = useState<
+    ItemsRepair[]
+  >([]);
+  const [currentTab, setCurrentTab] = useState<string | undefined>(
+    'Componentes'
+  );
 
   const tabs: Tabs[] = [
     {
@@ -101,9 +109,13 @@ export default function QuotePage() {
 
   return (
     <section>
-        <Container>
-          <TabsLayout tabs={tabs} viewOutside={currentTab} setViewOutside={setCurrentTab} />
-        </Container>
+      <Container>
+        <TabsLayout
+          tabs={tabs}
+          viewOutside={currentTab}
+          setViewOutside={setCurrentTab}
+        />
+      </Container>
     </section>
   );
 }

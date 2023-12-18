@@ -95,7 +95,11 @@ const QuoteRepairs: React.FC<Props> = ({
                     }}
                     className='absolute top-0 right-0 rounded-full appearance-none border-2 border-primary h-5 w-5 checked:bg-primary'
                   />
-                  <CabinAirIcon size='40' />
+                  {optionRepair.icon ? (
+                    optionRepair.icon
+                  ) : (
+                    <CabinAirIcon size='40' />
+                  )}
                 </div>
                 <span className='text-accent text-sm sm:text-base'>
                   {optionRepair.title}

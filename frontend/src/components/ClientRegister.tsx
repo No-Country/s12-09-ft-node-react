@@ -2,9 +2,11 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import swal from 'sweetalert';
-import { Input, Button, VehicleRegister } from '.';
+import { Input, Button } from '.';
 import type { User } from '@/@types';
-import { useClient, useModal } from '@/hook';
+import { useClient } from '@/hook';
+import { VehicleRegister } from './vehicle';
+import { useModal } from '@/modal';
 
 const initialValues: User = {
   firstName: '',
@@ -36,10 +38,7 @@ export function ClientRegister() {
         createClient(values);
         resetForm();
 
-        await swal(
-          'Cliente registrado',
-          'success'
-        ).then(() => {});
+        await swal('Cliente registrado', 'success').then(() => {});
 
         openModal(<VehicleRegister />);
       },

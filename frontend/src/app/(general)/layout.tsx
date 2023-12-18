@@ -1,5 +1,5 @@
 import { Container } from '@/components';
-import { HeaderClient } from '@/components/layout';
+import { HeaderHome } from '@/components/layout';
 
 interface Props {
   children: JSX.Element;
@@ -7,7 +7,7 @@ interface Props {
 export default function WorkshopLayout({ children }: Props) {
   return (
     <>
-      <HeaderClient />
+      <HeaderHome />
       <Container>{children}</Container>
     </>
   );

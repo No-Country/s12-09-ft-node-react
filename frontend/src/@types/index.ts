@@ -88,7 +88,7 @@ export interface Budget {
   id?: string;
   repair: Repair[];
   maintenance: Maintenance[];
-  costs: number;
+  costs?: number;
   labor: number;
   accepted: boolean;
   isActive?: boolean;
