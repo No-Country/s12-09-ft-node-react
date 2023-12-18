@@ -3,12 +3,13 @@ import { useFormik } from 'formik';
 import { validationSchema } from './VehicleRegister.validator';
 import { Input, Button, UploadImage, Alert, Sweetalert } from '@/components';
 import { useModal } from '@/modal';
-import { useVehicle, useUploadImage } from '@/hook';
+import { useVehicle } from '@/hook';
 import type { User, Vehicle } from '@/@types';
 import { config } from '@/config';
+import { useUploadImage } from '@/hook/useUploadImage';
 
 interface Props {
-  client: User;
+  client?: User;
 }
 export function VehicleRegister({ client }: Props) {
   const { closeModal } = useModal();

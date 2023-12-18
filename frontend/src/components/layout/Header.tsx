@@ -1,6 +1,6 @@
 import type { MenuItem } from '@/@types';
 import Link from 'next/link';
-import { Logo, Container } from '@/components';
+import { Container, Logo } from '@/components';
 import { LogoutIcon, MenuIcon } from '@/assets/svg';
 
 interface Props {
