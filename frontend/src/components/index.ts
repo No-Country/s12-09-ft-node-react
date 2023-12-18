@@ -1,5 +1,5 @@
-export * from './Logo';
-export * from './Input';
+export * from './logo';
+export * from './input';
 export * from './Container';
 export * from './Button';
 export * from './Title';

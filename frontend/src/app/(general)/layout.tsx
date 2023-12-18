@@ -1,16 +1,13 @@
-import { HeaderHome } from '@/components/layout';
-import { Container } from '@/components';
+import { HeaderClient } from '@/components';
 
 interface Props {
-  children: React.ReactNode;
+  children: JSX.Element;
 }
-export default function GeneralLayout({ children }: Props) {
+export default function WorkshopLayout({ children }: Props) {
   return (
     <>
-      <HeaderHome />
-      <Container>
-        <>{children}</>
-      </Container>
+      <HeaderClient />
+      {children}
     </>
   );
 }
