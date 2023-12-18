@@ -18,6 +18,7 @@ export function useUploadImage(currentImage: string) {
     imageService
       .upload(data)
       .then(response => {
+        // @ts-expect-error
         setImage(response.secure_url);
       })
       .catch(e => {

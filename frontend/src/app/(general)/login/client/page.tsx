@@ -1,19 +1,72 @@
-import { Title } from '@/components';
-import { ClientLogin } from '@/components/login';
-import type { Metadata } from 'next';
+import { LockIcon } from '@/assets/svg';
+import { Button, Container, Title, Input } from '@/components';
+import { useFormik } from 'formik';
+import { useRouter } from 'next/navigation';
+import swal from 'sweetalert';
+import * as yup from 'yup';
 
-export const metadata: Metadata = {
-  title: 'Client Login',
-  description: 'Login page for clients',
+interface initialValuesProps {
+  code: string;
+}
+
+const initialValues: initialValuesProps = {
+  code: '',
 };
 
-export default function ClientLoginPage() {
+const basicSchema = yup.object().shape({
+  code: yup.string().required('Required'),
+});
+
+export default function LoginClientPage() {
+  const router = useRouter();
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: basicSchema,
+      onSubmit: (values: initialValuesProps) => {
+        swal('Es solo un template, no tiene funcionalidad', ' ', 'info', {
+          buttons: [false],
+          timer: 3000,
+        }).then(() => {
+          router.push('home', { scroll: false });
+        });
+      },
+    });
   return (
-    <>
-      <Title title='¡Bienvenido!' className='text-center'>
-        <Title.Subtitle>Ingresa tu codigo de acceso</Title.Subtitle>
-      </Title>
-      <ClientLogin />
-    </>
+    <section>
+      <Container>
+        <>
+          <Title title='¡Bienvenido!' className='text-center'>
+            <Title.Subtitle>Ingresa tu codigo de acceso</Title.Subtitle>
+          </Title>
+          <form
+            onSubmit={handleSubmit}
+            className='
+            [&>.input-container]:flex 
+            [&>.input-container]:gap-4
+            [&>.input-container>svg]:mt-4
+            [&>.input-container>div]:flex-1'
+          >
+            <div className='input-container'>
+              <LockIcon />
+              <Input
+                name='code'
+                placeholder='Codigo'
+                type='password'
+                value={values.code}
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                errorMessage={errors.code}
+                error={errors.code != null && touched.code != null}
+              />
+            </div>
+
+            <div className='flex justify-center mt-6'>
+              <Button type='submit'>Ingresar</Button>
+            </div>
+          </form>
+        </>
+      </Container>
+    </section>
   );
 }

@@ -1,5 +1,4 @@
 import { Title } from '@/components';
-import { WorkshopRegister } from '@/components/workshop';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -15,7 +14,6 @@ export default function RegisterPage() {
           Ingresa los datos de tu taller para registrarlo.
         </Title.Subtitle>
       </Title>
-      <WorkshopRegister />
     </>
   );
 }

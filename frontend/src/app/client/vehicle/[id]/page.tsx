@@ -18,7 +18,9 @@ export default async function VehicleDetailsPage({
       <Container>
         <div>
           <VehicleDetail vehicle={vehicle}>
-            <Problem>Problema detallado</Problem>
+            <Problem>
+              <p>Problema detallado</p>
+            </Problem>
           </VehicleDetail>
           <div className='flex justify-center mt-8'>
             <RedirectButton path='cost' />
