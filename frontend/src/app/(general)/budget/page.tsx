@@ -6,35 +6,32 @@ import React, { useEffect } from 'react';
 import swal from 'sweetalert';
 
 const BudgetPage = () => {
-  const { getAllBudget, budgets, updateBudget, updated } = useBudget();
+  const { getAllBudget, budgets, updateBudget } = useBudget();
 
   useEffect(() => {
     getAllBudget();
   }, []);
 
-  const acceptBudget = async () => {
-    const originalObject = budgets[0];
+  const acceptBudget = () => {
+    const originalObject = budgets[1];
 
     const transformedObject = {
       id: originalObject.id,
       repair: originalObject.repair,
       maintenance: originalObject.maintenance,
-      costs: parseFloat(originalObject.costs),
-      labor: parseFloat(originalObject.labor),
-      accepted: false,
+      costs: +originalObject.costs,
+      labor: +originalObject.labor,
+      accepted: true,
       isActive: originalObject.isActive,
       userId: originalObject?.user?.id,
       vehicleId: originalObject?.vehicleAssociation?.id,
       mechanicId: originalObject?.mechanicAssociation?.id,
     };
 
-    console.log(originalObject)
-    updateBudget(transformedObject);
+    updateBudget(transformedObject)
 
-    if(updated) {
-        await swal('Se acepto la cotizacion')
-        console.log('Updated', updated)
-    }
+    swal('Se acepto la cotizacion', '' ,'success')
+
   };
 
   return (
@@ -46,7 +43,7 @@ const BudgetPage = () => {
               Reparación
             </h2>
 
-            {budgets[0]?.repair.map(data => (
+            {budgets[1]?.repair.map(data => (
               <div
                 key={data.name}
                 className='flex items-center justify-between py-2 text-accent'
@@ -70,7 +67,7 @@ const BudgetPage = () => {
               Mantenimiento
             </h2>
 
-            {budgets[0]?.maintenance.map(data => (
+            {budgets[1]?.maintenance.map(data => (
               <div
                 key={data.task}
                 className='flex items-center justify-between py-2 text-accent'
@@ -95,7 +92,7 @@ const BudgetPage = () => {
 
               <div>
                 <span>$</span>
-                <span>{budgets[0]?.labor}</span>
+                <span>{budgets[1]?.labor}</span>
               </div>
             </div>
 
@@ -104,7 +101,7 @@ const BudgetPage = () => {
 
               <div>
                 <span>$</span>
-                <span>{budgets[0]?.costs}</span>
+                <span>{budgets[1]?.costs}</span>
               </div>
             </div>
           </section>
