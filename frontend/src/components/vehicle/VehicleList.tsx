@@ -18,7 +18,7 @@ export function VehicleList({ uri }: Props) {
   console.log(vehicles);
 
   return (
-    <div className='flex flex-wrap justify-center items-center gap-y-4'>
+    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-4'>
       {isLoading
         ? 'cargando...'
         : vehicles.length <= 0
