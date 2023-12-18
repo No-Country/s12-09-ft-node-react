@@ -25,6 +25,7 @@ export class BudgetController {
 					exclude: ['userId', 'vehicleId', 'mechanicId', 'mechanic'],
 				},
 			})
+
 			return res.status(200).json(budgets)
 		} catch (error) {
 			next(error)

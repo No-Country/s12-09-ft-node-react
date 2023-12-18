@@ -98,18 +98,18 @@ export const budgetSchema = z.object({
 		z.object({
 			name: z.string(),
 			description: z.string(),
-			cost: z.number().int().positive(),
+			cost: z.number().positive(),
 		}),
 	),
 	maintenance: z.array(
 		z.object({
 			task: z.string(),
 			description: z.string(),
-			cost: z.number().int().positive(),
+			cost: z.number().positive(),
 		}),
 	),
-	costs: z.number().int().positive().optional(),
-	labor: z.number().int().positive(),
+	costs: z.number().positive().optional(),
+	labor: z.number().positive(),
 	accepted: z.boolean(),
 	isActive: z.boolean().optional(),
 	userId: z.string().uuid(),

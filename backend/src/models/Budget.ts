@@ -37,14 +37,14 @@ export class Budget extends Model {
 	maintenance!: { task: string; description: string; cost: number }[]
 
 	@Column({
-		type: DataType.DECIMAL(10, 2),
+		type: DataType.FLOAT(2),
 		allowNull: false,
 		defaultValue: 0,
 	})
 	costs!: number
 
 	@Column({
-		type: DataType.DECIMAL(10, 2),
+		type: DataType.FLOAT(2),
 		allowNull: false,
 	})
 	labor!: number
@@ -98,21 +98,21 @@ export class Budget extends Model {
 	static calculateCosts(budget: Budget) {
 		// Calcular la suma de los costos de reparaciones
 		const reparacionCosts = budget.repair.reduce(
-			(total, reparacion) => total + parseFloat(reparacion.cost.toString()),
+			(total, reparacion) => total + reparacion.cost,
 			0,
 		)
 
 		// Calcular la suma de los costos de mantenimientos
 		const mantenimientoCosts = budget.maintenance.reduce(
-			(total, mantenimiento) =>
-				total + parseFloat(mantenimiento.cost.toString()),
+			(total, mantenimiento) => total + mantenimiento.cost,
 			0,
 		)
 
-		const laborCosts = parseFloat(budget.labor.toString())
+		const laborCosts = budget.labor
 
 		// Actualizar la columna costos con la suma total
 		budget.costs = reparacionCosts + mantenimientoCosts + laborCosts
+		console.log(reparacionCosts + mantenimientoCosts + laborCosts)
 		// Si el presupuesto se acepta, crea un RepairLog
 		if (budget.changed('accepted') && budget.accepted) {
 			budget.isActive = false
