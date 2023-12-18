@@ -1,5 +1,6 @@
 'use client';
-import { Button, Container, VehicleDetail } from '@/components';
+import { Button, Container } from '@/components';
+import { VehicleDetail } from '@/components/vehicle';
 import { useVehicle } from '@/hook';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
