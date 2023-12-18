@@ -1,6 +1,6 @@
 'use client';
+import { useRef, useId, type ChangeEventHandler } from 'react';
 import { CloseEyeIcon, OpenEyeIcon } from '@/assets/svg';
-import { useState, type ChangeEventHandler } from 'react';
 
 interface Props {
   name?: string;
@@ -12,21 +12,32 @@ interface Props {
   value?: string | number;
   error?: boolean;
   errorMessage?: string;
+  togglePassword?: boolean;
+  datalist?: Array<string | number | undefined>;
 }
 
 export const Input = (props: Props) => {
-  const [passwordType, setPasswordType] = useState<string>('password');
+  const inputRef = useRef<HTMLInputElement>(null!);
+  const inputId = useId();
   const {
     name,
     placeholder,
-    type,
+    type = 'text',
     className,
     value,
     error = false,
     errorMessage = '',
     handleChange,
     handleBlur,
+    togglePassword,
+    datalist = [],
+    ...otherProps
   } = props;
+
+  const setTypePass = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    const showPassword = target.checked;
+    inputRef.current.type = showPassword ? 'text' : 'password';
+  };
 
   return (
     <div className='relative'>
@@ -41,32 +52,31 @@ export const Input = (props: Props) => {
           value={value}
           placeholder={placeholder}
           name={name}
-          type={type === 'password' ? passwordType : type}
-          min={10000}
-          max={99999999}
+          type={type}
+          ref={inputRef}
+          list={inputId}
+          {...otherProps}
         />
 
-        {type === 'password' && (
+        {togglePassword && (
           <>
-            <label className='swap absolute mr-3 flex items-center right-3'>
-              <input type='checkbox' />
-              <OpenEyeIcon
-                className='swap-off fill-current absolute'
-                onClick={() => {
-                  setPasswordType('password');
-                }}
-              />
-
-              <CloseEyeIcon
-                className='swap-on fill-current absolute'
-                onClick={() => {
-                  setPasswordType('text');
-                }}
-              />
+            <label className='swap  absolute mr-3 flex items-center right-3'>
+              <input type='checkbox' onChange={setTypePass} />
+              <OpenEyeIcon className='swap-on fill-current absolute' />
+              <CloseEyeIcon className='swap-off fill-current absolute' />
             </label>
           </>
         )}
       </div>
+
+      {datalist?.length && (
+        <datalist id={inputId}>
+          {datalist.map((item, index) => (
+            <option key={inputId + index}>{item}</option>
+          ))}
+        </datalist>
+      )}
+
       <p className='text-xs text-error mt-[-10px] pt-3 pb-2 h-8 p-4'>
         {error && errorMessage}
       </p>

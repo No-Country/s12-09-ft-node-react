@@ -1,10 +1,11 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/modal/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -15,29 +16,29 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [require('daisyui')],
   daisyui: {
     themes: [
       {
         light: {
-          "primary": "#40a4c4",
-          "secondary": "#302d6f",
-          "accent": "#8b8b8b",
-          "neutral": "#2a262c",
-          "base-100": "#ffffff",
-          "base-200": "#e1dfdb",
-          "base-300": "#EDEFF3",
+          primary: '#40a4c4',
+          secondary: '#302d6f',
+          accent: '#8b8b8b',
+          neutral: '#2a262c',
+          'base-100': '#ffffff',
+          'base-200': '#e1dfdb',
+          'base-300': '#EDEFF3',
           // "info": "#18b5ff",
           // "success": "#00b366",
           // "warning": "#ef6700",
           // "error": "#f0265c",
         },
         dark: {
-          "primary": "#40a4c4",
-          "secondary": "#302d6f",
-          "accent": "#8b8b8b",
-          "neutral": "#2a262c",
-          "base-100": "#e1dfdb",
+          primary: '#40a4c4',
+          secondary: '#302d6f',
+          accent: '#8b8b8b',
+          neutral: '#2a262c',
+          'base-100': '#e1dfdb',
           // "info": "#18b5ff",
           // "success": "#00b366",
           // "warning": "#ef6700",
@@ -46,5 +47,5 @@ const config: Config = {
       },
     ],
   },
-}
-export default config
+};
+export default config;

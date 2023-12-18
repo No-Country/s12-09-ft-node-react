@@ -1,4 +1,5 @@
-import { type Workshop } from '@/@types';
+'use client';
+import type { Workshop } from '@/@types';
 import {
   getWorkshopAsync,
   loginWorkshopAsync,

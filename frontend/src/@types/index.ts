@@ -3,7 +3,7 @@ export interface Mechanic {
   firstName?: string;
   lastName?: string;
   email?: string;
-  document?: number;
+  document?: number | string;
   phone?: string;
   password?: string;
   // role: Role;
@@ -14,14 +14,16 @@ export interface Vehicle {
   brand?: string;
   model?: string;
   color?: string;
-  year?: number;
+  year?: number | string;
   licensePlate?: string;
-  mileage?: number;
+  mileage?: number | string;
   imageUrl?: string;
-  userId?: string;
   createdAt?: Date;
   updatedAt?: Date;
+  userId?: string;
   user?: User;
+  mechanicId?: string;
+  mechanic?: Mechanic;
   repairLog?: any[];
 }
 
@@ -30,8 +32,8 @@ export interface User {
   lastName?: string;
   firstName?: string;
   email?: string;
-  phone?: number;
-  document?: number;
+  phone?: number | string;
+  document?: number | string;
   rol?: Rol;
   pass?: string;
   vehicle?: Vehicle[];

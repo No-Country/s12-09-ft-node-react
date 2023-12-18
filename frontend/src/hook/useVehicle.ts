@@ -1,3 +1,4 @@
+'use client';
 import type { Vehicle } from '@/@types';
 import { useAppSelector, useAppDispatch } from '@/store';
 import {
@@ -6,11 +7,12 @@ import {
   createVehicleAsync,
   updateVehicleAsync,
   getOneVehicleByIdSync,
+  cleanCreatedVehicleSync,
 } from '@/store/features';
 
 export function useVehicle() {
   const dispatch = useAppDispatch();
-  const { vehicles, vehicle, isLoading } = useAppSelector(
+  const { vehicles, isLoading, vehicle, created, error } = useAppSelector(
     state => state.vehicles
   );
 
@@ -27,14 +29,20 @@ export function useVehicle() {
   function updateVehicle(modified: Vehicle) {
     dispatch(updateVehicleAsync(modified));
   }
+  function cleanCreatedVehicle() {
+    dispatch(cleanCreatedVehicleSync());
+  }
 
   return {
     vehicles,
-    vehicle,
     isLoading,
+    vehicle,
+    created,
+    error,
     getAllVehicles,
     getOneVehicleById,
     createVehicle,
     updateVehicle,
+    cleanCreatedVehicle,
   };
 }

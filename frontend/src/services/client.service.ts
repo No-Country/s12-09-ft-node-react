@@ -12,3 +12,6 @@ export async function create(newClient: User): Promise<User> {
 export async function getOneById(id: string): Promise<User> {
   return await handleRequest(httpClient.get(`${path}/${id}`));
 }
+export async function update(modified: User): Promise<User> {
+  return await handleRequest(httpClient.put(`${path}/${modified.id}`));
+}

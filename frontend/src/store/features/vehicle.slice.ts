@@ -1,9 +1,9 @@
 import type { Vehicle } from '@/@types';
 import { vehicleService } from '@/services';
 import {
+  type PayloadAction,
   createAsyncThunk,
   createSlice,
-  type PayloadAction,
 } from '@reduxjs/toolkit';
 
 type VehicleID = string;
@@ -12,12 +12,13 @@ interface State {
   isLoading?: boolean;
   vehicle?: Vehicle;
   created?: Vehicle;
+  updated?: Vehicle;
+  error?: string;
 }
 
 const initialState: State = {
   vehicles: [],
   isLoading: false,
-  vehicle: {},
 };
 
 // thunk functions
@@ -32,6 +33,9 @@ export const createVehicleAsync = createAsyncThunk(
   'vehicle/create',
   async (newVehicle: Vehicle) => {
     const created = await vehicleService.create(newVehicle);
+    // extraigo el usuario y lo inserto en la respuesta del servicio
+    const user = newVehicle.user;
+    created.user = user;
     return created;
   }
 );
@@ -59,6 +63,10 @@ const vehicleSlice = createSlice({
       const vehicle = state.vehicles.find(item => item.id === id);
       return { ...state, vehicle };
     },
+    cleanCreatedVehicleSync(state) {
+      const { created, updated, ...newState } = state;
+      return { ...newState };
+    },
   },
   extraReducers(builder) {
     // GETALL
@@ -69,7 +77,8 @@ const vehicleSlice = createSlice({
       state.vehicles = action.payload;
       state.isLoading = false;
     });
-    // CREATE
+
+    // * CREATE
     builder.addCase(createVehicleAsync.pending, state => {
       state.isLoading = true;
     });
@@ -79,6 +88,11 @@ const vehicleSlice = createSlice({
       state.created = newVehicle;
       state.isLoading = false;
     });
+    builder.addCase(createVehicleAsync.rejected, (state, action) => {
+      state.error = action.error.message;
+      state.isLoading = false;
+    });
+
     // GETBYID
     builder.addCase(getOneVehicleByIdAsync.pending, state => {
       state.isLoading = true;
@@ -87,7 +101,8 @@ const vehicleSlice = createSlice({
       state.vehicle = action.payload;
       state.isLoading = false;
     });
-    //  UPDATE
+
+    // * UPDATE
     builder.addCase(updateVehicleAsync.pending, state => {
       state.isLoading = true;
     });
@@ -96,10 +111,16 @@ const vehicleSlice = createSlice({
       const id = updated.id;
       const index = state.vehicles.findIndex(item => item.id === id);
       state.vehicles[index] = updated;
+      state.updated = updated;
+      state.isLoading = false;
+    });
+    builder.addCase(updateVehicleAsync.rejected, (state, action) => {
+      state.error = action.error.message;
       state.isLoading = false;
     });
   },
 });
 
-export const { getOneVehicleByIdSync } = vehicleSlice.actions;
+export const { getOneVehicleByIdSync, cleanCreatedVehicleSync } =
+  vehicleSlice.actions;
 export const vehicleReducer = vehicleSlice.reducer;
