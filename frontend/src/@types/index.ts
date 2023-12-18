@@ -18,9 +18,9 @@ export interface Vehicle {
   licensePlate?: string;
   mileage?: number | string;
   imageUrl?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
   userId?: string;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
   user?: User;
   mechanicId?: string;
   mechanic?: Mechanic;
@@ -34,7 +34,7 @@ export interface User {
   email?: string;
   phone?: number | string;
   document?: number | string;
-  rol?: Rol;
+  rol?: Rol | string;
   pass?: string;
   vehicle?: Vehicle[];
 }
@@ -70,4 +70,32 @@ export interface LoginResult {
 export interface Tabs {
   label?: string;
   content?: JSX.Element;
+}
+
+export interface Repair {
+  name: string;
+  description: string;
+  cost: number | string;
+}
+
+interface Maintenance {
+  task: string;
+  description: string;
+  cost: number | string;
+}
+
+export interface Budget {
+  id?: string;
+  repair: Repair[];
+  maintenance: Maintenance[];
+  costs?: number | string;
+  labor: number | string;
+  accepted: boolean;
+  isActive?: boolean;
+  user?: User;
+  vehicleAssociation?: Vehicle;
+  mechanicAssociation?: Mechanic;
+  userId?: string;
+  vehicleId?: string;
+  mechanicId?: string;
 }

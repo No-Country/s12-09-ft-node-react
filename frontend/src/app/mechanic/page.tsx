@@ -1,6 +1,7 @@
 'use client';
 import type { Tabs } from '@/@types';
 import { Container, TabsLayout, VehicleList } from '@/components';
+import MechanicClients from '@/components/MechanicClients';
 import { useVehicle } from '@/hook';
 import { useEffect } from 'react';
 
@@ -24,7 +25,7 @@ export default function MechanicPage() {
     },
     {
       label: 'Clientes',
-      content: <>Content cliente</>,
+      content: <MechanicClients/>,
     },
   ];
   return (
