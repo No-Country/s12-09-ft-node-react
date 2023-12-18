@@ -1,10 +1,6 @@
 'use client';
 import { useDispatch } from 'react-redux';
-import {
-  getAllMechanicsAsync,
-  createMechanicAsync,
-  cleanCreatedMechanicSync,
-} from '@/store/features/mechanic.slice';
+import { createMechanicAsync, getAllMechanicsAsync } from '@/store/features/mechanic.slice';
 import { useAppSelector } from '@/store/store';
 
 import type { AppDispatch } from '@/store/store';
@@ -24,8 +20,10 @@ export const useMechanic = () => {
     dispatch(createMechanicAsync(mechanic));
   }
 
-  function cleanCreatedMechanic() {
-    dispatch(cleanCreatedMechanicSync());
+  function getAllMechanic() {
+    if (mechanics.length === 0) {
+      dispatch(getAllMechanicsAsync());
+    }
   }
 
   return {
@@ -36,6 +34,6 @@ export const useMechanic = () => {
     error,
     getAllClients,
     createMechanic,
-    cleanCreatedMechanic,
+    getAllMechanic
   };
 };

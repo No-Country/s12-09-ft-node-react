@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { StoreProvider } from '@/store';
-import { ModalProvider } from '@/modal/context';
 
 import './globals.css';
+import { ModalProvider } from '@/modal';
 
 const inter = Inter({ subsets: ['latin'] });
 

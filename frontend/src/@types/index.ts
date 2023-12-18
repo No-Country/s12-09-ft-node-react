@@ -32,8 +32,8 @@ export interface User {
   lastName?: string;
   firstName?: string;
   email?: string;
-  phone?: number | string;
-  document?: number | string;
+  phone?: string;
+  document?: number;
   rol?: Rol | string;
   pass?: string;
   vehicle?: Vehicle[];
