@@ -6,7 +6,7 @@ export interface Mechanic {
   document?: number | string;
   phone?: string;
   password?: string;
-  // role: Role;
+  role?: Role;
 }
 
 export interface Vehicle {
@@ -24,7 +24,7 @@ export interface Vehicle {
   user?: User;
   mechanicId?: string;
   mechanic?: Mechanic;
-  repairLog?: any[];
+  repairLog?: RepairLog;
 }
 
 export interface User {
@@ -70,4 +70,30 @@ export interface LoginResult {
 export interface Tabs {
   label?: string;
   content?: JSX.Element;
+}
+
+export interface RepairLog {
+  id?: string;
+  date?: string;
+  description: string;
+  cost: number;
+  state: BudgetState;
+  vehicleId: string;
+  mechanicId: string;
+  vehicle?: Vehicle;
+  mechanic?: Mechanic;
+}
+
+export type BudgetState =
+  | 'Cotizar'
+  | 'Confirmar'
+  | 'En reparacion'
+  | 'Aviso al cliente';
+
+export interface Budget {
+  description: string;
+  cost: number;
+  state: BudgetState;
+  vehicleId: string;
+  budgetId: string;
 }

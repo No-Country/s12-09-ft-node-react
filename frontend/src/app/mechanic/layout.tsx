@@ -1,4 +1,4 @@
-import { HeaderMechanic } from '@/components/layout';
+import { HeaderMechanic } from '@/components/Layout';
 import { ModalProvider } from '@/modal';
 import { StoreProvider } from '@/store';
 

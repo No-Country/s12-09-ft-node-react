@@ -17,8 +17,8 @@ export default function VehicleDetailsPage({ params }: VehicleDetailProps) {
     getOneVehicleById(params.id);
   }, []);
 
-  const handleCotiseichon = () => {
-    router.push('repairs');
+  const handleCotization = () => {
+    router.push(`/mechanic/vehicle/${params.id}/repair`);
   };
 
   return (
@@ -35,7 +35,7 @@ export default function VehicleDetailsPage({ params }: VehicleDetailProps) {
                     </VehicleDetail.Problem>
                   </VehicleDetail>
                   <div className='flex justify-center mt-8'>
-                    <Button onClick={handleCotiseichon}>
+                    <Button onClick={handleCotization}>
                       Enviar cotizacion
                     </Button>
                   </div>
