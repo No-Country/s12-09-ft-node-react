@@ -1,11 +1,12 @@
 'use client';
 import type { Tabs } from '@/@types';
-import { Container, TabsLayout, VehicleList } from '@/components';
+import { Container, TabsLayout } from '@/components';
+import { VehicleList } from '@/components/vehicle';
 import { useVehicle } from '@/hook';
 import { useEffect } from 'react';
 
 export default function MechanicPage() {
-  const { vehicles, isLoading, getAllVehicles } = useVehicle();
+  const { getAllVehicles } = useVehicle();
 
   useEffect(() => {
     getAllVehicles();
@@ -16,8 +17,8 @@ export default function MechanicPage() {
       label: 'Vehículos',
       content: (
         <VehicleList
-          data={vehicles}
-          loading={isLoading}
+          // data={vehicles}
+          // loading={isLoading}
           uri='/mechanic/vehicle'
         />
       ),

@@ -1,5 +1,5 @@
-import { HeaderMechanic } from '@/components';
-import { ModalProvider } from '@/components/Modal/context';
+import { HeaderMechanic } from '@/components/layout';
+import { ModalProvider } from '@/modal';
 import { StoreProvider } from '@/store';
 
 interface Props {

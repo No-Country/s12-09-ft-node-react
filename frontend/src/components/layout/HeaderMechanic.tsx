@@ -7,6 +7,11 @@ const links: MenuItem[] = [
     href: '/mechanic',
     icon: <></>,
   },
+  {
+    name: 'Historial de cliente',
+    href: '/mechanic',
+    icon: <></>,
+  },
 ];
 
 export function HeaderMechanic() {
