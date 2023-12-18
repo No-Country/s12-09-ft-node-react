@@ -11,7 +11,7 @@ interface VehicleContextProps {
 const VehicleContext = createContext({} as VehicleContextProps);
 
 interface UserContentProps {
-  children?: JSX.Element | string;
+  children?: string;
 }
 
 export function Problem({ children }: UserContentProps) {
@@ -21,17 +21,19 @@ export function Problem({ children }: UserContentProps) {
   const dia = date.getDate();
 
   return (
-    <div className='sm:w-1/2'>
-      <div className='flex items-center justify-between text-accent sm:hidden'>
+    <div>
+      <div className='flex items-center justify-between text-accent'>
         <h3 className='flex items-center'>
           <UserIcon />
           <span className='card-title ml-2'>
-            {user?.firstName} {user?.lastName}
+            {user?.firstName} {user?.firstName}
           </span>
         </h3>
         <span>{`${dia}/${mes}`}</span>
       </div>
-      {children && <div className='sm:mt-10'>{children}</div>}
+      {children && (
+        <p className='bg-base-300 rounded-[2rem] p-4 my-4'>{children}</p>
+      )}
     </div>
   );
 }
@@ -42,26 +44,10 @@ interface Props {
 }
 
 export function VehicleDetail({ children, vehicle }: Props) {
-  const date = new Date();
-  const mes = date.getMonth() + 1;
-  const dia = date.getDate();
-
   return (
     <VehicleContext.Provider value={{ user: vehicle?.user ?? {} }}>
-      <div className='vehicle flex flex-col sm:flex-row gap-4'>
+      <div className='vehicle flex flex-col gap-4'>
         <div>
-          <div className='sm:flex items-center gap-2 pb-2 text-accent hidden'>
-            <h3 className='flex items-center'>
-              <div className='flex justify-center items-center bg-base-300 h-8 w-8 rounded-full'>
-                <UserIcon />
-              </div>
-              <span className='card-title ml-2'>
-                {vehicle?.user?.firstName} {vehicle?.user?.lastName}
-              </span>
-            </h3>
-            <span>{`${dia}/${mes}`}</span>
-          </div>
-
           <div className='[&>img]:w-[100%]'>
             {vehicle?.imageUrl && (
               <Image

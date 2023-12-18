@@ -2,7 +2,9 @@
 import type { Mechanic, Vehicle } from '@/@types';
 import { Button, Input } from '@/components';
 import { useVehicle } from '@/hook';
+// import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+// import swal from 'sweetalert';
 
 interface Props {
   vehicle: Vehicle;
@@ -30,24 +32,33 @@ export function AddMechanicOnVehicle({ vehicle, mechanics }: Props) {
     updateObj.mechanicId = selected?.id;
     updateVehicle(updateObj);
   };
-  console.log(vehicle);
 
   return (
     <>
-      <b>Mecánico</b>
-      <Input
-        placeholder='Buscar mecánico'
-        datalist={mechanics.map(
-          element =>
-            `${element.firstName} ${element.lastName}-${element.document}`
-        )}
-        handleChange={selectMechanic}
-      />
-      {selected && (
-        <Button className='block w-full' onClick={handleClick}>
-          Asignar
-        </Button>
+      {vehicle?.mechanic?.id ? (
+        <>
+          <b>Mecánico asignado:</b>
+          <h3>{`${vehicle.mechanic.firstName} ${vehicle.mechanic.lastName}`}</h3>
+        </>
+      ) : (
+        <>
+          <b>Asignado mecánico</b>
+          <Input
+            placeholder='Buscar mecánico'
+            datalist={mechanics.map(
+              element =>
+                `${element.firstName} ${element.lastName}-${element.document}`
+            )}
+            handleChange={selectMechanic}
+          />
+          {selected && (
+            <Button className='block w-full' onClick={handleClick}>
+              Asignar
+            </Button>
+          )}
+        </>
       )}
+      {}
     </>
   );
 }

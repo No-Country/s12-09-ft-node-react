@@ -5,19 +5,7 @@ import { handleErrorsMessage } from './handleErrorsMessage';
 type UrlEndpoint = string;
 
 interface HttpFetchClientOptions extends RequestInit {
-  body?:
-    | string
-    | Buffer
-    | FormData
-    | URLSearchParams
-    | ReadableStream<Uint8Array>
-    | null;
-}
-
-export interface ApiResult {
-  status: number;
-  result: any;
-  error?: string;
+  body?: any;
 }
 
 export async function httpFetch<T>(

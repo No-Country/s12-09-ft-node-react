@@ -1,5 +1,5 @@
 'use client';
-import { VehicleListItem } from '.';
+import { VehicleListItem } from './VehicleListItem';
 import { useVehicle } from '@/hook';
 import { useEffect, useId } from 'react';
 
@@ -8,15 +8,14 @@ interface Props {
 }
 
 export function VehicleList({ uri }: Props) {
-  const { vehicles, vehicle, isLoading, getAllVehicles } = useVehicle();
+  const { vehicles, isLoading, getAllVehicles } = useVehicle();
   const dinamicID = useId();
 
   useEffect(() => {
     getAllVehicles();
   }, []);
 
-  console.log('one', vehicle);
-  console.log('list', vehicles);
+  console.log(vehicles);
 
   return (
     <div className='flex flex-wrap justify-center items-center gap-y-4'>
