@@ -35,7 +35,7 @@ export default function HomeLoginPage() {
           'success'
         ).then(() => {});
 
-        router.push('/workshop');
+        router.push('/client');
       },
     });
 
