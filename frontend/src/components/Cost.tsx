@@ -7,9 +7,9 @@ import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { useBudget, useVehicle } from '@/hook';
-import { CabinAirIcon } from './Icons';
 import { Input } from '@/components';
 import swal from 'sweetalert';
+import { Tires } from '@/assets/svg';
 
 const validationSchema = yup.object().shape({
   repair: yup.array().of(
@@ -38,7 +38,7 @@ interface Props {
 const CostPage: React.FC<Props> = ({
   itemsForQuoteRepair,
   itemsForQuoteMainteance,
-  setView
+  setView,
 }) => {
   const params = useParams();
   const vehicleId = Array.isArray(params.id) ? params.id[0] : params.id;
@@ -95,52 +95,52 @@ const CostPage: React.FC<Props> = ({
               </h3>
 
               {itemsForQuoteRepair.map((data, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className='flex border-b-2 border-base-200 sm:border-none gap-1 py-3 sm:gap-4'
-                    >
-                      <div className=''>
-                        <div className='p-1 bg-white sm:bg-base-300 flex justify-center items-center h-7 w-7 sm:h-12 sm:w-12 rounded-full'>
-                          <CabinAirIcon />
-                        </div>
+                return (
+                  <div
+                    key={index}
+                    className='flex border-b-2 border-base-200 sm:border-none gap-1 py-3 sm:gap-4'
+                  >
+                    <div className=''>
+                      <div className='p-1 bg-white sm:bg-base-300 flex justify-center items-center h-7 w-7 sm:h-12 sm:w-12 rounded-full'>
+                        {data.icon}
                       </div>
+                    </div>
 
-                      <div className='flex flex-col gap-1 w-full'>
-                        <span className='text-sm text-base-accent pl-1 sm:text-base md:text-lg'>
-                          {data.title}
-                        </span>
+                    <div className='flex flex-col gap-1 w-full'>
+                      <span className='text-sm text-base-accent pl-1 sm:text-base md:text-lg'>
+                        {data.title}
+                      </span>
+                      <Input
+                        name={`repair[${index}].description`}
+                        placeholder='Objeto a reparar'
+                        className={`bg-white sm:bg-base-300 h-8 md:h-10 w-44 `}
+                        value={values.repair[index]?.description}
+                        handleBlur={handleBlur}
+                        handleChange={handleChange}
+                      />
+                    </div>
+
+                    <div className='flex items-end max-w-[98px] md:max-w-[112px] md:ml-3'>
+                      <div className='flex items-center gap-1'>
+                        <span>$</span>
                         <Input
-                          name={`repair[${index}].description`}
-                          placeholder='Objeto a reparar'
-                          className={`bg-white sm:bg-base-300 h-8 md:h-10 w-44 `}
-                          value={values.repair[index]?.description}
+                          type='number'
+                          name={`repair[${index}].cost`}
+                          placeholder='Costo'
+                          className={'bg-white sm:bg-base-300 h-8 md:h-10'}
+                          value={values.repair[index]?.cost}
                           handleBlur={handleBlur}
                           handleChange={handleChange}
                         />
                       </div>
-
-                      <div className='flex items-end max-w-[98px] md:max-w-[112px] md:ml-3'>
-                        <div className='flex items-center gap-1'>
-                          <span>$</span>
-                          <Input
-                            type='number'
-                            name={`repair[${index}].cost`}
-                            placeholder='Costo'
-                            className={'bg-white sm:bg-base-300 h-8 md:h-10'}
-                            value={values.repair[index]?.cost}
-                            handleBlur={handleBlur}
-                            handleChange={handleChange}
-                          />
-                        </div>
-                      </div>
                     </div>
-                  );
+                  </div>
+                );
               })}
             </div>
 
             <div className='flex flex-col pb-2 w-full'>
-              <h3 className='text-secondary font-semibold text-lg pb-3 sm:text-xl sm:font-semibold'>
+              <h3 className='text-secondary font-semibold text-lg sm:text-xl sm:font-semibold'>
                 Mantenimiento
               </h3>
 
@@ -150,8 +150,8 @@ const CostPage: React.FC<Props> = ({
                   className='flex border-b-2 border-base-200 sm:border-none gap-1 py-3 sm:gap-4'
                 >
                   <div className='pt-1'>
-                    <div className='relative p-1 bg-white sm:bg-base-300 flex justify-center h-7 w-7 sm:h-12 sm:w-12 rounded-full'>
-                      <CabinAirIcon />
+                    <div className='relative p-1 items-center bg-white sm:bg-base-300 flex justify-center h-7 w-7 sm:h-12 sm:w-12 rounded-full'>
+                        <Tires />
                     </div>
                   </div>
 
@@ -227,7 +227,12 @@ const CostPage: React.FC<Props> = ({
           </div>
 
           <div className='mx-4 flex justify-evenly pt-5 gap-2'>
-            <button onClick={() => {if(setView) setView('Componentes')}} className='px-4 py-2 border-2 border-primary rounded-xl text-secondary font-bold'>
+            <button
+              onClick={() => {
+                if (setView) setView('Componentes');
+              }}
+              className='px-4 py-2 border-2 border-primary rounded-xl text-secondary font-bold'
+            >
               Cancelar
             </button>
 

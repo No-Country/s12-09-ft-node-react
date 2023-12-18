@@ -30,7 +30,7 @@ export default function LoginMechanicPage() {
           buttons: [false],
           timer: 3000,
         }).then(() => {
-          router.push('home', { scroll: false });
+          router.push('/mechanic', { scroll: false });
         });
       },
     });

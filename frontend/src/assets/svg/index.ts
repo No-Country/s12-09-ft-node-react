@@ -14,3 +14,4 @@ export { default as LogoutIcon } from './logout-icon.svg';
 export { default as PlusIcon } from './plus-icon.svg';
 export { default as AddUserIcon } from './add-user-icon.svg';
 export { default as CabinAir } from './cabin-air.svg'
+export { default as Tires} from './tires.svg'

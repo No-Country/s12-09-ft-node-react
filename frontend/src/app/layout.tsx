@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { StoreProvider } from '@/store';
-import { ModalProvider } from '@/context';
 import './globals.css';
+import { ModalProvider } from '@/context/ModalProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,7 +24,7 @@ export default function RootLayout({ children }: Props) {
       <body className={inter.className}>
           <StoreProvider>
             <ModalProvider>
-              <main>{children}</main>
+              {children}
             </ModalProvider>
           </StoreProvider>
       </body>

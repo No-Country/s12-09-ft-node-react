@@ -1,16 +1,23 @@
 import type { Budget } from '@/@types';
 import { useAppSelector, useAppDispatch } from '@/store';
-import { createBudgetAsync } from '@/store/features';
+import { createBudgetAsync, getAllBudgetAsync, updateBudgetAsync } from '@/store/features';
 
 
 export function useBudget() {
   const dispatch = useAppDispatch();
-  const { budgets, isLoading, created, budget } = useAppSelector(
+  const { budgets, isLoading, created, budget, updated } = useAppSelector(
     state => state.budgets
   );
 
+  function getAllBudget() {
+    budgets.length === 0 && dispatch(getAllBudgetAsync());
+  }
   function createBudget(newBudget: Budget) {
     dispatch(createBudgetAsync(newBudget));
+  }
+
+  function updateBudget(modified: Budget) {
+    dispatch(updateBudgetAsync(modified));
   }
 
   return {
@@ -18,6 +25,9 @@ export function useBudget() {
     budget,
     isLoading,
     created,
+    updated,
     createBudget,
+    getAllBudget,
+    updateBudget
   };
 }

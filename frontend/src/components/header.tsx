@@ -11,7 +11,7 @@ interface Props {
   hasLogout?: boolean;
 }
 
-export function Header({ children, links, hasLogout = false }: Props) {
+export function Header({ children, links, hasLogout = true }: Props) {
   return (
     <header className='navbar bg-primary '>
       <div className='max-w-[420px] sm:max-w-7xl mx-auto w-full'>
@@ -55,7 +55,7 @@ export function Header({ children, links, hasLogout = false }: Props) {
               {hasLogout && (
                 <ul>
                   <li>
-                    <Link href='/logout'>
+                    <Link href='/login'>
                       <LogoutIcon /> Cerrar session
                     </Link>
                   </li>

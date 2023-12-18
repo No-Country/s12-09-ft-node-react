@@ -1,6 +1,7 @@
 'use client';
 
 import type { Tabs } from '@/@types';
+import { CabinAir, Tires } from '@/assets/svg';
 import { Container, TabsLayout } from '@/components';
 import CostPage from '@/components/Cost';
 import QuoteRepairs from '@/components/Quote';
@@ -16,11 +17,11 @@ const options = {
   optionsRepair: [
     {
       title: 'Aire de cabina',
-      icon: null,
+      icon: <CabinAir/>,
     },
     {
       title: 'Frenos',
-      icon: null,
+      icon: <Tires/>,
     },
     {
       title: 'Motor',
