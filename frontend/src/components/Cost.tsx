@@ -51,7 +51,7 @@ const CostPage: React.FC<Props> = ({
 
     console.log('vehicle:', vehicle?.id);
   }, [params]);
-
+  // @ts-expect-error
   const initialValues: Budget = {
     repair: itemsForQuoteRepair.map(repairItem => ({
       name: repairItem.title,
@@ -151,7 +151,7 @@ const CostPage: React.FC<Props> = ({
                 >
                   <div className='pt-1'>
                     <div className='relative p-1 items-center bg-white sm:bg-base-300 flex justify-center h-7 w-7 sm:h-12 sm:w-12 rounded-full'>
-                        <Tires />
+                      <Tires />
                     </div>
                   </div>
 
