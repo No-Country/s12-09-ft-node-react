@@ -4,7 +4,8 @@ interface Props {
   className?: string;
   isWhite?: boolean;
 }
-export function Logo({ className = '', isWhite = false }: Props) {
+
+export function Logo({ className, isWhite = false }: Props) {
   return (
     <>
       <MainLogo

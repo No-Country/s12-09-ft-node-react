@@ -1,11 +1,9 @@
 'use client';
 
-import { Input } from '@/components';
-import { useState } from 'react';
-
 interface props {
   title: string;
   data: any;
+  setData: any;
   handleBlur: any;
   handleChange?: any;
   values: any;
@@ -14,10 +12,31 @@ interface props {
 interface itemMap {
   title: string;
   icon: null;
+  description: string;
+  price: number;
 }
 
-const CostBlock = ({ title, data, handleBlur }: props) => {
+const CostBlock = ({ title, data, setData, handleBlur }: props) => {
+  // data aca es el array de items de repair / maintance
   console.log(data);
+
+  const updateDescriptionAndPrice = (ev: any, index: any) => {
+    const { name, value } = ev.target;
+    const option = data[index];
+    console.log(name, value, option);
+
+    setData(
+      data.map((item: itemMap, i: number) => {
+        if (i === index) {
+          return {
+            ...item,
+            [name]: value,
+          };
+        }
+        return item;
+      })
+    );
+  };
 
   return (
     <div className='flex flex-col pb-2 w-full'>
@@ -26,8 +45,6 @@ const CostBlock = ({ title, data, handleBlur }: props) => {
       </h3>
 
       {data?.map((item: itemMap, index: number) => {
-        const [description, setDescription] = useState('');
-        const [price, setPrice] = useState(0);
         return (
           <div
             key={index}
@@ -47,9 +64,10 @@ const CostBlock = ({ title, data, handleBlur }: props) => {
                 //   name={`data[${index}].description`}
                 placeholder='Objeto a reparar'
                 className={`bg-white sm:bg-base-300 h-8 md:h-10 w-44 `}
-                value={description}
+                name='description'
+                value={item.description}
                 onChange={ev => {
-                  setDescription(ev.target.value);
+                  updateDescriptionAndPrice(ev, index);
                 }}
                 // handleBlur={handleBlur}
               />
@@ -59,13 +77,13 @@ const CostBlock = ({ title, data, handleBlur }: props) => {
               <div className='flex items-center gap-1'>
                 <span>$</span>
                 <input
-                  name={`${price}`}
                   placeholder='Costo'
                   className={'bg-white sm:bg-base-300 h-8 md:h-10'}
                   type='number'
-                  value={price}
+                  name='price'
+                  value={item.price}
                   onChange={ev => {
-                    setPrice(ev.target.value);
+                    updateDescriptionAndPrice(ev, index);
                   }}
                   // handleBlur={handleBlur}
                 />

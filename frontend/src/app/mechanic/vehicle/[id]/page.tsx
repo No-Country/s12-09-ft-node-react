@@ -17,28 +17,33 @@ export default function VehicleDetailsPage({ params }: VehicleDetailProps) {
     getOneVehicleById(params.id);
   }, []);
 
-  const handleCotization = () => {
-    router.push(`/mechanic/vehicle/${params.id}/repair`);
+  const handleCotiseichon = () => {
+    router.push(`${params.id}/budget`);
   };
 
   return (
     <section>
       <Container>
         <>
-          {isLoading === true
+          {isLoading
             ? 'Cargando...'
             : vehicle?.id && (
                 <>
                   <VehicleDetail vehicle={vehicle}>
                     <VehicleDetail.Problem>
-                      Problema detallado
+                      <>
+                        <p className='bg-base-300 rounded-[2rem] p-4 my-4'>
+                          Problema Detallado
+                        </p>
+
+                        <div className='flex justify-center mt-8'>
+                          <Button onClick={handleCotiseichon}>
+                            Empezar cotizacion
+                          </Button>
+                        </div>
+                      </>
                     </VehicleDetail.Problem>
                   </VehicleDetail>
-                  <div className='flex justify-center mt-8'>
-                    <Button onClick={handleCotization}>
-                      Enviar cotizacion
-                    </Button>
-                  </div>
                 </>
               )}
         </>

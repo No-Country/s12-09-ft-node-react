@@ -1,5 +1,5 @@
 'use client';
-import { VehicleListItem } from '.';
+import { VehicleListItem } from './VehicleListItem';
 import { useVehicle } from '@/hook';
 import { useEffect, useId } from 'react';
 
