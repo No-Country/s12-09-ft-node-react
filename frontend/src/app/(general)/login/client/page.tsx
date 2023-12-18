@@ -1,5 +1,3 @@
-'use client';
-
 import { LockIcon } from '@/assets/svg';
 import { Button, Container, Title, Input } from '@/components';
 import { useFormik } from 'formik';
@@ -19,7 +17,7 @@ const basicSchema = yup.object().shape({
   code: yup.string().required('Required'),
 });
 
-export default function LoginMechanicPage() {
+export default function LoginClientPage() {
   const router = useRouter();
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
@@ -30,7 +28,7 @@ export default function LoginMechanicPage() {
           buttons: [false],
           timer: 3000,
         }).then(() => {
-          router.push('/mechanic', { scroll: false });
+          router.push('home', { scroll: false });
         });
       },
     });

@@ -1,6 +1,6 @@
 import type { MenuItem } from '@/@types';
 import Link from 'next/link';
-import { Logo, Container } from '@/components';
+import { Container, Logo } from '@/components';
 import { LogoutIcon, MenuIcon } from '@/assets/svg';
 
 interface Props {
@@ -14,7 +14,7 @@ export function Header({ children, links = [], hasLogout = false }: Props) {
     <header className='navbar bg-primary '>
       <Container className='flex justify-between w-full'>
         <>
-          <Link href='/'>
+          <Link href={links[0].href}>
             <Logo isWhite />
           </Link>
 
@@ -54,7 +54,7 @@ export function Header({ children, links = [], hasLogout = false }: Props) {
                 {hasLogout && (
                   <ul>
                     <li>
-                      <Link href='/logout'>
+                      <Link href='/login'>
                         <LogoutIcon /> Cerrar session
                       </Link>
                     </li>

@@ -32,8 +32,8 @@ export interface User {
   lastName?: string;
   firstName?: string;
   email?: string;
-  phone?: number | string;
-  document?: number | string;
+  phone?: string;
+  document?: number;
   rol?: Rol | string;
   pass?: string;
   vehicle?: Vehicle[];
@@ -88,8 +88,8 @@ export interface Budget {
   id?: string;
   repair: Repair[];
   maintenance: Maintenance[];
-  costs?: number | string;
-  labor: number | string;
+  costs: number;
+  labor: number;
   accepted: boolean;
   isActive?: boolean;
   user?: User;
