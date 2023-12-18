@@ -1,5 +1,6 @@
 import { config } from '@/config';
 import type { RequestInit } from 'next/dist/server/web/spec-extension/request';
+import { handleErrorsMessage } from './handleErrorsMessage';
 
 type UrlEndpoint = string;
 
@@ -13,22 +14,24 @@ interface HttpFetchClientOptions extends RequestInit {
     | null;
 }
 
+export interface ApiResult {
+  status: number;
+  result: any;
+  error?: string;
+}
+
 export async function httpFetch<T>(
   url: UrlEndpoint,
   options: HttpFetchClientOptions = {}
 ): Promise<T> {
-  try {
-    const response = await fetch(config.api.base + url, { ...options });
-    console.log(response);
-    if (!response.ok) {
-      console.log(await response.json());
-      throw new Error(`Request failed with status ${response.status}`);
-    }
-    const data = await response.json();
-    return data as T;
-  } catch (error) {
-    console.error(error);
+  const response = await fetch(config.api.base + url, { ...options });
+  if (!response.ok) {
+    const resp = await response.json();
+    const status = response.status;
+    handleErrorsMessage(status, resp);
   }
+  const data = await response.json();
+  return data as T;
 }
 
 httpFetch.get = async <T>(

@@ -15,6 +15,8 @@ export function VehicleList({ uri }: Props) {
     getAllVehicles();
   }, []);
 
+  console.log(vehicles);
+
   return (
     <div className='flex flex-wrap justify-center items-center gap-y-4'>
       {isLoading

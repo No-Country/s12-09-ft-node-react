@@ -7,11 +7,12 @@ import {
   createVehicleAsync,
   updateVehicleAsync,
   getOneVehicleByIdSync,
+  cleanCreatedVehicleSync,
 } from '@/store/features';
 
 export function useVehicle() {
   const dispatch = useAppDispatch();
-  const { vehicles, vehicle, isLoading, created } = useAppSelector(
+  const { vehicles, isLoading, vehicle, created, error } = useAppSelector(
     state => state.vehicles
   );
 
@@ -28,15 +29,20 @@ export function useVehicle() {
   function updateVehicle(modified: Vehicle) {
     dispatch(updateVehicleAsync(modified));
   }
+  function cleanCreatedVehicle() {
+    dispatch(cleanCreatedVehicleSync());
+  }
 
   return {
     vehicles,
-    vehicle,
     isLoading,
+    vehicle,
     created,
+    error,
     getAllVehicles,
     getOneVehicleById,
     createVehicle,
     updateVehicle,
+    cleanCreatedVehicle,
   };
 }

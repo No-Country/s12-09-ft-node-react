@@ -1,5 +1,11 @@
 import { Title } from '@/components';
-import { WorkshopRegister } from '@/components/register';
+import { WorkshopRegister } from '@/components/workshop';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Workshop register',
+  description: 'description',
+};
 
 export default function RegisterPage() {
   return (

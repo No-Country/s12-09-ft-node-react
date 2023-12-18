@@ -5,6 +5,9 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 interface State {
   mechanics: Mechanic[];
   isLoading: boolean;
+  mechanic?: Mechanic;
+  created?: Mechanic;
+  error?: string;
 }
 
 const initialState: State = {
@@ -38,7 +41,12 @@ export const getOneMechanicByIdAsync = createAsyncThunk(
 const mechanicSlice = createSlice({
   name: 'mechanic',
   initialState,
-  reducers: {},
+  reducers: {
+    cleanCreatedMechanicSync(state) {
+      const { created, ...newState } = state;
+      return { ...newState };
+    },
+  },
   extraReducers(builder) {
     // GETALL
     builder.addCase(getAllMechanicsAsync.pending, state => {
@@ -48,14 +56,23 @@ const mechanicSlice = createSlice({
       state.mechanics = action.payload;
       state.isLoading = false;
     });
-    // CREATE
+
+    // * CREATE
     builder.addCase(createMechanicAsync.pending, state => {
       state.isLoading = true;
+      state.error = '';
     });
     builder.addCase(createMechanicAsync.fulfilled, (state, action) => {
-      console.log('CREATE', action.payload);
+      const newMechanic = action.payload;
+      state.mechanics.push(newMechanic);
+      state.created = newMechanic;
       state.isLoading = false;
     });
+    builder.addCase(createMechanicAsync.rejected, (state, action) => {
+      state.error = action.error.message;
+      state.isLoading = false;
+    });
+
     // GETBYID
     builder.addCase(getOneMechanicByIdAsync.pending, state => {
       state.isLoading = true;
@@ -67,4 +84,5 @@ const mechanicSlice = createSlice({
   },
 });
 
+export const { cleanCreatedMechanicSync } = mechanicSlice.actions;
 export const mechanicReducer = mechanicSlice.reducer;

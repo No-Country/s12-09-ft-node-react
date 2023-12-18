@@ -39,19 +39,13 @@ export function ClientExist() {
         <>
           <Input
             placeholder='Buscar por dni'
-            list='clients'
+            datalist={clients.map(element => element.document)}
             handleChange={e => {
               findDocument(e);
             }}
           />
-          <datalist id='clients'>
-            {clients.map(item => (
-              <option key={item.id}>{item.document}</option>
-            ))}
-          </datalist>
-          {!found?.id ? (
-            'usuario no encontrado'
-          ) : (
+
+          {!!found?.id && (
             <>
               <div className='pt-3'>
                 Cliente: <b>{`${found?.firstName} ${found?.lastName}`}</b>

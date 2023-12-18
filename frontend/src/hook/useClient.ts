@@ -7,38 +7,45 @@ import {
   createClientAsync,
   updateClientAsync,
   setClientSync,
+  cleanCreatedClientSync,
 } from '@/store/features';
 
 export function useClient() {
-  const displatch = useAppDispatch();
-  const { clients, isLoading, created } = useAppSelector(
+  const dispatch = useAppDispatch();
+  const { clients, isLoading, client, created, error } = useAppSelector(
     state => state.clients
   );
 
   function getAllClients() {
-    clients.length === 0 && displatch(getAllClientsAsync());
+    clients.length === 0 && dispatch(getAllClientsAsync());
   }
   function getOneClientById(id: string) {
-    displatch(getOneClientByIdAsync(id));
+    dispatch(getOneClientByIdAsync(id));
   }
   function createClient(newClient: User) {
-    displatch(createClientAsync(newClient));
+    dispatch(createClientAsync(newClient));
   }
   function updateClient(modified: User) {
-    displatch(updateClientAsync(modified));
+    dispatch(updateClientAsync(modified));
   }
   function setClient(client: User) {
-    displatch(setClientSync(client));
+    dispatch(setClientSync(client));
+  }
+  function cleanCreatedClient() {
+    dispatch(cleanCreatedClientSync());
   }
 
   return {
     clients,
     isLoading,
+    client,
     created,
+    error,
     getAllClients,
     getOneClientById,
     createClient,
     updateClient,
     setClient,
+    cleanCreatedClient,
   };
 }

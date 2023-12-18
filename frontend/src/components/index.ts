@@ -5,3 +5,7 @@ export * from './Button';
 export * from './Title';
 export * from './TabsLayout';
 export * from './Preload';
+export * from './Alert';
+export * from './Redirect';
+export * from './Sweetalert';
+export * from './UploadImage';
