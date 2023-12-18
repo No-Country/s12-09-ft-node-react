@@ -16,7 +16,7 @@ const links: MenuItem[] = [
 
 export function HeaderMechanic() {
   return (
-    <Header links={links}>
+    <Header links={links} hasLogout>
       <>mechanic Avatar</>
     </Header>
   );

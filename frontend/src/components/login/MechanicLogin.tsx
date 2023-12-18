@@ -29,7 +29,7 @@ export function MechanicLogin() {
         console.log(values);
         await swal('Es solo un template, no tiene funcionalidad', ' ', 'info');
         resetForm();
-        router.push('/');
+        router.push('/mechanic');
       },
     });
 
