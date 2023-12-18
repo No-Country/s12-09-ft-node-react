@@ -69,7 +69,7 @@ export const Input = (props: Props) => {
         )}
       </div>
 
-      {datalist?.length && (
+      {!!datalist?.length && (
         <datalist id={inputId}>
           {datalist.map((item, index) => (
             <option key={inputId + index}>{item}</option>
