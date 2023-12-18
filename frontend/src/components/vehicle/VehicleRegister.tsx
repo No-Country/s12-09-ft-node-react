@@ -1,45 +1,31 @@
 'use client';
 import { useFormik } from 'formik';
-import * as yup from 'yup';
-import swal from 'sweetalert';
-import { Input, Button } from '@/components';
+import { validationSchema } from './VehicleRegister.validator';
+import { Input, Button, UploadImage, Alert, Sweetalert } from '@/components';
 import { useModal } from '@/modal';
-import { useClient, useVehicle } from '@/hook';
+import { useVehicle, useUploadImage } from '@/hook';
 import type { User, Vehicle } from '@/@types';
 import { config } from '@/config';
 
 interface Props {
-  client?: User;
+  client: User;
 }
 export function VehicleRegister({ client }: Props) {
-  const { created: clientCreated } = useClient();
-
-  if (!client) {
-    client = clientCreated;
-  }
-
-  const { createVehicle, isLoading } = useVehicle();
   const { closeModal } = useModal();
+  const { handleImage, image, loading: imageLoading } = useUploadImage(null!);
+  const { isLoading, created, error, createVehicle, cleanCreatedVehicle } =
+    useVehicle();
 
   const initialValues: Vehicle = {
     brand: '',
     model: '',
     color: '',
-    year: 0,
+    year: '', // it's a number
     licensePlate: '',
-    mileage: 0,
-    imageUrl: config.default.vehicleImage,
+    mileage: '', // it's a number
+    imageUrl: '',
     userId: client?.id,
   };
-  const validationSchema = yup.object().shape({
-    brand: yup.string().required('Required'),
-    model: yup.string().required('Required'),
-    color: yup.string().required('Required'),
-    year: yup.number().positive().integer().required('Required'),
-    licensePlate: yup.string().required('Required'),
-    mileage: yup.number().positive().integer().required('Required'),
-    userId: yup.string().required('Required'),
-  });
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
@@ -47,20 +33,31 @@ export function VehicleRegister({ client }: Props) {
       validationSchema,
       onSubmit: async (values: Vehicle, { resetForm }) => {
         values.user = client;
+        values.year = Number(values.year);
+        values.mileage = Number(values.mileage);
+        if (!values.imageUrl) values.imageUrl = config.default.vehicleImage;
+
         createVehicle(values);
-
-        await swal(
-          'Vehiculo registrado',
-          '( simulacion no tiene endpoint )',
-          'success'
-        );
-
-        resetForm();
-        closeModal();
       },
     });
+  // content input year
+  const years = Array.from({ length: 100 })
+    .fill('')
+    .map((item, index) => 2023 - index);
+
   return (
     <>
+      {!!error && <Alert message={error} type='error' />}
+      {created && (
+        <Sweetalert
+          title='Vehiculo registrado'
+          type='success'
+          callback={() => {
+            closeModal();
+            cleanCreatedVehicle();
+          }}
+        />
+      )}
       <form
         onSubmit={handleSubmit}
         className='
@@ -69,6 +66,17 @@ export function VehicleRegister({ client }: Props) {
             [&>.input-container>svg]:mt-4
             [&>.input-container>div]:flex-1'
       >
+        <UploadImage
+          image={image}
+          loading={imageLoading}
+          handle={handleImage}
+        />
+        <input
+          type='hidden'
+          name='imageUrl'
+          value={(values.imageUrl = image)}
+          onChange={handleImage}
+        />
         <div className='py-3'>
           Cliente: <b>{`${client?.firstName} ${client?.lastName}`}</b>
         </div>
@@ -76,7 +84,6 @@ export function VehicleRegister({ client }: Props) {
           <Input
             name='brand'
             placeholder='Marca'
-            type='text'
             value={values.brand}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -86,7 +93,6 @@ export function VehicleRegister({ client }: Props) {
           <Input
             name='model'
             placeholder='Modelo'
-            type='text'
             value={values.model}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -98,7 +104,6 @@ export function VehicleRegister({ client }: Props) {
           <Input
             name='licensePlate'
             placeholder='Patente'
-            type='text'
             value={values.licensePlate}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -108,7 +113,6 @@ export function VehicleRegister({ client }: Props) {
           <Input
             name='mileage'
             placeholder='kilometraje'
-            type='number'
             value={values.mileage}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -120,17 +124,16 @@ export function VehicleRegister({ client }: Props) {
           <Input
             name='year'
             placeholder='Año'
-            type='number'
             value={values.year}
             handleBlur={handleBlur}
             handleChange={handleChange}
             errorMessage={errors.year}
             error={errors.year != null && touched.year != null}
+            datalist={years}
           />
           <Input
             name='color'
             placeholder='Color'
-            type='text'
             value={values.color}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -139,7 +142,7 @@ export function VehicleRegister({ client }: Props) {
           />
         </div>
         <div className='flex justify-center my-2'>
-          <Button type='submit'>
+          <Button type='submit' disabled={isLoading}>
             {isLoading ? 'Enviando...' : 'Registrar'}
           </Button>
         </div>

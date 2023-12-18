@@ -13,3 +13,8 @@ export { default as BackArrowIcon } from './back-arrow-icon.svg';
 export { default as LogoutIcon } from './logout-icon.svg';
 export { default as PlusIcon } from './plus-icon.svg';
 export { default as AddUserIcon } from './add-user-icon.svg';
+export { default as ErrorIcon } from './error-icon.svg';
+export { default as SuccessIcon } from './success-icon.svg';
+export { default as WarningIcon } from './warning-icon.svg';
+export { default as InfoIcon } from './info-icon.svg';
+export { default as ImageIcon } from './image-icon.svg';

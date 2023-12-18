@@ -1,33 +1,36 @@
 'use client';
+
 import { type FormikHelpers, useFormik } from 'formik';
-import { validationSchema } from './ClientRegister.validator';
+import { validationSchema } from './MechanicRegister.validator';
 import { Input, Button, Alert, Sweetalert } from '@/components';
-import { useModal } from '@/modal';
-import { VehicleRegister } from '@/components/vehicle';
-import type { User } from '@/@types';
-import { useClient } from '@/hook';
+import type { Mechanic } from '@/@types';
+import { useMechanic } from '@/hook';
+// import { redirect } from 'next/navigation';
 
-export function ClientRegister() {
-  const { openModal } = useModal();
-  const { isLoading, error, created, createClient, cleanCreatedClient } =
-    useClient();
+export function MechanicRegister() {
+  const { isLoading, created, error, createMechanic, cleanCreatedMechanic } =
+    useMechanic();
 
-  const initialValues: User = {
+  const initialValues: Mechanic = {
     firstName: '',
     lastName: '',
     email: '',
+    document: '', // it's a number
     phone: '',
-    document: '', // it's number
-    pass: '',
+    password: '',
   };
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
       initialValues,
       validationSchema,
-      onSubmit: async (values: User, { resetForm }: FormikHelpers<User>) => {
+      onSubmit: async (
+        values: Mechanic,
+        { resetForm }: FormikHelpers<Mechanic>
+      ) => {
         values.document = Number(values.document);
-        createClient(values);
+        createMechanic(values);
+        resetForm();
       },
     });
   return (
@@ -35,11 +38,10 @@ export function ClientRegister() {
       {!!error && <Alert message={error} type='error' />}
       {created && (
         <Sweetalert
-          title='Cliente registrado'
+          title='Mecánico registrado'
           type='success'
           callback={() => {
-            openModal(<VehicleRegister client={created} />);
-            cleanCreatedClient();
+            cleanCreatedMechanic();
           }}
         />
       )}
@@ -83,8 +85,7 @@ export function ClientRegister() {
             errorMessage={errors.phone}
             error={errors.phone != null && touched.phone != null}
           />
-        </div>
-        <div className='input-container'>
+
           <Input
             name='document'
             placeholder='DNI'
@@ -108,15 +109,15 @@ export function ClientRegister() {
         </div>
         <div className='input-container'>
           <Input
-            name='pass'
+            name='password'
             placeholder='Ingresa tu contraseña'
             type='password'
             togglePassword
-            value={values.pass}
+            value={values.password}
             handleBlur={handleBlur}
             handleChange={handleChange}
-            errorMessage={errors.pass}
-            error={errors.pass != null && touched.pass != null}
+            errorMessage={errors.password}
+            error={errors.password != null && touched.password != null}
           />
         </div>
         <div className='flex justify-center my-2'>

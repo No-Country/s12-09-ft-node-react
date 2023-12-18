@@ -6,11 +6,13 @@ import {
   createSlice,
 } from '@reduxjs/toolkit';
 
+type UserID = string;
 interface State {
   clients: User[];
   isLoading: boolean;
   client?: User;
   created?: User;
+  error?: string;
 }
 
 const initialState: State = {
@@ -29,18 +31,13 @@ export const getAllClientsAsync = createAsyncThunk(
 export const createClientAsync = createAsyncThunk(
   'client/create',
   async (newClient: User) => {
-    try {
-      const created = await clientService.create(newClient);
-      console.log('created user', created);
-      return created;
-    } catch (error) {
-      console.log(error);
-    }
+    const created = await clientService.create(newClient);
+    return created;
   }
 );
 export const getOneClientByIdAsync = createAsyncThunk(
   'client/getOneById',
-  async (id: string) => {
+  async (id: UserID) => {
     const client = await clientService.getOneById(id);
     return client;
   }
@@ -57,8 +54,12 @@ const clientSlice = createSlice({
   name: 'client',
   initialState,
   reducers: {
-    setClientSync: (state, action: PayloadAction<User>) => {
+    setClientSync(state, action: PayloadAction<User>) {
       return { ...state, client: action.payload };
+    },
+    cleanCreatedClientSync(state) {
+      const { created, ...newState } = state;
+      return { ...newState };
     },
   },
   extraReducers(builder) {
@@ -70,9 +71,11 @@ const clientSlice = createSlice({
       state.clients = action.payload;
       state.isLoading = false;
     });
-    // CREATE
+
+    // * CREATE
     builder.addCase(createClientAsync.pending, state => {
       state.isLoading = true;
+      state.error = '';
     });
     builder.addCase(createClientAsync.fulfilled, (state, action) => {
       const newClient = action.payload;
@@ -80,6 +83,11 @@ const clientSlice = createSlice({
       state.created = newClient;
       state.isLoading = false;
     });
+    builder.addCase(createClientAsync.rejected, (state, action) => {
+      state.error = action.error.message;
+      state.isLoading = false;
+    });
+
     // GETBYID
     builder.addCase(getOneClientByIdAsync.pending, state => {
       state.isLoading = true;
@@ -89,6 +97,7 @@ const clientSlice = createSlice({
       state.client = client;
       state.isLoading = false;
     });
+
     // UPDATE
     builder.addCase(updateClientAsync.pending, state => {
       state.isLoading = true;
@@ -103,5 +112,5 @@ const clientSlice = createSlice({
   },
 });
 
-export const { setClientSync } = clientSlice.actions;
+export const { setClientSync, cleanCreatedClientSync } = clientSlice.actions;
 export const clientReducer = clientSlice.reducer;
