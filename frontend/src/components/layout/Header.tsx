@@ -26,14 +26,14 @@ export function Header({ children, links = [], hasLogout = false }: Props) {
             <Logo isWhite />
           </Link>
 
-          <div className='drawer justify-end '>
+          <div className='drawer  justify-end'>
             <input id='my-drawer' type='checkbox' className='drawer-toggle' />
             <div className='drawer-content'>
               <label
                 htmlFor='my-drawer'
                 className='btn btn-primary drawer-button'
               >
-                <MenuIcon className='[&>path]:fill-white' />
+                <MenuIcon className='[&>path]:fill-white h-7 w-7' />
               </label>
             </div>
             <nav className='drawer-side z-10'>

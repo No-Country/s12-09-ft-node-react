@@ -1,4 +1,3 @@
-import { Container } from '@/components';
 import { HeaderHome } from '@/components/layout';
 
 interface Props {
@@ -8,7 +7,7 @@ export default function WorkshopLayout({ children }: Props) {
   return (
     <>
       <HeaderHome />
-      <Container>{children}</Container>
+      <div className='max-w-xl w-full mx-auto'>{children}</div>
     </>
   );
 }
