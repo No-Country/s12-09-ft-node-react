@@ -8,8 +8,8 @@ import QuoteRepairs from '@/components/Quote';
 import { useState } from 'react';
 
 export interface ItemsRepair {
-    title: string,
-    icon: null | JSX.Element
+  title: string;
+  icon: null | JSX.Element;
 }
 
 const options = {
@@ -17,11 +17,11 @@ const options = {
   optionsRepair: [
     {
       title: 'Aire de cabina',
-      icon: <CabinAir/>,
+      icon: <CabinAir />,
     },
     {
       title: 'Frenos',
-      icon: <Tires/>,
+      icon: <Tires />,
     },
     {
       title: 'Motor',

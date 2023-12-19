@@ -1,9 +1,9 @@
 'use client';
 
 import type { ItemsRepair } from '@/app/mechanic/vehicle/[id]/budget/page';
-import { CabinAirIcon } from './Icons';
 import type { Dispatch, SetStateAction } from 'react';
 import { Button } from '.';
+import { CabinAirIcon } from './Icons';
 
 interface Options {
   optionsRepair: ItemsRepair[];
