@@ -6,7 +6,7 @@ export interface Mechanic {
   document?: number | string;
   phone?: string;
   password?: string;
-  // role: Role;
+  role?: Role;
 }
 
 export interface Vehicle {
@@ -24,7 +24,7 @@ export interface Vehicle {
   user?: User;
   mechanicId?: string;
   mechanic?: Mechanic;
-  repairLog?: any[];
+  repairLog?: RepairLog;
 }
 
 export interface User {
@@ -33,7 +33,7 @@ export interface User {
   firstName?: string;
   email?: string;
   phone?: string;
-  document?: number | string;
+  document?: number;
   rol?: Rol | string;
   pass?: string;
   vehicle?: Vehicle[];
@@ -88,7 +88,7 @@ export interface Budget {
   id?: string;
   repair: Repair[];
   maintenance: Maintenance[];
-  costs: number;
+  costs?: number;
   labor: number;
   accepted: boolean;
   isActive?: boolean;
@@ -98,4 +98,30 @@ export interface Budget {
   userId?: string;
   vehicleId?: string;
   mechanicId?: string;
+}
+
+export interface RepairLog {
+  id?: string;
+  date?: string;
+  description: string;
+  cost: number;
+  state: BudgetState;
+  vehicleId: string;
+  mechanicId: string;
+  vehicle?: Vehicle;
+  mechanic?: Mechanic;
+}
+
+export type BudgetState =
+  | 'Cotizar'
+  | 'Confirmar'
+  | 'En reparacion'
+  | 'Aviso al cliente';
+
+export interface Budget2 {
+  description: string;
+  cost: number;
+  state: BudgetState;
+  vehicleId: string;
+  budgetId: string;
 }

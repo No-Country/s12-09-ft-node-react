@@ -28,6 +28,7 @@ export default function VehicleDetailsPage({ params }: VehicleDetailProps) {
           {isLoading
             ? 'Cargando...'
             : vehicle?.id && (
+                <>
                   <VehicleDetail vehicle={vehicle}>
                     <VehicleDetail.Problem>
                       <>
@@ -43,6 +44,7 @@ export default function VehicleDetailsPage({ params }: VehicleDetailProps) {
                       </>
                     </VehicleDetail.Problem>
                   </VehicleDetail>
+                </>
               )}
         </>
       </Container>

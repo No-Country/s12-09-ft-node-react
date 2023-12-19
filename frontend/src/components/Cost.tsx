@@ -4,7 +4,7 @@ import type { ItemsRepair } from '@/app/mechanic/vehicle/[id]/budget/page';
 import type { Budget } from '@/@types';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useBudget, useVehicle } from '@/hook';
 import { Input } from '@/components';
@@ -46,12 +46,14 @@ const CostPage: React.FC<Props> = ({
   const { createBudget, created, budgets } = useBudget();
   const { getOneVehicleById, vehicle } = useVehicle();
 
+  const [total, setTotal] = useState(0);
+
   useEffect(() => {
     getOneVehicleById(vehicleId);
 
     console.log('vehicle:', vehicle?.id);
   }, [params]);
-  // @ts-expect-error
+
   const initialValues: Budget = {
     repair: itemsForQuoteRepair.map(repairItem => ({
       name: repairItem.title,
@@ -74,6 +76,7 @@ const CostPage: React.FC<Props> = ({
     initialValues,
     validationSchema,
     enableReinitialize: true,
+
     onSubmit: values => {
       createBudget(values);
       console.log('se creo un nuevo budget', created);
@@ -83,6 +86,20 @@ const CostPage: React.FC<Props> = ({
       }
     },
   });
+
+  useEffect(() => {
+    const repairTotal = values.repair.reduce(
+      (acc, repairItem) => acc + Number(repairItem.cost || 0),
+      0
+    );
+    const maintenanceTotal = values.maintenance.reduce(
+      (acc, maintenanceItem) => acc + Number(maintenanceItem.cost || 0),
+      0
+    );
+    const laborCost = Number(values.labor || 0);
+
+    setTotal(repairTotal + maintenanceTotal + laborCost);
+  }, [values.repair, values.maintenance, values.labor]);
 
   return (
     <div>
@@ -220,6 +237,7 @@ const CostPage: React.FC<Props> = ({
                 <Input
                   name='total'
                   placeholder='Total'
+                  value={total}
                   className={'bg-white sm:bg-base-300 h-8 md:h-10 w-20'}
                 />
               </div>

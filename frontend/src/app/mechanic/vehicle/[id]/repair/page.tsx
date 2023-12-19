@@ -1,33 +1,25 @@
 'use client';
 
 import type { Tabs } from '@/@types';
-import { CabinAir, Tires, MotorIcon } from '@/assets/svg';
 import { Container, TabsLayout } from '@/components';
 import CostPage from '@/components/Cost';
 import QuoteRepairs from '@/components/Quote';
 import { useState } from 'react';
-
-export interface ItemsRepair {
-  title: string;
-  icon: null | JSX.Element;
-  description?: string;
-  cost?: number;
-}
 
 const options = {
   // Falta agregar los iconos por svg, dan errores
   optionsRepair: [
     {
       title: 'Aire de cabina',
-      icon: <CabinAir size={40} />,
+      icon: null,
     },
     {
       title: 'Frenos',
-      icon: <Tires size={40} />,
+      icon: null,
     },
     {
       title: 'Motor',
-      icon: <MotorIcon size={40} />,
+      icon: null,
     },
     {
       title: 'Electricidad',
@@ -71,15 +63,8 @@ const options = {
 };
 
 export default function QuotePage() {
-  const [itemsForQuoteRepair, setItemsForQuoteRepair] = useState<ItemsRepair[]>(
-    []
-  );
-  const [itemsForQuoteMainteance, setItemsForQuoteMainteance] = useState<
-    ItemsRepair[]
-  >([]);
-  const [currentTab, setCurrentTab] = useState<string | undefined>(
-    'Componentes'
-  );
+  const [itemsForQuoteRepair, setItemsForQuoteRepair] = useState([]);
+  const [itemsForQuoteMainteance, setItemsForQuoteMainteance] = useState([]);
 
   const tabs: Tabs[] = [
     {
@@ -88,10 +73,9 @@ export default function QuotePage() {
         <QuoteRepairs
           options={options}
           itemsForQuoteRepair={itemsForQuoteRepair}
-          itemsForQuoteMainteance={itemsForQuoteMainteance}
           setItemsForQuoteRepair={setItemsForQuoteRepair}
-          setItemsForQuoteMaiteance={setItemsForQuoteMainteance}
-          setView={setCurrentTab}
+          itemsForQuoteMainteance={itemsForQuoteMainteance}
+          setItemsForQuoteMainteance={setItemsForQuoteMainteance}
         />
       ),
     },
@@ -101,7 +85,6 @@ export default function QuotePage() {
         <CostPage
           itemsForQuoteRepair={itemsForQuoteRepair}
           itemsForQuoteMainteance={itemsForQuoteMainteance}
-          setView={setCurrentTab}
         />
       ),
     },
@@ -110,11 +93,9 @@ export default function QuotePage() {
   return (
     <section>
       <Container>
-        <TabsLayout
-          tabs={tabs}
-          viewOutside={currentTab}
-          setViewOutside={setCurrentTab}
-        />
+        <div>
+          <TabsLayout tabs={tabs} />
+        </div>
       </Container>
     </section>
   );

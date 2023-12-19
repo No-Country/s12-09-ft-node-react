@@ -3,4 +3,5 @@ export * as workshopService from './workshop.service';
 export * as vehicleService from './vehicle.service';
 export * as clientService from './client.service';
 export * as imageService from './image.service';
-export * as budgetService from './budget.service'
+export * as repairService from './repair.service';
+export * as budgetService from './budget.service';

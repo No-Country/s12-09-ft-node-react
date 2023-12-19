@@ -1,10 +1,9 @@
 'use client';
 
-
 interface props {
   title: string;
   data: any;
-  setData: any,
+  setData: any;
   handleBlur: any;
   handleChange?: any;
   values: any;
@@ -13,29 +12,31 @@ interface props {
 interface itemMap {
   title: string;
   icon: null;
-  description: string,
-  price: number
+  description: string;
+  price: number;
 }
 
-const CostBlock = ({ title, data,setData,handleBlur }: props) => {
-  // data aca es el array de items de repair / maintance 
+const CostBlock = ({ title, data, setData, handleBlur }: props) => {
+  // data aca es el array de items de repair / maintance
   console.log(data);
 
   const updateDescriptionAndPrice = (ev: any, index: any) => {
-    const { name, value } = ev.target
-    const option = data[index]
+    const { name, value } = ev.target;
+    const option = data[index];
     console.log(name, value, option);
-    
-    setData(data.map((item: itemMap, i: number) => {
-      if (i === index) {
-        return {
-          ...item,
-          [name]: value
-        };
-      }
-      return item;
-    }));
-  }
+
+    setData(
+      data.map((item: itemMap, i: number) => {
+        if (i === index) {
+          return {
+            ...item,
+            [name]: value,
+          };
+        }
+        return item;
+      })
+    );
+  };
 
   return (
     <div className='flex flex-col pb-2 w-full'>
@@ -66,7 +67,7 @@ const CostBlock = ({ title, data,setData,handleBlur }: props) => {
                 name='description'
                 value={item.description}
                 onChange={ev => {
-                  updateDescriptionAndPrice(ev, index)
+                  updateDescriptionAndPrice(ev, index);
                 }}
                 // handleBlur={handleBlur}
               />
@@ -82,7 +83,7 @@ const CostBlock = ({ title, data,setData,handleBlur }: props) => {
                   name='price'
                   value={item.price}
                   onChange={ev => {
-                    updateDescriptionAndPrice(ev, index)
+                    updateDescriptionAndPrice(ev, index);
                   }}
                   // handleBlur={handleBlur}
                 />
