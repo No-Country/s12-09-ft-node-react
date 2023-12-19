@@ -1,35 +1,68 @@
 'use client';
 import type { Mechanic } from '@/@types';
 import { useFormik, type FormikHelpers } from 'formik';
-import * as yup from 'yup';
+import yup, {
+  errorMessages as msg,
+  onlyNumbers,
+} from '@/utils/yupCustomValidations';
 import swal from 'sweetalert';
 import { LockIcon } from '@/assets/svg';
 import { Button, Input } from '@/components';
 import { useRouter } from 'next/navigation';
-
-export function MechanicLogin() {
+interface Props {
+  mechanics: Mechanic[];
+}
+export function MechanicLogin({ mechanics = [] }: Props) {
   const router = useRouter();
 
   const initialValues: Mechanic = {
-    password: '',
+    document: '', // it's a number
   };
-
-  const validationSchema = yup.object().shape({
-    password: yup.string().required('Required'),
-  });
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
       initialValues,
-      validationSchema,
+      validationSchema: yup.object().shape({
+        document: yup
+          .string()
+          .required(msg.required)
+          .min(8, 'debe tener al menos 8 caracteres')
+          .max(8, 'limite de caracteres permitidos')
+          .test('only-numbers', msg.onlyNumbers, onlyNumbers),
+      }),
       onSubmit: async (
         values: Mechanic,
         { resetForm }: FormikHelpers<Mechanic>
       ) => {
-        console.log(values);
-        await swal('Es solo un template, no tiene funcionalidad', ' ', 'info');
-        resetForm();
-        router.push('/mechanic');
+        if (mechanics.length < 0) return;
+
+        const found = mechanics.find(
+          item => item.document === Number(values.document)
+        );
+
+        if (found) {
+          await swal(
+            `Bienvenido ${found.firstName}`,
+            'Has ingresado con éxito a MechanicAlert',
+            'success',
+            {
+              buttons: [false],
+              timer: 3000,
+            }
+          );
+          localStorage.setItem('logged-mechanic', JSON.stringify(found));
+          router.push('/mechanic', { scroll: false });
+        } else {
+          swal(
+            'No encontrado',
+            'Credenciales incorrectas, vuelve a intentarlo',
+            'error',
+            {
+              buttons: [false],
+              timer: 3000,
+            }
+          );
+        }
       },
     });
 
@@ -45,14 +78,14 @@ export function MechanicLogin() {
       <div className='input-container'>
         <LockIcon />
         <Input
-          name='password'
+          name='document'
           placeholder='Codigo'
-          type='password'
-          value={values.password}
+          type='document'
+          value={values.document}
           handleBlur={handleBlur}
           handleChange={handleChange}
-          errorMessage={errors.password}
-          error={errors.password != null && touched.password != null}
+          errorMessage={errors.document}
+          error={errors.document != null && touched.document != null}
         />
       </div>
 

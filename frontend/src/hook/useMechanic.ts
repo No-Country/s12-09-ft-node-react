@@ -11,9 +11,8 @@ import type { AppDispatch } from '@/store/store';
 import type { Mechanic } from '@/@types';
 
 export const useMechanic = () => {
-  const { mechanics, isLoading, mechanic, created, error } = useAppSelector(
-    state => state.mechanics
-  );
+  const { mechanics, isLoading, mechanic, created, error, logged } =
+    useAppSelector(state => state.mechanics);
   const dispatch: AppDispatch = useDispatch();
 
   function getAllClients() {
@@ -40,6 +39,7 @@ export const useMechanic = () => {
     mechanic,
     created,
     error,
+    logged,
     getAllClients,
     createMechanic,
     getAllMechanic,

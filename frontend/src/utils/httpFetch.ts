@@ -18,7 +18,10 @@ export async function httpFetch<T>(
   url: UrlEndpoint,
   options: HttpFetchClientOptions = {}
 ): Promise<T> {
-  const response = await fetch(config.api.base + url, { ...options });
+  const response = await fetch(config.api.base + url, {
+    ...options,
+    next: { revalidate: 10 },
+  });
   if (!response.ok) {
     const resp = await response.json();
     const status = response.status;

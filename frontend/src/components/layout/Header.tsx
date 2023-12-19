@@ -1,7 +1,9 @@
+'use client';
 import type { MenuItem } from '@/@types';
 import Link from 'next/link';
 import { Container, Logo } from '@/components';
 import { LogoutIcon, MenuIcon } from '@/assets/svg';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   links: MenuItem[];
@@ -10,6 +12,12 @@ interface Props {
 }
 
 export function Header({ children, links = [], hasLogout = false }: Props) {
+  const route = useRouter();
+  const handleLogout = () => {
+    localStorage.clear();
+    route.push('/login');
+  };
+
   return (
     <header className='navbar bg-primary '>
       <Container className='flex justify-between w-full'>
@@ -54,9 +62,9 @@ export function Header({ children, links = [], hasLogout = false }: Props) {
                 {hasLogout && (
                   <ul>
                     <li>
-                      <Link href='/login'>
+                      <button onClick={handleLogout}>
                         <LogoutIcon /> Cerrar session
-                      </Link>
+                      </button>
                     </li>
                   </ul>
                 )}
