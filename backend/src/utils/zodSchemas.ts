@@ -1,5 +1,28 @@
 import { z } from 'zod'
 
+export const phoneSchema = z
+	.string()
+	.refine(
+		(value) => {
+			// Verificar que el número de teléfono contenga solo números y opcionalmente un +
+			const phoneRegex = /^\+?[0-9]+$/
+			return phoneRegex.test(value)
+		},
+		{
+			message: 'Invalid phone number format',
+		},
+	)
+	.refine(
+		(value) => {
+			// Verificar que, si se incluye el símbolo +, este esté en la primera posición
+			const startsWithPlus = value.startsWith('+')
+			return startsWithPlus || !value.includes('+')
+		},
+		{
+			message: 'If present, + must be at the beginning',
+		},
+	)
+
 export const servicechema = z.object({
 	name: z.string().min(2).max(255),
 	description: z.string().min(1).max(1000),
@@ -12,7 +35,7 @@ export const workshopSchema = z.object({
 	address: z.string().min(2, { message: 'Address too small' }),
 	email: z.string().email({ message: 'Invalid email address' }),
 	password: z.string().min(5, { message: 'Password too small' }),
-	phone: z.string().optional(),
+	phone: phoneSchema.optional(),
 	role: z.string().default('admin'),
 })
 
@@ -25,28 +48,20 @@ export const mechanicSchema = z.object({
 	firstName: z.string().min(2, 'First name too small'),
 	lastName: z.string().min(2, 'Last name too small'),
 	email: z.string().email({ message: 'Invalid email address' }),
-	document: z
-		.number()
-		.min(6)
-		.int()
-		.positive({
-			message: 'Document must be a positive integer and be 6-15 characters',
-		}),
-	phone: z.string().optional(),
+	document: z.number().min(6).int().positive({
+		message: 'Document must be a positive integer and be 6-15 characters',
+	}),
+	phone: phoneSchema.optional(),
 	role: z.string().default('mechanic'),
 })
 export const userSchema = z.object({
 	firstName: z.string().min(2, 'First name too small'),
 	lastName: z.string().min(2, 'Last name too small'),
 	email: z.string().email({ message: 'Invalid email address' }),
-	document: z
-		.number()
-		.min(6)
-		.int()
-		.positive({
-			message: 'Document must be a positive integer and be 6-15 characters',
-		}),
-	phone: z.string().optional(),
+	document: z.number().min(6).int().positive({
+		message: 'Document must be a positive integer and be 6-15 characters',
+	}),
+	phone: phoneSchema.optional(),
 	role: z.string().default('user'),
 })
 
