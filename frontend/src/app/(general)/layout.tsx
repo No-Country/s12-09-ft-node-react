@@ -7,7 +7,7 @@ export default function WorkshopLayout({ children }: Props) {
   return (
     <>
       <HeaderHome />
-      <div className='max-w-xl w-full mx-auto'>{children}</div>
+      <div className='max-w-xl w-full mx-auto px-2'>{children}</div>
     </>
   );
 }
