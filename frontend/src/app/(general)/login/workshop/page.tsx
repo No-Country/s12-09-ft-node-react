@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Login page for workshop administrator',
 };
 
-export default function WorkshopLoginPage() {
+export default async function WorkshopLoginPage() {
   return (
     <>
       <Title title='¡Bienvenido!' className='text-center'>

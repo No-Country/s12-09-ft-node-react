@@ -1,6 +1,6 @@
 import type { MenuItem } from '@/@types';
 import { Header } from '.';
-// import { Avatar } from '../Avatar';
+
 import { HomeIcon, AddUserIcon } from '@/assets/svg';
 
 const links: MenuItem[] = [
@@ -17,9 +17,5 @@ const links: MenuItem[] = [
 ];
 
 export function HeaderWorkshop() {
-  return (
-    <Header links={links} hasLogout>
-      {/* <Avatar name={name} className='ml-3 mb-4' loading={isLoading} /> */}
-    </Header>
-  );
+  return <Header links={links} hasLogout></Header>;
 }

@@ -1,7 +1,13 @@
 import type { Mechanic } from '@/@types';
 import { mechanicService } from '@/services';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createSlice,
+  type PayloadAction,
+} from '@reduxjs/toolkit';
 import swal from 'sweetalert';
+
+type MechanicID = string;
 
 interface State {
   mechanics: Mechanic[];
@@ -9,6 +15,7 @@ interface State {
   mechanic?: Mechanic;
   created?: Mechanic;
   error?: string;
+  logged?: Mechanic;
 }
 
 const initialState: State = {
@@ -39,7 +46,7 @@ export const createMechanicAsync = createAsyncThunk(
 );
 export const getOneMechanicByIdAsync = createAsyncThunk(
   'mechanic/getOneById',
-  async (id: string) => {
+  async (id: MechanicID) => {
     const mechanic = await mechanicService.getOneById(id);
     return mechanic;
   }
@@ -51,12 +58,6 @@ export const updateMechanicAsync = createAsyncThunk(
     return updated;
   }
 );
-// export const deleteMechanicByIdAsync = createAsyncThunk(
-//   'mechanic/deleteById',
-//   async (id: string) => {
-//     await mechanicService.deleteById(id);
-//   }
-// );
 
 const mechanicSlice = createSlice({
   name: 'mechanic',
@@ -65,6 +66,9 @@ const mechanicSlice = createSlice({
     cleanCreatedMechanicSync(state) {
       const { created, ...newState } = state;
       return { ...newState };
+    },
+    setLoggedSync(state, action: PayloadAction<Mechanic>) {
+      state.logged = action.payload;
     },
   },
   extraReducers(builder) {
@@ -109,9 +113,9 @@ const mechanicSlice = createSlice({
       console.log('UPDATE', action.payload);
       state.isLoading = false;
     });
-    //  DELETE
   },
 });
 
-export const { cleanCreatedMechanicSync } = mechanicSlice.actions;
+export const { cleanCreatedMechanicSync, setLoggedSync } =
+  mechanicSlice.actions;
 export const mechanicReducer = mechanicSlice.reducer;

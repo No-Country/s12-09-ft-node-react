@@ -10,8 +10,6 @@ import { useState } from 'react';
 export interface ItemsRepair {
   title: string;
   icon: null | JSX.Element;
-  description?: string;
-  cost?: number;
 }
 
 const options = {
@@ -19,11 +17,11 @@ const options = {
   optionsRepair: [
     {
       title: 'Aire de cabina',
-      icon: <CabinAir size={40} />,
+      icon: <CabinAir />,
     },
     {
       title: 'Frenos',
-      icon: <Tires size={40} />,
+      icon: <Tires />,
     },
     {
       title: 'Motor',

@@ -1,4 +1,3 @@
-'use client';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { LoginResult, Workshop } from '@/@types';
 import { workshopService } from '@/services';
@@ -12,9 +11,6 @@ export interface State {
 const initialState: State = {
   workshop: {},
   isLoading: false,
-  logged: typeof window !== 'undefined' && localStorage.getItem('logged') !== null
-      ? JSON.parse(localStorage.getItem('logged') ?? '')
-      : {},
 };
 
 // thunk functions
@@ -68,10 +64,6 @@ export const workshopSlice = createSlice({
       state.logged = action.payload;
       state.workshop = action.payload.result;
       state.isLoading = false;
-      // save in localStorage
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('logged', JSON.stringify(action.payload));
-      }
     });
   },
 });
