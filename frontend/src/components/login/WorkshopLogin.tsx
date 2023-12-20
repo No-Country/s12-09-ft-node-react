@@ -2,6 +2,7 @@
 import type { Workshop } from '@/@types';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import swal from 'sweetalert';
 import { MailIcon, LockIcon } from '@/assets/svg';
 import { Input, Button } from '@/components';
 import { useRouter } from 'next/navigation';
@@ -31,6 +32,12 @@ export function WorkshopLogin() {
       onSubmit: async (values: Workshop, { resetForm }) => {
         loginWorkshop(values);
         resetForm();
+
+        await swal(
+          'Loggeado',
+          '( simulacion no tiene endpoint )',
+          'success'
+        ).then(() => {});
 
         router.push('/workshop');
       },
