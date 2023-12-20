@@ -2,7 +2,7 @@
 import type { Mechanic, Vehicle } from '@/@types';
 import { Button, Input } from '@/components';
 import { useVehicle } from '@/hook';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 // import swal from 'sweetalert';
 
@@ -14,6 +14,7 @@ interface Props {
 export function AddMechanicOnVehicle({ vehicle, mechanics }: Props) {
   const [selected, setSelected] = useState<Mechanic | undefined>();
   const { updateVehicle } = useVehicle();
+  const router = useRouter()
 
   const selectMechanic = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const value = target.value;
@@ -28,9 +29,9 @@ export function AddMechanicOnVehicle({ vehicle, mechanics }: Props) {
   };
 
   const handleClick = () => {
-    const updateObj = vehicle;
-    updateObj.mechanicId = selected?.id;
-    updateVehicle(updateObj);
+    const newVehicle = {...vehicle, mechanicId: selected?.id};
+    updateVehicle(newVehicle)
+    router.refresh()
   };
 
   return (

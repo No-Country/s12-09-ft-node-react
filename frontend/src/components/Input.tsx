@@ -77,9 +77,11 @@ export const Input = (props: Props) => {
         </datalist>
       )}
 
-      <p className='text-xs text-error mt-[-10px] pt-3 pb-2 h-8 p-4'>
-        {error && errorMessage}
-      </p>
+      {!!error && (
+        <p className='text-xs text-error mt-[-10px] pt-3 pb-2 h-8 p-4'>
+          {error && errorMessage}
+        </p>
+      )}
     </div>
   );
 };
