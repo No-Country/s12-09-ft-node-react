@@ -15,9 +15,16 @@ export class UserController {
 			const userByDocument = await Users.findOne({ where: { document } })
 
 			if (mail || userByPhone || userByDocument) {
-				return res
-					.status(400)
-					.json(`${mail || userByPhone || userByDocument}} existente `)
+				// return res
+				// 	.status(400)
+				// 	.json(`${mail || userByPhone || userByDocument} existente `)
+				return res.status(400).json({
+					existente: {
+						email: mail ? mail.email : undefined,
+						phone: userByPhone ? userByPhone.phone : undefined,
+						document: userByDocument ? userByDocument.document : undefined,
+					},
+				})
 			} else {
 				const newUser = await Users.create({ ...req.body })
 				return res.status(201).json(newUser)
