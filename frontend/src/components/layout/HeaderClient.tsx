@@ -16,5 +16,5 @@ const links: MenuItem[] = [
 ];
 
 export function HeaderClient() {
-  return <Header links={links} />;
+  return <Header links={links} hasLogout />;
 }

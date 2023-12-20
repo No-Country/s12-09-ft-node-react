@@ -45,6 +45,8 @@ const CostPage: React.FC<Props> = ({
   const { createBudget, created, budgets } = useBudget();
   const { getOneVehicleById, vehicle } = useVehicle();
 
+  const [total, setTotal] = useState(0);
+
   useEffect(() => {
     getOneVehicleById(vehicleId);
 
@@ -243,6 +245,7 @@ const CostPage: React.FC<Props> = ({
               <Input
                 name='total'
                 placeholder='Total'
+                value={total}
                 className={'bg-white sm:bg-base-300 h-8 md:h-10 w-20'}
               />
             </div>
