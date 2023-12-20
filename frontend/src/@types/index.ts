@@ -33,7 +33,7 @@ export interface User {
   firstName?: string;
   email?: string;
   phone?: string;
-  document?: number;
+  document?: number | string;
   rol?: Rol | string;
   pass?: string;
   vehicle?: Vehicle[];
