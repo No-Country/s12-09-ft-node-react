@@ -10,8 +10,6 @@ interface Props {
 export const CardService = ({ repairLog }: Props) => {
   const { id, vehicle, state } = repairLog;
 
-  // console.log(state);
-
   return (
     <div key={id} className='w-full bg-base-300 rounded-3xl p-5 flex flex-col'>
       <div className='flex justify-between'>
@@ -26,15 +24,17 @@ export const CardService = ({ repairLog }: Props) => {
             <h2 className='text-base'>| {vehicle?.licensePlate}</h2>
           </div>
         </div>
-        <Link
-          className='btn btn-primary btn-xs w-[66px]'
-          href={`/mechanic/vehicle/${vehicle?.id}`}
-        >
-          Detalle
-        </Link>
+        {state !== 'Aviso al cliente' ? (
+          <Link
+            className='btn btn-primary btn-xs w-[66px]'
+            href={`/mechanic/vehicle/${vehicle?.id}`}
+          >
+            Detalle
+          </Link>
+        ) : null}
       </div>
-      <h4 className='text-xs text-accent'>Estado: {state}</h4>
-      <Status state={state} />
+
+      <Status idLog={id!} state={state} />
     </div>
   );
 };

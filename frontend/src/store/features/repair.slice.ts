@@ -1,4 +1,4 @@
-import type { RepairLog } from '@/@types';
+import type { BudgetState, RepairLog } from '@/@types';
 import { repairService } from '@/services';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
@@ -39,13 +39,26 @@ export const getOneRepairLogByIdAsync = createAsyncThunk(
   }
 );
 
-// export const updateRepairLogAsync = createAsyncThunk(
-//   'repairlog/update',
-//   async (id: string, newBudget: BudgetState) => {
-//     const updated = await repairService.update(id, newBudget);
-//     return updated;
-//   }
-// );
+export const deleteRepairLogAsync = createAsyncThunk(
+  'repairlog/delete',
+  async (id: string) => {
+    const deleteLog = await repairService.deleteLog(id);
+    return deleteLog;
+  }
+);
+
+interface tempProps {
+  id: string;
+  newState: BudgetState;
+}
+
+export const updateRepairLogAsync = createAsyncThunk(
+  'repairlog/update',
+  async ({ id, newState }: tempProps) => {
+    const updated = await repairService.update(id, newState);
+    return updated;
+  }
+);
 
 const repairLogSlice = createSlice({
   name: 'repairlog',

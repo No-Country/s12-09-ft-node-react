@@ -1,12 +1,13 @@
 'use client';
 
-import type { RepairLog } from '@/@types';
+import type { BudgetState, RepairLog } from '@/@types';
 import { useAppSelector, useAppDispatch } from '@/store/store';
 import {
   createRepairLogAsync,
+  deleteRepairLogAsync,
   getAllRepairLogsAsync,
   getOneRepairLogByIdAsync,
-  //   updateRepairLogAsync,
+  updateRepairLogAsync,
 } from '@/store/features';
 
 export function useRepairLog() {
@@ -25,13 +26,17 @@ export function useRepairLog() {
     else dispatch(getOneRepairLogByIdAsync(id));
   }
 
+  function deleteRepairLog(id: string) {
+    dispatch(deleteRepairLogAsync(id));
+  }
+
   function createRepairLog(newRepairLog: RepairLog) {
     dispatch(createRepairLogAsync(newRepairLog));
   }
 
-  //   function updateRepairLog(id: string, budget: BudgetState) {
-  //     dispatch(updateRepairLogAsync(id, budget));
-  //   }
+  function updateRepairLog(id: string, newState: BudgetState) {
+    dispatch(updateRepairLogAsync({ id, newState }));
+  }
 
   return {
     repairlogs,
@@ -42,6 +47,7 @@ export function useRepairLog() {
     createRepairLog,
     getAllRepairLog,
     getRepairLogById,
-    // updateRepairLog,
+    updateRepairLog,
+    deleteRepairLog,
   };
 }
