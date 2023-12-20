@@ -29,8 +29,9 @@ export const mechanicSchema = z.object({
 		.number()
 		.min(6)
 		.int()
+		.max(999999999)
 		.positive({
-			message: 'Document must be a positive integer and be 6-15 characters',
+			message: 'Document must be a positive integer and be 6-10 characters',
 		}),
 	phone: z.string().optional(),
 	role: z.string().default('mechanic'),
@@ -44,7 +45,7 @@ export const userSchema = z.object({
 		.min(6)
 		.int()
 		.positive({
-			message: 'Document must be a positive integer and be 6-15 characters',
+			message: 'Document must be a positive integer and be 6-10 characters',
 		}),
 	phone: z.string().optional(),
 	role: z.string().default('user'),
