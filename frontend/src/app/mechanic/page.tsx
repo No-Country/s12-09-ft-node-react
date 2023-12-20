@@ -3,14 +3,16 @@ import type { Tabs } from '@/@types';
 import { Container, TabsLayout } from '@/components';
 import { MechanicClients } from '@/components/MechanicClients';
 import { VehicleList } from '@/components/vehicle';
-import { useVehicle } from '@/hook';
+import { useRepairLog, useVehicle } from '@/hook';
 import { useEffect } from 'react';
 
 export default function MechanicPage() {
   const { getAllVehicles } = useVehicle();
+  const { getAllRepairLog } = useRepairLog();
 
   useEffect(() => {
     getAllVehicles();
+    getAllRepairLog();
   }, []);
 
   const tabs: Tabs[] = [

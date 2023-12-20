@@ -1,7 +1,7 @@
 'use client';
 
 import type { Tabs } from '@/@types';
-import { CabinAir, Tires, MotorIcon } from '@/assets/svg';
+import { CabinAir, Tires } from '@/assets/svg';
 import { Container, TabsLayout } from '@/components';
 import CostPage from '@/components/Cost';
 import QuoteRepairs from '@/components/Quote';
@@ -25,7 +25,7 @@ const options = {
     },
     {
       title: 'Motor',
-      icon: <MotorIcon size={40} />,
+      icon: null,
     },
     {
       title: 'Electricidad',

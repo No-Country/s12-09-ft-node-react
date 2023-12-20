@@ -24,7 +24,7 @@ export interface Vehicle {
   user?: User;
   mechanicId?: string;
   mechanic?: Mechanic;
-  repairLog?: RepairLog;
+  repairLog?: RepairLog[];
 }
 
 export interface User {
@@ -117,11 +117,3 @@ export type BudgetState =
   | 'Confirmar'
   | 'En reparacion'
   | 'Aviso al cliente';
-
-export interface Budget2 {
-  description: string;
-  cost: number;
-  state: BudgetState;
-  vehicleId: string;
-  budgetId: string;
-}
