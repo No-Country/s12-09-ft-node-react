@@ -3,7 +3,6 @@
 import type { ItemsRepair } from '@/app/mechanic/vehicle/[id]/budget/page';
 import type { Dispatch, SetStateAction } from 'react';
 import { Button } from '.';
-import { CabinAirIcon } from './Icons';
 
 interface Options {
   optionsRepair: ItemsRepair[];
@@ -95,11 +94,9 @@ const QuoteRepairs: React.FC<Props> = ({
                     }}
                     className='absolute top-0 right-0 rounded-full appearance-none border-2 border-primary h-5 w-5 checked:bg-primary'
                   />
-                  {optionRepair.icon ? (
-                    optionRepair.icon
-                  ) : (
-                    <CabinAirIcon size='40' />
-                  )}
+                  <div className='[&>svg]:h-10 [&>svg]:w-10'>
+                    {optionRepair.icon}
+                  </div>
                 </div>
                 <span className='text-accent text-sm sm:text-base'>
                   {optionRepair.title}
@@ -129,7 +126,14 @@ const QuoteRepairs: React.FC<Props> = ({
                     }}
                     className='absolute top-0 right-0 rounded-full appearance-none border-2 border-primary h-5 w-5 checked:bg-primary'
                   />
-                  {optionRepair.icon}
+                  <div
+                    className={`[&>svg]:h-10 [&>svg]:w-10 ${
+                      optionRepair.title === 'Bateria' &&
+                      '[&>svg]:h-16 [&>svg]:w-16'
+                    }`}
+                  >
+                    {optionRepair.icon}
+                  </div>
                 </div>
                 <span className='text-accent text-sm sm:text-base'>
                   {optionRepair.title}

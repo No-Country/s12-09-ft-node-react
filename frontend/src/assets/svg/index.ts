@@ -32,3 +32,11 @@ export { default as InfoIcon } from './info-icon.svg';
 export { default as ImageIcon } from './image-icon.svg';
 export { default as CabinAir } from './cabin-air.svg'
 export { default as Tires} from './tires.svg'
+export { default as Wheel} from './wheel.svg'
+export { default as System} from './system.svg'
+export { default as Brakes} from './brakes-fluid-icon.svg'
+export { default as OilFilter} from './oil-filter-icon.svg'
+export { default as Chasis} from './chasis-icon.svg'
+export { default as Battery} from './battery-icon.svg'
+export { default as AirFilter} from './air-filter-icon.svg'
+export { default as Engine} from './engine-icon.svg'
