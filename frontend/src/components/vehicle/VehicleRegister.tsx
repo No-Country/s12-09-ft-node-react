@@ -105,7 +105,7 @@ export function VehicleRegister({ client }: Props) {
           <Input
             name='licensePlate'
             placeholder='Patente'
-            value={values.licensePlate}
+            value={values.licensePlate?.toLocaleUpperCase()}
             handleBlur={handleBlur}
             handleChange={handleChange}
             errorMessage={errors.licensePlate}

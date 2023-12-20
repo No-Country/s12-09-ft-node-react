@@ -42,15 +42,14 @@ interface Props {
 }
 
 export function VehicleDetail({ children, vehicle }: Props) {
-  const date = new Date();
-  const mes = date.getMonth() + 1;
-  const dia = date.getDate();
+  if(!vehicle.createdAt) return null
+  const vehicleDate = new Date(vehicle.createdAt).toLocaleDateString('es-ES') 
 
   return (
     <VehicleContext.Provider value={{ user: vehicle?.user ?? {} }}>
       <div className='vehicle flex flex-col sm:flex-row gap-4'>
         <div>
-          <div className='sm:flex items-center gap-2 pb-2 text-accent hidden'>
+          <div className='sm:flex items-center justify-between gap-2 pb-2 text-accent hidden'>
             <h3 className='flex items-center'>
               <div className='flex justify-center items-center bg-base-300 h-8 w-8 rounded-full'>
                 <UserIcon />
@@ -59,7 +58,7 @@ export function VehicleDetail({ children, vehicle }: Props) {
                 {vehicle?.user?.firstName} {vehicle?.user?.lastName}
               </span>
             </h3>
-            <span>{`${dia}/${mes}`}</span>
+            <span>{`${vehicleDate}`}</span>
           </div>
 
           <div className='[&>img]:w-[100%]'>
