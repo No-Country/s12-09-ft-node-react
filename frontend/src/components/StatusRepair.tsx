@@ -82,18 +82,18 @@ export function Status({ idLog, state }: Props) {
           <div>
             <Button
               onClick={handleDeleteRepairLog}
-              className='bg-white text-sm h-1 mr-2'
+              className='bg-white text-sm mr-2 min-h-[2rem] h-9'
             >
               Eliminar
             </Button>
-            <Button onClick={handleUpdateRepairLog} className='text-sm py-1'>
+            <Button onClick={handleUpdateRepairLog} className='text-sm py-1 min-h-[2rem] h-9'>
               Reparar
             </Button>
           </div>
         ) : (
           witchOne === 3 && (
             <div>
-              <Button onClick={handleUpdateRepairLog} className='text-sm mx-1'>
+              <Button onClick={handleUpdateRepairLog} className='text-sm mx-1 min-h-[2rem] h-9'>
                 Notificar Reparacion
               </Button>
             </div>
