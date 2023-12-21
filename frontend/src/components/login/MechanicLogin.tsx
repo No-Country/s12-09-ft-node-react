@@ -67,6 +67,7 @@ export function MechanicLogin() {
           handleChange={handleChange}
           errorMessage={errors.document}
           error={errors.document != null && touched.document != null}
+          togglePassword
         />
       </div>
 

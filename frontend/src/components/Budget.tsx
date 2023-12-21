@@ -1,12 +1,12 @@
 'use client';
 
-import { options } from '@/app/mechanic/vehicle/[id]/budget/page';
 import { Button } from '@/components';
 import { useBudget } from '@/hook';
 import { useRouter } from 'next/navigation';
 import swal from 'sweetalert';
 import type { Budget as BudgetType } from '@/@types';
 import { useModal } from '@/modal';
+import { options } from '@/constants';
 
 interface Props {
   budget: BudgetType[];

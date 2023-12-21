@@ -65,6 +65,7 @@ export function WorkshopLogin() {
           handleChange={handleChange}
           errorMessage={errors.email}
           error={errors.email != null && touched.email != null}
+          togglePassword
         />
       </div>
 

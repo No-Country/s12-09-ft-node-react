@@ -73,6 +73,7 @@ export function ClientLogin({ users }: Props) {
           handleChange={handleChange}
           errorMessage={errors.pass}
           error={errors.pass != null && touched.pass != null}
+          togglePassword
         />
       </div>
 
