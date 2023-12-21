@@ -1,14 +1,28 @@
+import type { RepairLog } from '@/@types';
 import { CardService } from './CardService';
 import { useMechanic, useRepairLog } from '@/hook';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export const MechanicClients = () => {
   const { mechanic } = useMechanic();
   const { repairlogs, isLoading, getAllRepairLog } = useRepairLog();
+  const [filteredLogs, setFilteredLogs] = useState<RepairLog[]>([]);
 
   useEffect(() => {
     getAllRepairLog();
-  }, []);
+  }, [repairlogs]);
+
+  useEffect(() => {
+    if (localStorage) {
+      const mechanic = JSON.parse(localStorage.getItem('logged-mechanic')??'')
+
+      const newLogs = repairlogs.filter(
+        state => state.vehicle?.mechanicId === mechanic.id
+      );
+
+      setFilteredLogs(newLogs);
+    }
+  }, [repairlogs]);
 
   return (
     <div className='max-w-7xl w-full mx-auto px-3'>
@@ -20,9 +34,9 @@ export const MechanicClients = () => {
           <div className='grid sm:grid-cols-2 lg:grid-cols-3 gap-5  w-full'>
             {isLoading
               ? 'cargando...'
-              : repairlogs.length <= 0
+              : filteredLogs.length <= 0
                 ? 'No hay elementos para mostrar'
-                : repairlogs.map(item => (
+                : filteredLogs.map(item => (
                     <CardService key={item.id} repairLog={item} />
                   ))}
           </div>
