@@ -27,11 +27,15 @@ export const CardServiceClient = ({ repairLog }: Props) => {
         {state !== 'Aviso al cliente' ? (
           <Link
             className='btn btn-primary btn-xs w-[66px]'
-            href={`/mechanic/vehicle/${vehicle?.id}`}
+            href={`/client/vehicle/${vehicle?.id}`}
           >
             Detalle
           </Link>
-        ) : null}
+        ) : (
+          <div className='border-2 border-primary rounded-lg text-xs w-16 h-6 font-semibold flex justify-center items-center'>
+            Listo
+          </div>
+        )}
       </div>
 
       <StatusClient idLog={id!} state={state} />
