@@ -5,10 +5,11 @@ import { validationSchema } from './MechanicRegister.validator';
 import { Input, Button, Alert, Sweetalert } from '@/components';
 import type { Mechanic } from '@/@types';
 import { useMechanic } from '@/hook';
+import { cleanCreatedMechanicSync } from '@/store/features';
 // import { redirect } from 'next/navigation';
 
 export function MechanicRegister() {
-  const { isLoading, created, error, createMechanic, cleanCreatedMechanic } =
+  const { isLoading, created, error, createMechanic,  } =
     useMechanic();
 
   const initialValues: Mechanic = {
@@ -41,7 +42,7 @@ export function MechanicRegister() {
           title='Mecánico registrado'
           type='success'
           callback={() => {
-            cleanCreatedMechanic();
+            cleanCreatedMechanicSync();
           }}
         />
       )}

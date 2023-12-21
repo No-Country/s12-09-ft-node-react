@@ -1,23 +1,23 @@
 'use client';
 import type { Mechanic } from '@/@types';
-import { useFormik, type FormikHelpers } from 'formik';
+import { LockIcon } from '@/assets/svg';
+import { Button, Input } from '@/components';
 import yup, {
   errorMessages as msg,
   onlyNumbers,
 } from '@/utils/yupCustomValidations';
-import swal from 'sweetalert';
-import { LockIcon } from '@/assets/svg';
-import { Button, Input } from '@/components';
+import axios from 'axios';
+import { useFormik, type FormikHelpers } from 'formik';
 import { useRouter } from 'next/navigation';
-interface Props {
-  mechanics: Mechanic[];
-}
-export function MechanicLogin({ mechanics = [] }: Props) {
+import swal from 'sweetalert';
+
+export function MechanicLogin() {
   const router = useRouter();
 
   const initialValues: Mechanic = {
     document: '', // it's a number
   };
+  const url = 'https://mechanicalertbackend.onrender.com/api/v1/mechanic/login';
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
@@ -34,34 +34,15 @@ export function MechanicLogin({ mechanics = [] }: Props) {
         values: Mechanic,
         { resetForm }: FormikHelpers<Mechanic>
       ) => {
-        if (mechanics.length < 0) return;
-
-        const found = mechanics.find(
-          item => item.document === Number(values.document)
-        );
-
-        if (found) {
-          await swal(
-            `Bienvenido ${found.firstName}`,
-            'Has ingresado con éxito a MechanicAlert',
-            'success',
-            {
-              buttons: [false],
-              timer: 3000,
-            }
-          );
+        try {
+          const value = Number(values.document);
+          const response = await axios.post(url, { codePass: value });
+          const found = response.data;
           localStorage.setItem('logged-mechanic', JSON.stringify(found));
           router.push('/mechanic', { scroll: false });
-        } else {
-          swal(
-            'No encontrado',
-            'Credenciales incorrectas, vuelve a intentarlo',
-            'error',
-            {
-              buttons: [false],
-              timer: 3000,
-            }
-          );
+          resetForm();
+        } catch (error: any) {
+          swal('Credenciales Invalidas', '', 'error');
         }
       },
     });

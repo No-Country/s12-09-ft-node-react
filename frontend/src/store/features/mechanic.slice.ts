@@ -31,6 +31,7 @@ export const getAllMechanicsAsync = createAsyncThunk(
     return mechanicList;
   }
 );
+
 export const createMechanicAsync = createAsyncThunk(
   'mechanic/create',
   async (newMechanic: Mechanic, { rejectWithValue }) => {

@@ -1,4 +1,4 @@
-import type { Mechanic } from '@/@types';
+import type { LoginData, Mechanic } from '@/@types';
 import { handleRequest, httpClient } from '@/utils';
 
 const path = 'mechanic';
@@ -16,6 +16,9 @@ export async function update(modified: Mechanic): Promise<Mechanic> {
   return await handleRequest(
     httpClient.put(`${path}/${modified.id}`, modified)
   );
+}
+export async function login(codePass: LoginData): Promise<Mechanic> {
+  return await handleRequest(httpClient.post(`${path}/login`, codePass));
 }
 // export function deleteById(id: string): Promise<boolean> {
 //   return handleRequest(httpClient.delete(`${path}/${id}`));
