@@ -12,7 +12,7 @@ export interface ItemsRepair {
   icon: null | JSX.Element;
 }
 
-const options = {
+export const options = {
   // Falta agregar los iconos por svg, dan errores
   optionsRepair: [
     {

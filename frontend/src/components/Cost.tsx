@@ -5,7 +5,7 @@ import type { Budget } from '@/@types';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useBudget, useVehicle } from '@/hook';
 import { Input } from '@/components';
 import swal from 'sweetalert';
@@ -41,6 +41,7 @@ const CostPage: React.FC<Props> = ({
 }) => {
   const params = useParams();
   const vehicleId = Array.isArray(params.id) ? params.id[0] : params.id;
+  const router = useRouter();
 
   const { createBudget, created, budgets } = useBudget();
   const { getOneVehicleById, vehicle } = useVehicle();
@@ -81,7 +82,12 @@ const CostPage: React.FC<Props> = ({
       console.log('se creo un nuevo budget', created);
       console.log('se creo', budgets);
       if (created) {
-        swal('Cotizacion registrada', '', 'success');
+        swal('Cotizacion registrada', '', 'success', {
+          buttons: [false],
+          timer: 1000,
+        }).then(() => {
+          router.push('/mechanic');
+        });
       }
     },
   });
@@ -117,11 +123,11 @@ const CostPage: React.FC<Props> = ({
                 >
                   <div className=''>
                     <div className='p-1 bg-white sm:bg-base-300 flex justify-center items-center h-7 w-7 sm:h-12 sm:w-12 rounded-full'>
-                    <div
-                      className={`[&>svg]:h-4 [&>svg]:w-4  sm:[&>svg]:h-6 sm:[&>svg]:w-6`}
-                    >
-                      {data.icon}
-                    </div>
+                      <div
+                        className={`[&>svg]:h-4 [&>svg]:w-4  sm:[&>svg]:h-6 sm:[&>svg]:w-6`}
+                      >
+                        {data.icon}
+                      </div>
                     </div>
                   </div>
 
@@ -172,7 +178,8 @@ const CostPage: React.FC<Props> = ({
                   <div className='relative p-1 items-center bg-white sm:bg-base-300 flex justify-center h-7 w-7 sm:h-12 sm:w-12 rounded-full'>
                     <div
                       className={`[&>svg]:h-4 [&>svg]:w-4 sm:[&>svg]:h-6 sm:[&>svg]:w-6 ${
-                        data.title === 'Bateria' && 'sm:[&>svg]:h-10 sm:[&>svg]:w-10'
+                        data.title === 'Bateria' &&
+                        'sm:[&>svg]:h-10 sm:[&>svg]:w-10'
                       }`}
                     >
                       {data.icon}

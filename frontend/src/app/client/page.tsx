@@ -1,28 +1,33 @@
 'use client';
-import type { Tabs, Vehicle } from '@/@types';
-import { Container, TabsLayout } from '@/components';
+import type { Budget, Tabs, Vehicle } from '@/@types';
+import { TabsLayout } from '@/components';
+import AcceptBudget from '@/components/AcceptBudget';
 import { ClientRepairs } from '@/components/ClientRepairs';
 import { VehicleList } from '@/components/vehicle';
-import { useVehicle } from '@/hook';
+import { useBudget, useVehicle } from '@/hook';
 import { useEffect, useState } from 'react';
 
 export default function ClientPage() {
   const { vehicles, isLoading, getAllVehicles } = useVehicle();
-  const [ filterVehicles, setFilterVehicles] = useState<Vehicle[]>([])
+  const { budgets, getAllBudget } = useBudget();
+  const [filterVehicles, setFilterVehicles] = useState<Vehicle[]>([]);
+  const [filteredBudget, setFilteredBudget] = useState<Budget[]>([])
 
   useEffect(() => {
     getAllVehicles();
-  }, [])
+    getAllBudget();
+  }, []);
 
   useEffect(() => {
-    if(localStorage) {
-      const user = JSON.parse(localStorage.getItem('logged-user')!) 
+    if (localStorage) {
+      const user = JSON.parse(localStorage.getItem('logged-user')!);
+      const newVehicles = vehicles.filter(state => state.userId === user.id);
+      setFilterVehicles(newVehicles);
 
-      const newVehicles = vehicles.filter(state => state.userId === user.id)
-
-      setFilterVehicles(newVehicles)
+      const newBudgets = budgets.filter(item => item.user?.id === user.id && !item.accepted)
+      setFilteredBudget(newBudgets)
     }
-  }, [vehicles])
+  }, [budgets]);
 
   const tabs: Tabs[] = [
     {
@@ -37,16 +42,13 @@ export default function ClientPage() {
     },
     {
       label: 'Reparaciones',
-      content: <ClientRepairs/>,
+      content: <ClientRepairs />,
     },
   ];
   return (
     <section>
-      <Container>
-        <div>
-          <TabsLayout tabs={tabs} />
-        </div>
-      </Container>
+      <TabsLayout tabs={tabs} />
+      <AcceptBudget budget={filteredBudget}/>
     </section>
   );
 }
