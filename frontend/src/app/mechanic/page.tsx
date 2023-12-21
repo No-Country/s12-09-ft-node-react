@@ -7,20 +7,28 @@ import { useRepairLog, useVehicle } from '@/hook';
 import { useEffect } from 'react';
 
 export default function MechanicPage() {
-  const { getAllVehicles } = useVehicle();
+  const { vehicles, getAllVehicles } = useVehicle();
   const { getAllRepairLog } = useRepairLog();
 
   useEffect(() => {
-    getAllVehicles();
     getAllRepairLog();
   }, []);
+
+  useEffect(() => {
+    getAllVehicles();
+
+    if(localStorage) {
+      const mechanic = JSON.parse(localStorage.getItem('logged-mechanic')??'') 
+      console.log('LocalStorage:', mechanic)
+    }
+
+  }, [vehicles])
 
   const tabs: Tabs[] = [
     {
       label: 'Vehículos',
       content: (
         <VehicleList
-          // data={vehicles}
           // loading={isLoading}
           uri='/mechanic/vehicle'
         />

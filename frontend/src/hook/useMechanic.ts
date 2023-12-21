@@ -1,7 +1,8 @@
 'use client';
 import {
+  cleanCreatedMechanicSync,
   createMechanicAsync,
-  getAllMechanicsAsync
+  getAllMechanicsAsync,
 } from '@/store/features/mechanic.slice';
 import { useAppSelector } from '@/store/store';
 import { useDispatch } from 'react-redux';
@@ -27,6 +28,10 @@ export const useMechanic = () => {
     }
   }
 
+  function cleanCreatedMechanic() {
+    dispatch(cleanCreatedMechanicSync());
+  }
+
   return {
     mechanics,
     isLoading,
@@ -36,6 +41,7 @@ export const useMechanic = () => {
     logged,
     getAllClients,
     createMechanic,
-    getAllMechanic
+    getAllMechanic,
+    cleanCreatedMechanic,
   };
 };
