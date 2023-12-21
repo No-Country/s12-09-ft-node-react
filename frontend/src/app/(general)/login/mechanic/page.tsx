@@ -3,7 +3,7 @@ import { MechanicLogin } from '@/components/login';
 
 export default async function LoginMechanicPage() {
   return (
-    <div className='w-[400px] relative mx-auto'>
+    <div >
       <Title title='¡Bienvenido al equipo de Mecánicos de MechanicAlert!' className='text-center'>
         <Title.Subtitle>Ingresa tu codigo de acceso</Title.Subtitle>
       </Title>
