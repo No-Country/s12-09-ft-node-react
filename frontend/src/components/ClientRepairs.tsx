@@ -1,9 +1,9 @@
 'use client';
 
 import type { RepairLog } from '@/@types';
-import { CardService } from './CardService';
 import { useRepairLog } from '@/hook';
 import { useEffect, useState } from 'react';
+import { CardServiceClient } from './CardServiceClient';
 
 export const ClientRepairs = () => {
   const { repairlogs, isLoading, getAllRepairLog } = useRepairLog();
@@ -23,7 +23,7 @@ export const ClientRepairs = () => {
 
       setFilteredLogs(newLogs);
     }
-  }, [repairlogs]);
+  }, [repairlogs, isLoading]);
 
   return (
     <div className='max-w-7xl w-full mx-auto px-3'>
@@ -36,7 +36,7 @@ export const ClientRepairs = () => {
               {isLoading
                 ? 'cargando...'
                 : filteredLogs.map(item => (
-                    <CardService key={item.id} repairLog={item} />
+                    <CardServiceClient key={item.id} repairLog={item} />
                   ))}
             </div>
           )}

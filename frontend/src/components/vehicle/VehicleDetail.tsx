@@ -61,7 +61,7 @@ export function VehicleDetail({ children, vehicle }: Props) {
             <span>{`${vehicleDate}`}</span>
           </div>
 
-          <div className='[&>img]:min-w-[630px] [&>img]:h-[430px] [&>img]:object-cover'>
+          <div className='[&>img]:w-full sm:[&>img]:min-w-[630px] sm:[&>img]:h-[430px] [&>img]:object-cover'>
             {vehicle?.imageUrl && (
               <Image
                 src={vehicle?.imageUrl ?? config.default.vehicleImage}

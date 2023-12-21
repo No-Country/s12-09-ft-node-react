@@ -16,7 +16,7 @@ export function StoreProvider({ children }: Children) {
 
   useEffect(() => {
     const logged = JSON.parse(localStorage.getItem('logged-mechanic')!);
-    store.dispatch(setLoggedSync(logged));
+    store.dispatch(setLoggedSync(logged?.result));
   }, [pathname]);
 
   useEffect(() => {

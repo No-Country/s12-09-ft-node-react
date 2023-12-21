@@ -32,8 +32,8 @@ export default function VehicleDetailsPage({ params }: VehicleDetailProps) {
                   <VehicleDetail vehicle={vehicle}>
                     <VehicleDetail.Problem>
                       <>
-                        <p className='bg-base-300 rounded-[2rem] p-4 my-4'>
-                          Problema Detallado
+                        <p className='bg-base-300 rounded-[2rem] p-4 my-4 text-sm'>
+                          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt aspernatur earum nisi adipisci dolorem sequi blanditiis impedit? Suscipit nihil, quod officia recusandae fuga labore provident laboriosam, incidunt fugiat debitis facilis.
                         </p>
 
                         <div className='flex justify-center mt-8'>

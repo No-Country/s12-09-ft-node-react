@@ -1,4 +1,3 @@
-import { Container } from '@/components';
 import { RedirectButton } from '@/components/RedirectButton';
 import { Problem, VehicleDetail } from '@/components/vehicle';
 import { vehicleService } from '@/services';
@@ -15,18 +14,21 @@ export default async function VehicleDetailsPage({
 
   return (
     <section>
-      <Container>
-        <div>
-          <VehicleDetail vehicle={vehicle}>
-            <Problem>
-              <p>Problema detallado</p>
-            </Problem>
-          </VehicleDetail>
-          <div className='flex justify-center mt-8'>
-            <RedirectButton path='cost' />
-          </div>
+      <div>
+        <VehicleDetail vehicle={vehicle}>
+          <Problem>
+            <p className='bg-base-300 rounded-[2rem] p-4 my-4 text-sm'>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Asperiores earum iusto tenetur nesciunt labore. Est perferendis
+              officia labore molestiae reprehenderit voluptatem consectetur
+              aperiam porro autem. Cumque suscipit ipsum perferendis maiores.
+            </p>
+          </Problem>
+        </VehicleDetail>
+        <div className='flex justify-center mt-8'>
+          <RedirectButton path='cost' />
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

@@ -4,7 +4,7 @@
 <br />
   <div align='center'>
   <a href="https://github.com/No-Country/c14-22-ft-java-react" target="_blank">
-    <img src="frontend/src/assets/svg/main-logo.svg" alt="Banner">
+    <img src="frontend/src/assets/svg/main-logo.svg" alt="Banner" width='400px'>
   </a>
 <h3>Bienvenid@s a MechanicAlert</h3></div>
 <div>

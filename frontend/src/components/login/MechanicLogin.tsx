@@ -61,13 +61,13 @@ export function MechanicLogin() {
         <Input
           name='document'
           placeholder='Codigo'
-          type='document'
+          type='password'
           value={values.document}
           handleBlur={handleBlur}
           handleChange={handleChange}
           errorMessage={errors.document}
           error={errors.document != null && touched.document != null}
-          togglePassword
+          togglePassword={true}
         />
       </div>
 
