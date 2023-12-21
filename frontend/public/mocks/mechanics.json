@@ -1,0 +1,263 @@
+[
+    {
+        "id": "bad33934-8945-4502-b12f-22fc522670aa",
+        "firstName": "Carlos",
+        "lastName": "Rodriguez",
+        "email": "carlosrodriguez1@hotmail.com",
+        "document": 256788,
+        "phone": "123456788",
+        "role": "mechanic"
+    },
+    {
+        "id": "3a481469-a461-4304-9834-746da542120e",
+        "firstName": "Luis",
+        "lastName": "Martinez",
+        "email": "luismartinez2@hotmail.com",
+        "document": 256789,
+        "phone": "123456789",
+        "role": "mechanic"
+    },
+    {
+        "id": "a6e516a7-cf82-42d8-a7f3-c54b6efc2751",
+        "firstName": "Juan",
+        "lastName": "Perez",
+        "email": "juanperez3@hotmail.com",
+        "document": 256790,
+        "phone": "123456790",
+        "role": "mechanic"
+    },
+    {
+        "id": "14cb2041-2755-4e18-ac4a-74e77a92514e",
+        "firstName": "Pedro",
+        "lastName": "Gomez",
+        "email": "pedrogomez4@hotmail.com",
+        "document": 256791,
+        "phone": "123456791",
+        "role": "mechanic"
+    },
+    {
+        "id": "7c596633-7e58-49d8-b595-3300101220ee",
+        "firstName": "Jose",
+        "lastName": "Fernandez",
+        "email": "josefernandez5@hotmail.com",
+        "document": 256792,
+        "phone": "123456792",
+        "role": "mechanic"
+    },
+    {
+        "id": "f1c5b16d-69d8-4024-b4b9-a57ccac04e5d",
+        "firstName": "Miguel",
+        "lastName": "Gonzalez",
+        "email": "miguelgonzalez6@hotmail.com",
+        "document": 256793,
+        "phone": "123456793",
+        "role": "mechanic"
+    },
+    {
+        "id": "9481538d-50dc-4916-a97d-fff3f1aac3b0",
+        "firstName": "Antonio",
+        "lastName": "Lopez",
+        "email": "antoniolopez7@hotmail.com",
+        "document": 256794,
+        "phone": "123456794",
+        "role": "mechanic"
+    },
+    {
+        "id": "578eef65-59a1-4f95-bff8-0e7bf3554ce9",
+        "firstName": "Manuel",
+        "lastName": "Diaz",
+        "email": "manueldiaz8@hotmail.com",
+        "document": 256795,
+        "phone": "123456795",
+        "role": "mechanic"
+    },
+    {
+        "id": "89a6c3a8-3cc0-47c4-8fc1-b65acabb504a",
+        "firstName": "Francisco",
+        "lastName": "Torres",
+        "email": "franciscotorres9@hotmail.com",
+        "document": 256796,
+        "phone": "123456796",
+        "role": "mechanic"
+    },
+    {
+        "id": "006c5c45-fa2a-4018-906e-aca14b8fddea",
+        "firstName": "Sergio",
+        "lastName": "Ramirez",
+        "email": "sergioramirez10@hotmail.com",
+        "document": 256797,
+        "phone": "123456797",
+        "role": "mechanic"
+    },
+    {
+        "id": "bd63cfdd-b690-49cc-9ef1-35f845547722",
+        "firstName": "Alejo",
+        "lastName": "Araya",
+        "email": "alejoaraya2000@gmail.com",
+        "document": 1234123412,
+        "phone": "41234123412",
+        "role": "mechanic"
+    },
+    {
+        "id": "de68563c-b5ad-4144-a57d-1e500fd8f376",
+        "firstName": "afsd",
+        "lastName": "afsd",
+        "email": "matias@federiccio.com",
+        "document": 42749595,
+        "phone": "12343123123131",
+        "role": "mechanic"
+    },
+    {
+        "id": "922f15e1-432f-458d-9562-99736db0c572",
+        "firstName": "AM",
+        "lastName": "MA",
+        "email": "asdf@asdf.com",
+        "document": 1236782,
+        "phone": "2371458323",
+        "role": "mechanic"
+    },
+    {
+        "id": "41c9255d-1fbb-4235-ae2f-2cfaa30fe8b3",
+        "firstName": "AM",
+        "lastName": "MA",
+        "email": "pepe@pepe.com",
+        "document": 75289340,
+        "phone": "2371458323",
+        "role": "mechanic"
+    },
+    {
+        "id": "b733f69f-2cf9-4763-afaf-8065872842b2",
+        "firstName": "AM",
+        "lastName": "MA",
+        "email": "jose@jose.com",
+        "document": 9872534,
+        "phone": "2371458323",
+        "role": "mechanic"
+    },
+    {
+        "id": "68e6a1d2-b67a-46c1-b384-70cf6e1cbbe6",
+        "firstName": "AM",
+        "lastName": "MA",
+        "email": "matias@matias.com",
+        "document": 123123123,
+        "phone": "2371458323",
+        "role": "mechanic"
+    },
+    {
+        "id": "2050af7c-a276-45f1-b085-4e9106db40f0",
+        "firstName": "pedro",
+        "lastName": "peterson",
+        "email": "pedro@gmail.com",
+        "document": 123444,
+        "phone": null,
+        "role": "mechanic"
+    },
+    {
+        "id": "a23c685f-b9de-471f-a46e-5e5816398e76",
+        "firstName": "Pedro",
+        "lastName": "Peterson",
+        "email": "correotest2@correo.com",
+        "document": 12314,
+        "phone": "222333344",
+        "role": "mechanic"
+    },
+    {
+        "id": "72ac63f0-00d6-43f8-9ad6-4c17bfd1c63a",
+        "firstName": "Pedro",
+        "lastName": "Perez",
+        "email": "correomecanico@correo.com",
+        "document": 12341124,
+        "phone": "34352341",
+        "role": "mechanic"
+    },
+    {
+        "id": "412bcc5b-9602-444d-8370-c40e2960b74d",
+        "firstName": "SON",
+        "lastName": "Ramirez",
+        "email": "sergiormirz10@hotmail.com",
+        "document": 25697,
+        "phone": "12356797",
+        "role": "mechanic"
+    },
+    {
+        "id": "2a0d993b-57d1-46a8-87fd-27734044db8f",
+        "firstName": "pedro",
+        "lastName": "pascal",
+        "email": "mecanico1@test.com",
+        "document": 1231241,
+        "phone": "12314124",
+        "role": "mechanic"
+    },
+    {
+        "id": "202ee860-76b5-4d1e-87e7-ffb9c6e3cf7a",
+        "firstName": "Alejo",
+        "lastName": "Araya",
+        "email": "alejo@araya2000.com",
+        "document": 94564123,
+        "phone": "3430975",
+        "role": "mechanic"
+    },
+    {
+        "id": "f6d24103-062c-43cb-b068-31a8945f041a",
+        "firstName": "pedro2",
+        "lastName": "pascal2",
+        "email": "mecanico2@test.com",
+        "document": 12312412,
+        "phone": "123141242",
+        "role": "mechanic"
+    },
+    {
+        "id": "3b03c52a-892b-4cbe-b1c1-a2c1b7970d81",
+        "firstName": "pedro22",
+        "lastName": "pascal22",
+        "email": "mecanico22@test.com",
+        "document": 12311,
+        "phone": "1231412422",
+        "role": "mechanic"
+    },
+    {
+        "id": "9d877c44-9f56-40c3-a07f-253cf5dc4416",
+        "firstName": "pedro222",
+        "lastName": "pascal222",
+        "email": "mecanico222@test.com",
+        "document": 123112,
+        "phone": "12314124222",
+        "role": "mechanic"
+    },
+    {
+        "id": "e16e4e43-7751-4507-ae44-9c8676dbf8d4",
+        "firstName": "Pao",
+        "lastName": "Bas",
+        "email": "paobas113@gmail.com",
+        "document": 22669433,
+        "phone": "1139404145",
+        "role": "mechanic"
+    },
+    {
+        "id": "32d423e7-dc3e-4c20-b64a-14ecd4bed43d",
+        "firstName": "qweeqweqw",
+        "lastName": "qwerty",
+        "email": "qwqewqewqew@asdasdas.com",
+        "document": 1233452,
+        "phone": "8475029",
+        "role": "mechanic"
+    },
+    {
+        "id": "496bc1b9-b390-4a46-8ae9-4b1791ec73fd",
+        "firstName": "qweeqweqw",
+        "lastName": "qwerty",
+        "email": "qwqeqew@asdasdas.com",
+        "document": 1233453,
+        "phone": "8475024",
+        "role": "mechanic"
+    },
+    {
+        "id": "1bc9865f-d0a6-4f7a-884b-ece730b97acd",
+        "firstName": "Yordani",
+        "lastName": "Jimenez",
+        "email": "yordanpz@hotmail.com",
+        "document": 12345,
+        "phone": "1123807219",
+        "role": "mechanic"
+    }
+]
