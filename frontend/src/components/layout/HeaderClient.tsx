@@ -7,12 +7,7 @@ const links: MenuItem[] = [
     name: 'Home',
     href: '/client',
     icon: <HomeIcon />,
-  },
-  {
-    name: 'Estado',
-    href: '/client',
-    icon: <></>,
-  },
+  }
 ];
 
 export function HeaderClient() {

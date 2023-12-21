@@ -1,31 +1,43 @@
 'use client';
-import type { Tabs } from '@/@types';
+import type { Tabs, Vehicle } from '@/@types';
 import { Container, TabsLayout } from '@/components';
+import { ClientRepairs } from '@/components/ClientRepairs';
 import { VehicleList } from '@/components/vehicle';
 import { useVehicle } from '@/hook';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function ClientPage() {
-  const { getAllVehicles } = useVehicle();
+  const { vehicles, isLoading, getAllVehicles } = useVehicle();
+  const [ filterVehicles, setFilterVehicles] = useState<Vehicle[]>([])
 
   useEffect(() => {
     getAllVehicles();
-  }, []);
+  }, [])
+
+  useEffect(() => {
+    if(localStorage) {
+      const user = JSON.parse(localStorage.getItem('logged-user')!) 
+
+      const newVehicles = vehicles.filter(state => state.userId === user.id)
+
+      setFilterVehicles(newVehicles)
+    }
+  }, [vehicles])
 
   const tabs: Tabs[] = [
     {
       label: 'Vehículos',
       content: (
         <VehicleList
-          // data={vehicles}
-          // loading={isLoading}
+          vehicles={filterVehicles}
+          isLoading={isLoading}
           uri='/client/vehicle'
         />
       ),
     },
     {
-      label: 'Clientes',
-      content: <>Content cliente</>,
+      label: 'Reparaciones',
+      content: <ClientRepairs/>,
     },
   ];
   return (

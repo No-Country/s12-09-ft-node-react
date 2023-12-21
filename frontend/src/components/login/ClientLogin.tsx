@@ -7,7 +7,13 @@ import { LockIcon } from '@/assets/svg';
 import { Button, Input } from '@/components';
 import { useRouter } from 'next/navigation';
 
-export function ClientLogin() {
+interface Props {
+  users: User[];
+}
+
+export function ClientLogin({ users }: Props) {
+  console.log('Usuarios', users);
+
   const router = useRouter();
 
   const initialValues: User = {
@@ -23,9 +29,27 @@ export function ClientLogin() {
       initialValues,
       validationSchema,
       onSubmit: async (values: User, { resetForm }: FormikHelpers<User>) => {
-        await swal('Es solo un template, no tiene funcionalidad', ' ', 'info');
-        resetForm();
-        router.push('/');
+        const found = users.find(item => item.document === Number(values.pass));
+
+        if (found) {
+          await swal('Logeado', ' ', 'success', {
+            buttons: [false],
+            timer: 1000,
+          });
+          localStorage.setItem('logged-user', JSON.stringify(found));
+          resetForm();
+          router.push('/client');
+        } else {
+          swal(
+            'No encontrado',
+            'Credenciales incorrectas, vuelve a intentarlo',
+            'error',
+            {
+              buttons: [false],
+              timer: 2000,
+            }
+          );
+        }
       },
     });
 

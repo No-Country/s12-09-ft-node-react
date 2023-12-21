@@ -1,27 +1,27 @@
 'use client';
-import type { Tabs } from '@/@types';
+import type { Tabs, Vehicle } from '@/@types';
 import { Container, TabsLayout } from '@/components';
 import { MechanicClients } from '@/components/MechanicClients';
 import { VehicleList } from '@/components/vehicle';
-import { useRepairLog, useVehicle } from '@/hook';
-import { useEffect } from 'react';
+import { useVehicle } from '@/hook';
+import { useEffect, useState } from 'react';
 
 export default function MechanicPage() {
-  const { vehicles, getAllVehicles } = useVehicle();
-  const { getAllRepairLog } = useRepairLog();
-
-  useEffect(() => {
-    getAllRepairLog();
-  }, []);
+  const { vehicles, isLoading, getAllVehicles } = useVehicle();
+  const [ filterVehicles, setFilterVehicles] = useState<Vehicle[]>([])
 
   useEffect(() => {
     getAllVehicles();
+  }, [])
 
+  useEffect(() => {
     if(localStorage) {
       const mechanic = JSON.parse(localStorage.getItem('logged-mechanic')??'') 
-      console.log('LocalStorage:', mechanic)
-    }
 
+      const newVehicles = vehicles.filter(state => state.mechanicId === mechanic.id)
+
+      setFilterVehicles(newVehicles)
+    }
   }, [vehicles])
 
   const tabs: Tabs[] = [
@@ -29,7 +29,8 @@ export default function MechanicPage() {
       label: 'Vehículos',
       content: (
         <VehicleList
-          // loading={isLoading}
+          vehicles={filterVehicles}
+          isLoading={isLoading}
           uri='/mechanic/vehicle'
         />
       ),
