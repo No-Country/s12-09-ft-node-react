@@ -22,7 +22,7 @@ export function Modal({
       className={`
       fixed inset-0 m-auto 
       flex items-end justify-center 
-      z-1
+      z-10
       ${!show && 'hidden'}
       ${className}
       md:items-center 

@@ -9,6 +9,10 @@ export interface Mechanic {
   role?: Role;
 }
 
+export interface LoginData {
+  codePass?: number | string | undefined;
+}
+
 export interface Vehicle {
   id?: string;
   brand?: string;
@@ -24,7 +28,7 @@ export interface Vehicle {
   user?: User;
   mechanicId?: string;
   mechanic?: Mechanic;
-  repairLog?: RepairLog;
+  repairLog?: RepairLog[];
 }
 
 export interface User {
@@ -33,7 +37,7 @@ export interface User {
   firstName?: string;
   email?: string;
   phone?: string;
-  document?: number;
+  document?: number | string;
   rol?: Rol | string;
   pass?: string;
   vehicle?: Vehicle[];
@@ -47,6 +51,14 @@ export interface Workshop {
   email?: string;
   phone?: string;
   role?: string;
+}
+export interface RootState {
+  mechanic: {
+    loginStatus: string; // Asume que loginStatus es una cadena
+    user: Mechanic; // Asume que user es de tipo User
+    // Define aquí otras propiedades de 'mechanic'
+  };
+  // Define aquí otros slices de tu estado
 }
 
 export enum Role {
@@ -117,11 +129,3 @@ export type BudgetState =
   | 'Confirmar'
   | 'En reparacion'
   | 'Aviso al cliente';
-
-export interface Budget2 {
-  description: string;
-  cost: number;
-  state: BudgetState;
-  vehicleId: string;
-  budgetId: string;
-}

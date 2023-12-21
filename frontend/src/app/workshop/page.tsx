@@ -1,7 +1,10 @@
+'use client'
+
 import { TabsLayout } from '@/components';
 import { VehicleList } from '@/components/vehicle';
 import { AddNewClientButton } from '@/components/client';
 import type { Tabs } from '@/@types';
+import { MechanicClients } from '@/components/MechanicClients';
 
 export default function WorkshopPage() {
   const tabs: Tabs[] = [
@@ -11,7 +14,7 @@ export default function WorkshopPage() {
     },
     {
       label: 'Clientes',
-      content: <>Content cliente</>,
+      content: <MechanicClients />,
     },
   ];
 

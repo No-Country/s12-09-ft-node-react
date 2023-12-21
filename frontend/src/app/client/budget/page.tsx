@@ -2,11 +2,13 @@
 
 import { Button, Container } from '@/components';
 import { useBudget } from '@/hook';
+import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import swal from 'sweetalert';
 
 const BudgetPage = () => {
   const { getAllBudget, budgets, updateBudget } = useBudget();
+  const router = useRouter()
 
   useEffect(() => {
     getAllBudget();
@@ -19,8 +21,8 @@ const BudgetPage = () => {
       id: originalObject.id,
       repair: originalObject.repair,
       maintenance: originalObject.maintenance,
-      costs: +originalObject.costs,
-      labor: +originalObject.labor,
+      costs: originalObject.costs,
+      labor: originalObject.labor,
       accepted: true,
       isActive: originalObject.isActive,
       userId: originalObject?.user?.id,
@@ -30,6 +32,7 @@ const BudgetPage = () => {
 
     updateBudget(transformedObject);
     swal('Se acepto la cotizacion', '', 'success');
+    router.push('/client')
   };
 
   return (

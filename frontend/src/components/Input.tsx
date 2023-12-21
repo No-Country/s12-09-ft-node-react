@@ -45,7 +45,7 @@ export const Input = (props: Props) => {
         <input
           className={`
             input input-bordered w-full rounded-[15px] bg-base-300 border-base-300 outline-none        
-            ${error ? 'border-error border-2' : ''}
+            ${error ? 'border-error border-2' : 'my-1'}
             ${className}`}
           onChange={handleChange}
           onBlur={handleBlur}
@@ -77,9 +77,11 @@ export const Input = (props: Props) => {
         </datalist>
       )}
 
-      <p className='text-xs text-error mt-[-10px] pt-3 pb-2 h-8 p-4'>
-        {error && errorMessage}
-      </p>
+      {!!error && (
+        <p className='text-xs text-error mt-[-10px] pt-3 pb-2 h-8 p-4'>
+          {error && errorMessage}
+        </p>
+      )}
     </div>
   );
 };

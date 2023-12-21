@@ -50,7 +50,8 @@ export function WorkshopLogin() {
             [&>.input-container]:flex 
             [&>.input-container]:gap-4
             [&>.input-container>svg]:mt-4
-            [&>.input-container>div]:flex-1'
+            [&>.input-container>div]:flex-1
+            flex flex-col gap-3'
     >
       <div className='input-container'>
         <MailIcon />

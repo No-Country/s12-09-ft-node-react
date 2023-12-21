@@ -32,7 +32,7 @@ export function ClientExist() {
   };
 
   return (
-    <div>
+    <div className='min-h-[200px]'>
       {isLoading ? (
         <Preload />
       ) : (

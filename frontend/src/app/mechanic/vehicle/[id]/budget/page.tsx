@@ -1,8 +1,8 @@
 'use client';
 
 import type { Tabs } from '@/@types';
-import { CabinAir, Tires, MotorIcon } from '@/assets/svg';
-import { Container, TabsLayout } from '@/components';
+import { AirFilter, Battery, Brakes, CabinAir, Chasis, Engine, OilFilter, PlusIcon, System, Tires, Wheel } from '@/assets/svg';
+import { TabsLayout } from '@/components';
 import CostPage from '@/components/Cost';
 import QuoteRepairs from '@/components/Quote';
 import { useState } from 'react';
@@ -10,8 +10,6 @@ import { useState } from 'react';
 export interface ItemsRepair {
   title: string;
   icon: null | JSX.Element;
-  description?: string;
-  cost?: number;
 }
 
 const options = {
@@ -19,53 +17,53 @@ const options = {
   optionsRepair: [
     {
       title: 'Aire de cabina',
-      icon: <CabinAir size={40} />,
+      icon: <CabinAir />,
     },
     {
       title: 'Frenos',
-      icon: <Tires size={40} />,
+      icon: <Tires />,
     },
     {
       title: 'Motor',
-      icon: <MotorIcon size={40} />,
+      icon: <Engine/>,
     },
     {
       title: 'Electricidad',
-      icon: null,
+      icon: <System/>,
     },
     {
       title: 'Tren delantero',
-      icon: null,
+      icon: <Chasis/>,
     },
     {
       title: 'Otro',
-      icon: null,
+      icon: <PlusIcon/>,
     },
   ],
   optionsMaintenance: [
     {
       title: 'Neumaticos',
-      icon: null,
+      icon: <Wheel/>,
     },
     {
       title: 'Bateria',
-      icon: null,
+      icon: <Battery/>,
     },
     {
-      title: 'Fluido hidrauli',
-      icon: null,
+      title: 'Fluido hidraulico',
+      icon: <Brakes/>,
     },
     {
       title: 'Electricidad',
-      icon: null,
+      icon: <System/>,
     },
     {
       title: 'Filtro de aceite',
-      icon: null,
+      icon: <OilFilter/>,
     },
     {
       title: 'Filtro de aire',
-      icon: null,
+      icon: <AirFilter/>,
     },
   ],
 };
@@ -109,13 +107,9 @@ export default function QuotePage() {
 
   return (
     <section>
-      <Container>
-        <TabsLayout
-          tabs={tabs}
-          viewOutside={currentTab}
-          setViewOutside={setCurrentTab}
-        />
-      </Container>
+        <div>
+          <TabsLayout tabs={tabs} viewOutside={currentTab} setViewOutside={setCurrentTab} />
+        </div>
     </section>
   );
 }

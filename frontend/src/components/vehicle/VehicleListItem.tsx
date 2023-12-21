@@ -10,7 +10,7 @@ interface Props {
 
 export function VehicleListItem({ item, uri }: Props) {
   return (
-    <div className=' flex flex-col justify-center items-center w-[50%]'>
+    <div className=' flex flex-col justify-center items-center w-full'>
       <section className='bg-base-300 hover:shadow-lg cursor-pointer rounded-3xl w-24 h-24 flex justify-center items-center [&>a]:w-full [&>a]:h-full shadow-lg overflow-hidden'>
         <Link href={`${uri}/${item.id}`}>
           <Image
