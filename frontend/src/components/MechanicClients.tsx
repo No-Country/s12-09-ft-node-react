@@ -17,12 +17,12 @@ export const MechanicClients = () => {
       const mechanic = JSON.parse(localStorage.getItem('logged-mechanic')??'')
 
       const newLogs = repairlogs.filter(
-        state => state.vehicle?.mechanicId === mechanic.id
+        state => state.vehicle?.mechanicId === mechanic.result.id
       );
 
       setFilteredLogs(newLogs);
     }
-  }, [repairlogs]);
+  }, [repairlogs, isLoading]);
 
   return (
     <div className='max-w-7xl w-full mx-auto px-3'>

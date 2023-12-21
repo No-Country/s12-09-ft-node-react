@@ -18,7 +18,7 @@ export default function MechanicPage() {
     if(localStorage) {
       const mechanic = JSON.parse(localStorage.getItem('logged-mechanic')??'') 
 
-      const newVehicles = vehicles.filter(state => state.mechanicId === mechanic.id)
+      const newVehicles = vehicles.filter(state => state.mechanicId === mechanic.result.id)
 
       setFilterVehicles(newVehicles)
     }

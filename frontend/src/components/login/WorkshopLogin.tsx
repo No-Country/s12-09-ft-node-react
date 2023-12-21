@@ -33,13 +33,12 @@ export function WorkshopLogin() {
         loginWorkshop(values);
         resetForm();
 
-        await swal(
-          'Loggeado',
-          '( simulacion no tiene endpoint )',
-          'success'
-        ).then(() => {});
-
-        router.push('/workshop');
+        await swal('Loggeado', '', 'success', {
+          buttons: [false],
+          timer: 1000,
+        }).then(() => {
+          router.push('/workshop');
+        });
       },
     });
 

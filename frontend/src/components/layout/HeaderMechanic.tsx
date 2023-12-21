@@ -10,11 +10,6 @@ const links: MenuItem[] = [
     href: '/mechanic',
     icon: <></>,
   },
-  {
-    name: 'Historial de cliente',
-    href: '/mechanic',
-    icon: <></>,
-  },
 ];
 
 export function HeaderMechanic() {
@@ -23,7 +18,7 @@ export function HeaderMechanic() {
 
   useEffect(() => {
     setMechanic(logged);
-  }, []);
+  }, [logged]);
 
   return (
     <>
