@@ -320,10 +320,10 @@ Puedes comenzar registrandote en nuestro portal, luego podras iniciar sesion y a
 </table>
 
 <!-- Video -->
-<h1> Video
+<!-- <h1> Video
 </h1>
-<p><a href="https://www.youtube.com/watch?v=QVgfj7hjp8g" target="_blank"><img src="https://img.youtube.com/vi/QVgfj7hjp8g/maxresdefault.jpg"/></a></p>
-<br/>
+<p><a href="https://www.youtube.com/watch?v=QVgfj7hjp8g" target="_blank"><img src="https://img.youtube.com/vi/QVgfj7hjp8g/maxresdefault.jpg"/></a></p> -->
+<!-- <br/> -->
 
 <!-- ACKNOWLEDGMENTS -->
 
