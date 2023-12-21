@@ -5,18 +5,20 @@ import AcceptBudget from '@/components/AcceptBudget';
 import { ClientRepairs } from '@/components/ClientRepairs';
 import { VehicleList } from '@/components/vehicle';
 import { useBudget, useVehicle } from '@/hook';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function ClientPage() {
   const { vehicles, isLoading, getAllVehicles } = useVehicle();
   const { budgets, getAllBudget } = useBudget();
   const [filterVehicles, setFilterVehicles] = useState<Vehicle[]>([]);
-  const [filteredBudget, setFilteredBudget] = useState<Budget[]>([])
+  const [filteredBudget, setFilteredBudget] = useState<Budget[]>([]);
+  const router = useRouter()
 
   useEffect(() => {
     getAllVehicles();
     getAllBudget();
-  }, []);
+  }, [budgets, vehicles]);
 
   useEffect(() => {
     if (localStorage) {
@@ -26,6 +28,8 @@ export default function ClientPage() {
 
       const newBudgets = budgets.filter(item => item.user?.id === user.id && !item.accepted)
       setFilteredBudget(newBudgets)
+    } else {
+      router.push('/login')
     }
   }, [budgets]);
 
