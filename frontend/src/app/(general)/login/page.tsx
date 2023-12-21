@@ -7,7 +7,7 @@ export default async function HomeLoginPage() {
 
   return (
     <>
-      <Title title='¡Bienvenido!' className='text-center'>
+      <Title title='¡Bienvenido a MechanicAlert!' className='text-center'>
         <Title.Subtitle>Ingresa tus datos de acceso</Title.Subtitle>
       </Title>
       <ClientLogin users={users} />

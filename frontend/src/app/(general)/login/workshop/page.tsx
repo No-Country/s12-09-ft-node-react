@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default async function WorkshopLoginPage() {
   return (
     <>
-      <Title title='¡Bienvenido!' className='text-center'>
+      <Title title='¡Bienvenido al sector Administrativo de MechanicAlert!' className='text-center'>
         <Title.Subtitle>Ingresa tus datos de acceso</Title.Subtitle>
       </Title>
       <WorkshopLogin />
