@@ -75,8 +75,8 @@ En resumen, nuestro Gestor de Servicios Automotrices no solo es una plataforma, 
 ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 
 <h3>QA</h3>
-
-![Jira](https://img.shields.io/badge/Jira-FFF?style=for-the-badge&logo=jira&logoColor=blue)
+![Postman]()
+![Jira - Xray](https://img.shields.io/badge/Jira-FFF?style=for-the-badge&logo=jira&logoColor=blue)
 
 <!-- Organización -->
 <h1> Organización
