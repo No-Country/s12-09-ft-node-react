@@ -299,7 +299,7 @@ Puedes comenzar registrandote en nuestro portal, luego podras iniciar sesion y a
           <img width="110" src="https://avatars.githubusercontent.com/u/64031295"/>
         </a>
         <a href="https://github.com/MRobertaMendoza" target="_blank" rel="author">
-          <h4 style="margin-top: 1rem;">Maria Roberta Mendoza</br><small>QA</small></h4>
+          <h4 style="margin-top: 1rem;">Maria Roberta Mendoza</br><small>Testing & QA</small></h4>
         </a>
         <div style='display: flex; flex-direction: column; width: 100%'>
         <a href="https://github.com/MRobertaMendoza" target="_blank">
@@ -317,7 +317,7 @@ Puedes comenzar registrandote en nuestro portal, luego podras iniciar sesion y a
           <img width="110" src="https://avatars.githubusercontent.com/u/125516330"/>
         </a>
         <a href="https://github.com/PaoBasQA" target="_blank" rel="author">
-          <h4 style="margin-top: 1rem;">Paola Bastida</br><small>QA</small></h4>
+          <h4 style="margin-top: 1rem;">Paola Bastida</br><small>Testing & QA</small></h4>
         </a>
         <div style='display: flex; flex-direction: column'>
         <a href="https://github.com/PaoBasQA" target="_blank">
