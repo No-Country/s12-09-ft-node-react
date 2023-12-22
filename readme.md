@@ -21,8 +21,8 @@
     <a href="https://www.figma.com/file/tM2dKlHxEoRhvYXlOs2ZHa/s12-09-ft-node-react?type=design&node-id=0%3A1&mode=design&t=Oe3JQPfJFMwRJfK7-1" target="_blank">
           <img  src="https://img.shields.io/badge/VER_DISE%C3%91O-3378FF?style=for-the-badge&logo=figma&logoColor=%23343B4E"/>
       </a>
-      <a href="https://alejoaraya.notion.site/MechanicAlert-2eac91d84a9445f3ab7916081b00db46" target="_blank">
-          <img  src="https://img.shields.io/badge/VER TESTING&QA-343B4E?style=for-the-badge&logo=QA&logoColor=%23343B4E"/>
+      <a href="https://www.notion.so/MechanicAlert-2eac91d84a9445f3ab7916081b00db46?pvs=4" target="_blank">
+          <img  src="https://img.shields.io/badge/VER TESTING & QA-3378FF?style=for-the-badge&logo=figma&logoColor=%23343B4E"/>
       </a>
       </div>
 </div>
