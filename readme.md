@@ -1,4 +1,4 @@
-![image](https://github.com/No-Country/s12-09-ft-node-react/assets/64031295/cc4c5347-2770-456b-ae7e-d7497c907a0c)<div>
+
 
 <!-- PROJECT LOGO -->
 <br />
