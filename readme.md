@@ -9,7 +9,7 @@
 <h3>Bienvenid@s a MechanicAlert</h3></div>
 <div>
   <p>
-    <strong>Gestor de Servicios Automotrices</strong> es una plataforma web integral que transforma la experiencia de mantenimiento y reparación de vehículos, beneficiando tanto a mecánicos como a usuarios. Con un enfoque en la transparencia, eficiencia y ahorro de tiempo, esta plataforma redefine la gestión de servicios automotrices, 
+    <strong>Gestor de Servicios Automotrices</strong> es una plataforma web integral que transforma la experiencia de mantenimiento y reparación de vehículos, beneficiando tanto a mecánicos como a usuarios. Con un enfoque en la transparencia, eficiencia y ahorro de tiempo, esta plataforma redefine la gestión de servicios automotrices. 
   </p>
     <div align='center'>
     <a href="https://mechanicalert-frontend.vercel.app/" target="_blank">
@@ -18,11 +18,11 @@
    <a href="https://documenter.getpostman.com/view/28499711/2s9YeHarB3#34be9a3d-0b89-410d-9d06-e7c04ff8a133" target="_blank">
           <img  src="https://img.shields.io/badge/VER_API-3378FF?style=for-the-badge&logo=swagger&logoColor=%23343B4E"/>
       </a>
-    <a href="https://www.figma.com/file/tM2dKlHxEoRhvYXlOs2ZHa/s12-09-ft-node-react?type=design&node-id=393-13144&mode=design&t=30WtGr9EDH3hcngN-0" target="_blank">
+    <a href="https://www.figma.com/file/tM2dKlHxEoRhvYXlOs2ZHa/s12-09-ft-node-react?type=design&node-id=0%3A1&mode=design&t=Oe3JQPfJFMwRJfK7-1" target="_blank">
           <img  src="https://img.shields.io/badge/VER_DISE%C3%91O-3378FF?style=for-the-badge&logo=figma&logoColor=%23343B4E"/>
       </a>
-      <a href="https://github.com/No-Country/s12-09-ft-node-react/issues" target="_blank">
-          <img  src="https://img.shields.io/badge/REPORTAR_BUG-343B4E?style=for-the-badge"/>
+      <a href="https://alejoaraya.notion.site/MechanicAlert-2eac91d84a9445f3ab7916081b00db46" target="_blank">
+          <img  src="https://img.shields.io/badge/VER TESTING&QA-343B4E?style=for-the-badge&logo=QA&logoColor=%23343B4E"/>
       </a>
       </div>
 </div>
@@ -39,7 +39,7 @@ MechanicAlert es un <b>Gestor de Servicios</b>. Esta inovadora plataforma no sol
 En resumen, nuestro Gestor de Servicios Automotrices no solo es una plataforma, ¡es una revolución en la forma en que cuidamos de nuestros vehículos! ¡Únete a nosotros y experimenta el futuro hoy mismo!
 
 <br/>
-<h1> Tecnologias Usadas !REVISAR!
+<h1> Tecnologias Usadas
 </h1>
 <h3>Front-End</h3>
 
@@ -74,11 +74,20 @@ En resumen, nuestro Gestor de Servicios Automotrices no solo es una plataforma, 
 ![PostgreSQL](https://img.shields.io/static/v1?style=for-the-badge&message=PostgreSQL&color=4169E1&logo=PostgreSQL&logoColor=FFFFFF&label=)
 ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 
-<h3>QA</h3>
-![Postman]()
-![Jira - Xray](https://img.shields.io/badge/Jira-FFF?style=for-the-badge&logo=jira&logoColor=blue)
+<h3>Testing & QA</h3>
+![GooGles Sheets](https://img.shields.io/static/v1?style=for-the-badge&message=React&color=222222&logo=React&logoColor=61DAFB&label=)
+![Google Docs](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![Postman](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+![Swagger](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
+![UX Checks](https://img.shields.io/badge/AXIOS-%235A29E4?style=for-the-badge&logo=axios)
+![[DaisyUI](http://you.com)](https://img.shields.io/badge/daisyui-5A0EF8?style=for-the-badge&logo=daisyui&logoColor=white)
+![Jira- Xray](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
+![Screentogif ](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
+<h3>UI/UX </h3>
+![Figma](https://img.shields.io/static/v1?style=for-the-badge&message=React&color=222222&logo=React&logoColor=61DAFB&label=)
 <!-- Organización -->
+
 <h1> Organización
 </h1>
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Logo" width="60" height="60">
@@ -113,10 +122,10 @@ O simplemente clickea en el link de
 <a href="https://mechanicalert-frontend.vercel.app/" target="_blank">Ver Demo.</a>
 
 <!-- USAGE EXAMPLES -->
-<h1> Uso !REVISAR!
+<h1> USO
 </h1>
 
-Puedes comenzar registrandote en nuestro portal, luego podras iniciar sesion y a partir de alli podras gestionar todo tu negocio con control de productos, seguimineto de las transacciones internas de la empresa y recepcion de notificaiones y alertas correspondientes.
+Puedes comenzar registrandote en nuestro portal, luego podras iniciar sesion y a partir de alli podras gestionar todo tu negocio con control de productos, seguimiento de las transacciones internas de la empresa y recepcion de notificaciones y alertas correspondientes.
 
 <!-- TEAMS -->
 
@@ -149,7 +158,7 @@ Puedes comenzar registrandote en nuestro portal, luego podras iniciar sesion y a
           <img width="110" src="https://avatars.githubusercontent.com/u/98505589?v=4"/>
         </a>
         <a href="https://github.com/jooseariias" target="_blank" rel="author">
-          <h4 style="margin-top: 1rem;">Joose Arias</br><small>Front-End</small></h4>
+          <h4 style="margin-top: 1rem;">Jose Arias</br><small>Front-End</small></h4>
         </a>
         <div style='display: flex; flex-direction: column'>
         <a href="https://github.com/jooseariias" target="_blank">
@@ -286,7 +295,7 @@ Puedes comenzar registrandote en nuestro portal, luego podras iniciar sesion y a
           <img width="110" src="https://avatars.githubusercontent.com/u/64031295"/>
         </a>
         <a href="https://github.com/MRobertaMendoza" target="_blank" rel="author">
-          <h4 style="margin-top: 1rem;">Roberta Mendoza</br><small>QA</small></h4>
+          <h4 style="margin-top: 1rem;">Maria Roberta Mendoza</br><small>QA</small></h4>
         </a>
         <div style='display: flex; flex-direction: column; width: 100%'>
         <a href="https://github.com/MRobertaMendoza" target="_blank">
