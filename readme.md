@@ -1,4 +1,4 @@
-<div>
+![image](https://github.com/No-Country/s12-09-ft-node-react/assets/64031295/cc4c5347-2770-456b-ae7e-d7497c907a0c)<div>
 
 <!-- PROJECT LOGO -->
 <br />
@@ -76,17 +76,17 @@ En resumen, nuestro Gestor de Servicios Automotrices no solo es una plataforma, 
 
 <h3>Testing & QA </h3>
 
-![GoogleSheets](https://img.shields.io/static/v1?style=for-the-badge&message=PostgreSQL&color=4169E1&logo=PostgreSQL&logoColor=FFFFFF&label=)
-![GoogleDocs](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
-![Postman](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
-![Swagger](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
-![UX Checks](https://img.shields.io/badge/AXIOS-%235A29E4?style=for-the-badge&logo=axios)
-![Jira- Xray](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
-![Screentogif ](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![GoogleSheets](https://img.shields.io/static/v1?style=for-the-badge&message=GoogleSheets&color=4169E1&logo=GoogleSheets&logoColor=FFFFFF&label=)
+![GoogleDocs](https://img.shields.io/badge/GoogleDocs-3ECF8E?style=for-the-badge&logo=GoogleDocs&logoColor=white)
+![Postman](https://img.shields.io/badge/Postman-CA4245?style=for-the-badge&logo=Postman&logoColor=white)
+![Swagger](https://img.shields.io/badge/Swagger-?style=for-the-badge&logo=Swagger&logoColor=white)
+![UX Checks](https://img.shields.io/badge/UX-%235A29E4?style=for-the-badge&logo=UX)
+![Jira- Xray](https://img.shields.io/badge/Jira-Xray-hotpink.svg?style=for-the-badge&logo=JIra-Xray&logoColor=white)
+![Screentogif ](https://img.shields.io/badge/Screentogif-%2338B2AC.svg?style=for-the-badge&logo=ScreenToGif-css&logoColor=white)
 
 <h3>UI/UX</h3>
 
-![FigmaL](https://img.shields.io/static/v1?style=for-the-badge&message=FigmaL&color=4169E1&logo=Figma&logoColor=FFFFFF&label=)
+![FigmaL](https://img.shields.io/static/v1?style=for-the-badge&message=Figma&color=4169E1&logo=Figma&logoColor=FFFFFF&label=)
 
 <!-- Organización -->
 
