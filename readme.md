@@ -86,7 +86,7 @@ En resumen, nuestro Gestor de Servicios Automotrices no solo es una plataforma, 
 
 <h3>UI/UX</h3>
 
-![FigmaL](https://img.shields.io/static/v1?style=for-the-badge&message=PostgreSQL&color=4169E1&logo=PostgreSQL&logoColor=FFFFFF&label=)
+![FigmaL](https://img.shields.io/static/v1?style=for-the-badge&message=FigmaL&color=4169E1&logo=Figma&logoColor=FFFFFF&label=)
 
 <!-- Organización -->
 
