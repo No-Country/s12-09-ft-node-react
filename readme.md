@@ -79,7 +79,7 @@ En resumen, nuestro Gestor de Servicios Automotrices no solo es una plataforma, 
 ![GoogleSheets](https://img.shields.io/static/v1?style=for-the-badge&message=GoogleSheets&color=4169E1&logo=GoogleSheets&logoColor=FFFFFF&label=)
 ![GoogleDocs](https://img.shields.io/badge/GoogleDocs-3ECF8E?style=for-the-badge&logo=GoogleDocs&logoColor=white)
 ![Postman](https://img.shields.io/badge/Postman-CA4245?style=for-the-badge&logo=Postman&logoColor=white)
-![Swagger](https://img.shields.io/badge/Swagger-?style=for-the-badge&logo=Swagger&logoColor=white)
+![Swagger](https://img.shields.io/badge/Swagger-3ECF8E?style=for-the-badge&logo=Swagger&logoColor=white)
 ![UX Checks](https://img.shields.io/badge/UX-%235A29E4?style=for-the-badge&logo=UX)
 ![Jira- Xray](https://img.shields.io/badge/Jira-Xray-hotpink.svg?style=for-the-badge&logo=JIra-Xray&logoColor=white)
 ![Screentogif ](https://img.shields.io/badge/Screentogif-%2338B2AC.svg?style=for-the-badge&logo=ScreenToGif-css&logoColor=white)
