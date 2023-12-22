@@ -22,7 +22,7 @@
           <img  src="https://img.shields.io/badge/VER_DISE%C3%91O-3378FF?style=for-the-badge&logo=figma&logoColor=%23343B4E"/>
       </a>
       <a href="https://www.notion.so/MechanicAlert-2eac91d84a9445f3ab7916081b00db46?pvs=4" target="_blank">
-          <img  src="https://img.shields.io/badge/VER TESTING & QA-3378FF?style=for-the-badge&logo=QA&logoColor=%23343B4E"/>
+          <img  src="https://img.shields.io/badge/VER TESTING & QA-3378FF?style=for-the-badge&logo=testing&logoColor=%23343B4E"/>
       </a>
       </div>
 </div>
